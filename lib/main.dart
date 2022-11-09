@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:password_safe/application/theme/theme_service.dart';
+import 'package:password_safe/theme.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'injection.dart' as di; // di == dipendency injection
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init;
+  await di.sl<ThemeService>().init;
+  runApp(ChangeNotifierProvider(
+      create: ((context) => di.sl<ThemeService>()), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -10,21 +19,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return Consumer<ThemeService>(
+      builder: (context, themeService, child) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode:
+              themeService.isDarkmodeOn ? ThemeMode.dark : ThemeMode.light,
+          home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        );
+      },
     );
   }
 }

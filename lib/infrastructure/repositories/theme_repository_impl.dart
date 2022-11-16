@@ -1,4 +1,4 @@
-import 'package:password_safe/domain/repositories/failures/failures.dart';
+import 'package:password_safe/domain/failures/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:password_safe/domain/repositories/theme_repository.dart';
 import 'package:password_safe/infrastructure/datasources/theme_local_datasource.dart';

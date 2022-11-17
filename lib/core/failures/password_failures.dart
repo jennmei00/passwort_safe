@@ -1,2 +1,3 @@
-abstract class PasswordFailure{}
+abstract class PasswordFailure {}
 
+class DBFailure extends PasswordFailure {}

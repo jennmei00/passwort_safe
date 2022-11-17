@@ -3,10 +3,14 @@ part of 'observer_bloc.dart';
 @immutable
 abstract class ObserverEvent {}
 
-class ObserveAllEvent extends ObserverEvent {}
+class GetAllEvent extends ObserverEvent {
+  final Either<PasswordFailure, List<Password>> failureOrPasswords;
 
-class PasswordUpdatedEvent extends ObserverEvent {
-  final Either<PasswordFailure, List<Password>> failureOrPAsswords;
-
-  PasswordUpdatedEvent({required this.failureOrPAsswords});
+  GetAllEvent({required this.failureOrPasswords});
 }
+
+// class PasswordUpdatedEvent extends ObserverEvent {
+//   final Either<PasswordFailure, List<Password>> failureOrPasswords;
+
+//   PasswordUpdatedEvent({required this.failureOrPasswords});
+// }

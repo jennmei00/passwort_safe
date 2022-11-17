@@ -1,4 +1,7 @@
 import 'package:get_it/get_it.dart';
+import 'package:password_safe/application/password/controller/controller_bloc.dart';
+import 'package:password_safe/application/password/observer/observer_bloc.dart';
+import 'package:password_safe/application/password/passwordForm/passwordform_bloc.dart';
 import 'package:password_safe/application/theme/theme_service.dart';
 import 'package:password_safe/domain/repositories/password_repository.dart';
 import 'package:password_safe/domain/repositories/theme_repository.dart';
@@ -15,7 +18,10 @@ Future<void> init() async {
   sl.registerLazySingleton<ThemeService>(
       () => ThemeServiceImpl(themeRepository: sl()));
 
-  //! Usecases
+  //! state management
+  sl.registerFactory(() => ControllerBloc(passwordRepository: sl()));
+  sl.registerFactory(() => ObserverBloc(passwordRepository: sl()));
+  sl.registerFactory(() => PasswordformBloc(passwordRepository: sl()));
 
   //! repos
   sl.registerLazySingleton<PasswordRepository>(

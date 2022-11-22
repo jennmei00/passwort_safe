@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
@@ -10,20 +12,23 @@ part 'observer_state.dart';
 
 class ObserverBloc extends Bloc<ObserverEvent, ObserverState> {
   final PasswordRepository passwordRepository;
+  StreamSubscription<Either<PasswordFailure, List<Password>>>?
+      _passwordStreamSub;
 
   ObserverBloc({required this.passwordRepository}) : super(ObserverInitial()) {
-    on<GetAllEvent>((event, emit) {
+    on<GetAllEvent>((event, emit) async {
       emit(ObserverLodaing());
 
-      event.failureOrPasswords.fold(
-          (failure) => emit(ObserverFailure(passwordFailure: failure)),
-          (password) => emit(ObserverSuccess(passwords: password)));
-    });
+      await _passwordStreamSub?.cancel();
+      _passwordStreamSub = await passwordRepository.getAll().listen(
+          (failureOrPasswords) => add(
+              PasswordUpdatedEvent(failureOrPasswords: failureOrPasswords)));
 
-    // on<PasswordUpdatedEvent>(((event, emit) {
-    //   event.failureOrPAsswords.fold(
-    //       (failure) => ObserverFailure(passwordFailure: failure),
-    //       (password) => emit(ObserverSuccess(passwords: password)));
-    // }));
+      on<PasswordUpdatedEvent>(((event, emit) {
+        event.failureOrPasswords.fold(
+            (failure) => ObserverFailure(passwordFailure: failure),
+            (password) => emit(ObserverSuccess(passwords: password)));
+      }));
+    });
   }
 }

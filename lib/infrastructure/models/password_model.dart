@@ -45,10 +45,10 @@ class PasswordModel {
       'codePoint': codePoint,
       'fontFamily': fontFamily,
       'fontPackage': fontPackage,
-      'matchTextDirection': matchTextDirection,
-      'favoriteTag': favoriteTag,
-      'mailTag': mailTag,
-      'networkTag': networkTag,
+      'matchTextDirection': matchTextDirection ? 1 : 0,
+      'favoriteTag': favoriteTag ? 1 : 0,
+      'mailTag': mailTag ? 1 : 0,
+      'networkTag': networkTag ? 1 : 0,
     };
   }
 
@@ -63,10 +63,10 @@ class PasswordModel {
       codePoint: map['codePoint'] as int,
       fontFamily: map['fontFamily'] as String,
       fontPackage: map['fontPackage'] as String,
-      matchTextDirection: map['matchTextDirection'] as bool,
-      favoriteTag: map['favoriteTag'] as bool,
-      mailTag: map['mailTag'] as bool,
-      networkTag: map['networkTag'] as bool,
+      matchTextDirection: map['matchTextDirection'] == 1 ? true : false,
+      favoriteTag: map['favoriteTag'] == 1 ? true : false,
+      mailTag: map['mailTag'] == 1 ? true : false,
+      networkTag: map['networkTag'] == 1 ? true : false,
     );
   }
 

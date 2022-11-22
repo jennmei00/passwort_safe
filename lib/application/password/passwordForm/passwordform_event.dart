@@ -11,7 +11,8 @@ class InitializePasswordDetailContainer extends PasswordformEvent {
 class SafePressedEvent extends PasswordformEvent {
   final String? title;
   final String? name;
-  final String? password;
+  final String? email;
+  final String? passwordText;
   final String? link;
   final IconData? icon;
   final List<Icon>? tags;
@@ -19,7 +20,8 @@ class SafePressedEvent extends PasswordformEvent {
   SafePressedEvent({
     required this.title,
     required this.name,
-    required this.password,
+    required this.email,
+    required this.passwordText,
     required this.link,
     required this.icon,
     required this.tags,

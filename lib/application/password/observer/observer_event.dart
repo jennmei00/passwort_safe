@@ -4,13 +4,11 @@ part of 'observer_bloc.dart';
 abstract class ObserverEvent {}
 
 class GetAllEvent extends ObserverEvent {
-  final Either<PasswordFailure, List<Password>> failureOrPasswords;
-
-  GetAllEvent({required this.failureOrPasswords});
+  GetAllEvent();
 }
 
-// class PasswordUpdatedEvent extends ObserverEvent {
-//   final Either<PasswordFailure, List<Password>> failureOrPasswords;
+class PasswordUpdatedEvent extends ObserverEvent {
+  final Either<PasswordFailure, List<Password>> failureOrPasswords;
 
-//   PasswordUpdatedEvent({required this.failureOrPasswords});
-// }
+  PasswordUpdatedEvent({required this.failureOrPasswords});
+}

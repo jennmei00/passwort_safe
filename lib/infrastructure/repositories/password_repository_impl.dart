@@ -15,9 +15,9 @@ class PasswordRepositoryImpl implements PasswordRepository {
     try {
       final passwordModel = PasswordModel.fromDomain(password);
       await dbLocalDatasource.insert('Password', passwordModel.toMap());
-
       return Right(unit);
     } catch (e) {
+      print(e);
       return Left(DBFailure());
     }
   }
@@ -30,12 +30,13 @@ class PasswordRepositoryImpl implements PasswordRepository {
 
       return Right(unit);
     } catch (e) {
+      print(e);
       return Left(DBFailure());
     }
   }
 
   @override
-  Future<Either<PasswordFailure, List<Password>>> getAll() async {
+  Stream<Either<PasswordFailure, List<Password>>> getAll() async* {
     try {
       List<Password> passwords = [];
 
@@ -45,9 +46,10 @@ class PasswordRepositoryImpl implements PasswordRepository {
         passwords.add(PasswordModel.fromMap(element).toDomain());
       });
 
-      return Right(passwords);
+      yield Right(passwords);
     } catch (e) {
-      return Left(DBFailure());
+      print(e);
+      yield Left(DBFailure());
     }
   }
 
@@ -62,6 +64,7 @@ class PasswordRepositoryImpl implements PasswordRepository {
 
       return Right(unit);
     } catch (e) {
+      print(e);
       return Left(DBFailure());
     }
   }

@@ -26,7 +26,7 @@ class DBLocalDatasourceImpl implements DBLocalDatasource {
   Future<sql.Database> openDatabase() async {
     final dbPath = await sql.getDatabasesPath();
     return _database ??= await sql.openDatabase(
-        path.join(dbPath, 'Haushaltsbuch.db'),
+        path.join(dbPath, 'PasswordSafe.db'),
         onCreate: _createTables,
         onUpgrade: _upgradeTables,
         version: _versionNumber);
@@ -35,7 +35,7 @@ class DBLocalDatasourceImpl implements DBLocalDatasource {
   @override
   Future<void> deleteDatabase() async {
     final dbPath = await sql.getDatabasesPath();
-    await sql.deleteDatabase('$dbPath/Haushaltsbuch.db');
+    await sql.deleteDatabase('$dbPath/PasswordSafe.db');
     _database = null;
   }
 
@@ -126,8 +126,8 @@ class DBLocalDatasourceImpl implements DBLocalDatasource {
   Future<void> _createTables(sql.Database db, int version) async {
     await db.execute(
         'CREATE TABLE Password(id TEXT PRIAMRY KEY, title TEXT, name TEXT, email TEXT, password TEXT, '
-        'link TEXT, codePoint INTEGER, fontFamily TEXT, fontPackage TEXT, mathTextDirection BOOLEAN, '
-        'favoriteTag BOOLEAN, mailTag BOOLEAN, networkTag BOOLEAN;');
+        'link TEXT, codePoint INTEGER, fontFamily TEXT, fontPackage TEXT, matchTextDirection BOOLEAN, '
+        'favoriteTag BOOLEAN, mailTag BOOLEAN, networkTag BOOLEAN);');
   }
 
   Future<void> _upgradeTables(

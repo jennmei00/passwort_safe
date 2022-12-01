@@ -14,16 +14,20 @@ class PasswordList extends StatelessWidget {
   final double containerHeight = 190;
   final double containerWidth = 150;
   final double iconSize = 70;
-  final int columnCount = 2;
 
   const PasswordList({super.key, required this.passwordList});
 
   @override
   Widget build(BuildContext context) {
+    double mediaWidth = MediaQuery.of(context).size.width;
+    int columnCount = (mediaWidth / (containerWidth + 40)).round();
+
     return AnimationLimiter(
       child: GridView.count(
         crossAxisCount: columnCount,
         childAspectRatio: (containerWidth / containerHeight),
+        mainAxisSpacing: 20,
+        crossAxisSpacing: 20,
         children: [
           AnimationConfiguration.staggeredGrid(
             position: 0,

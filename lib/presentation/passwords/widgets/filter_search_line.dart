@@ -60,8 +60,6 @@ class _FilterSearchLineState extends State<FilterSearchLine> {
               alignment: Alignment.centerLeft,
               child: FilterAnimatedOpacity(
                   filterVisible: _filterVisible,
-                  filterContainerSizeWidth: filterContainerSizeWidth + 10,
-                  filterContainerSizeHeight: filterContainerSizeHeight,
                   borderSide: borderSide,
                   tagIconSize: tagIconSize),
             ),
@@ -69,8 +67,6 @@ class _FilterSearchLineState extends State<FilterSearchLine> {
               alignment: Alignment.centerRight,
               child: SearchAnimatedOpacity(
                   searchFieldVisible: _searchFieldVisible,
-                  filterContainerSizeWidth: filterContainerSizeWidth,
-                  filterContainerSizeHeight: filterContainerSizeHeight,
                   borderSide: borderSide,
                   tagIconSize: tagIconSize),
             ),

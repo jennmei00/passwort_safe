@@ -46,10 +46,11 @@ class PasswordRepositoryImpl implements PasswordRepository {
         passwords.add(PasswordModel.fromMap(element).toDomain());
       });
 
-      yield Right(passwords);
+
+      yield*  Stream.value(Right(passwords));
     } catch (e) {
       print(e);
-      yield Left(DBFailure());
+      yield* Stream.value(Left(DBFailure()));
     }
   }
 

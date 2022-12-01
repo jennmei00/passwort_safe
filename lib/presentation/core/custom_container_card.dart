@@ -1,13 +1,13 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_add.dart';
-import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_detail.dart';
+import 'package:password_safe/domain/entities/password.dart';
 
 class CustomContainerCard extends StatelessWidget {
+  final Password password;
   // final IconData ellipseIcon;
   const CustomContainerCard(
-      {
+      {required this.password,
       // required this.ellipseIcon,
       super.key});
 
@@ -36,11 +36,11 @@ class CustomContainerCard extends StatelessWidget {
               child: Column(children: [
                 SizedBox(height: 40),
                 Icon(
-                  CommunityMaterialIcons.cart_variant,
+                  password.icon,
                   size: iconSize,
                 ),
                 Text(
-                  'Amazon Prime',
+                  password.title,
                   softWrap: true,
                   textAlign: TextAlign.center,
                   style: themeData.textTheme.bodyText1,

@@ -5,8 +5,17 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:password_safe/theme.dart';
 
 class CustomTextField extends StatelessWidget {
+  final bool enabled;
   final String label;
-  const CustomTextField({required this.label, super.key});
+  final Function? validator;
+  final TextEditingController controller;
+  const CustomTextField({
+    this.enabled = true,
+    required this.label,
+    this.validator = null,
+    required this.controller,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +44,12 @@ class CustomTextField extends StatelessWidget {
             //   ),
             // Expanded(
             child: TextFormField(
+              enabled: enabled,
               // style: themeData,
+              validator:
+                  validator == null ? null : (value) => validator!(value),
               textAlign: TextAlign.center,
+              controller: controller,
               decoration: InputDecoration(
                 suffixIcon: (label == 'PASSWORT')
                     ? Icon(

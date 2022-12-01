@@ -50,6 +50,7 @@ dependencies:
   flutter_animate: ^2.0.1
   sqflite: ^2.2.0+3
   path: ^1.8.2
+  flutter_staggered_animations: ^1.1.1
 
 dev_dependencies:
   flutter_test:

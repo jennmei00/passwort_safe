@@ -60,7 +60,7 @@ class PasswordForm extends StatelessWidget {
           autovalidateMode: AutovalidateMode.disabled,
           child: Column(children: [
             Padding(
-              padding: const EdgeInsets.only(top: 5.0, right: 50.0),
+              padding: const EdgeInsets.only(top: 5.0, right: 50.0, left: 5.0),
               child: Row(
                 children: [
                   Icon(

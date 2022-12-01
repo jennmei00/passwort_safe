@@ -34,7 +34,7 @@ class CustomPopupCard extends StatelessWidget {
                     height: containerHeight,
                     decoration: BoxDecoration(
                       color: themeData.primaryColor,
-                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     child: child,
                   ),

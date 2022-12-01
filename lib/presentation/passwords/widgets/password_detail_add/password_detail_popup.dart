@@ -48,23 +48,22 @@ class PasswordDetailPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final double editDeleteIconSize = 30;
-    final double iconSize = 80;
+    final double iconSize = 70;
 
     return CustomPopupCard(
       add: false,
       buttonPressed: () {},
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 5.0, right: 50.0, left: 5.0),
+            child: Row(
               children: [
-                Flexible(
-                  child: Icon(
-                    CommunityMaterialIcons.cart_variant,
-                    size: iconSize,
-                  ),
+                Icon(
+                  CommunityMaterialIcons.cart_variant,
+                  size: iconSize,
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 10),
                 Flexible(
                   child: Text(
                     password.title,
@@ -73,54 +72,55 @@ class PasswordDetailPopup extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Divider(thickness: 2),
-            ),
-            CustomTextField(
-              label: 'NAME',
-              enabled: false,
-              controller: TextEditingController(text: password.name),
-            ),
-            CustomTextField(
-              label: 'E-MAIL',
-              enabled: false,
-              controller: TextEditingController(text: password.email),
-            ),
-            CustomTextField(
-              label: 'PASSWORT',
-              enabled: false,
-              controller: TextEditingController(text: password.password),
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  onPressed: () {},
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Divider(thickness: 2),
+          ),
+          CustomTextField(
+            label: 'NAME',
+            enabled: false,
+            controller: TextEditingController(text: password.name),
+          ),
+          CustomTextField(
+            label: 'E-MAIL',
+            enabled: false,
+            controller: TextEditingController(text: password.email),
+          ),
+          CustomTextField(
+            label: 'PASSWORT',
+            enabled: false,
+            controller: TextEditingController(text: password.password),
+            obscurePassword: true,
+          ),
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  CommunityMaterialIcons.pencil,
+                  size: editDeleteIconSize,
+                  color: HexColor('#5786FF'),
+                ),
+              ),
+              Flexible(
+                child: IconButton(
+                  onPressed: () {
+                    // final controllerBloc = context.read<ControllerBloc>();
+                    // _showDeletDialog(context: context, bloc: controllerBloc);
+                  },
                   icon: Icon(
-                    CommunityMaterialIcons.pencil,
+                    CommunityMaterialIcons.delete,
                     size: editDeleteIconSize,
-                    color: HexColor('#5786FF'),
+                    color: HexColor('#8C2323'),
                   ),
                 ),
-                Flexible(
-                  child: IconButton(
-                    onPressed: () {
-                      // final controllerBloc = context.read<ControllerBloc>();
-                      // _showDeletDialog(context: context, bloc: controllerBloc);
-                    },
-                    icon: Icon(
-                      CommunityMaterialIcons.delete,
-                      size: editDeleteIconSize,
-                      color: HexColor('#8C2323'),
-                    ),
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

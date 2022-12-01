@@ -102,10 +102,15 @@ class PasswordList extends StatelessWidget {
                             pageBuilder: (BuildContext context, _, __) {
                               return Hero(
                                 tag: password.id,
-                                child: Dialog(
-                                  backgroundColor: Colors.transparent,
-                                  child:
-                                      PasswordDetailPopup(password: password),
+                                child: BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                  child: Dialog(
+                                    backgroundColor: Colors.transparent,
+                                    insetPadding: EdgeInsets.zero,
+                                    child:
+                                        PasswordDetailPopup(password: password),
+                                  ),
                                 ),
                               );
                             }));

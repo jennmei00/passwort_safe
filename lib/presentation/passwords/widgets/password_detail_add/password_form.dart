@@ -25,7 +25,7 @@ class PasswordForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    final double imagePlusSize = 80;
+    final double imagePlusSize = 70;
 
     // late String title;
     // late String name;
@@ -58,19 +58,17 @@ class PasswordForm extends StatelessWidget {
         return Form(
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
-          child: ListView(children: [
-            Row(
-              children: [
-                Flexible(
-                  child: Icon(
+          child: Column(children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 5.0, right: 50.0),
+              child: Row(
+                children: [
+                  Icon(
                     CommunityMaterialIcons.image_plus,
                     size: imagePlusSize,
                   ),
-                ),
-                SizedBox(width: 20),
-                Flexible(
-                  child: SizedBox(
-                    width: 90,
+                  SizedBox(width: 10),
+                  Flexible(
                     child: TextFormField(
                       validator: validateFields,
                       controller: textEditingControllerTitle,
@@ -80,8 +78,8 @@ class PasswordForm extends StatelessWidget {
                       style: themeData.textTheme.headline1,
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),

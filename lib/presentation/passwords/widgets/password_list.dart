@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -43,10 +45,15 @@ class PasswordList extends StatelessWidget {
                             pageBuilder: (BuildContext context, _, __) {
                               return Hero(
                                 tag: 'add',
-                                child: Dialog(
-                                  backgroundColor: Colors.transparent,
-                                  child: PasswordAddPopup(
-                                    password: null,
+                                child: BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                  child: Dialog(
+                                    insetPadding: EdgeInsets.zero,
+                                    backgroundColor: Colors.transparent,
+                                    child: PasswordAddPopup(
+                                      password: null,
+                                    ),
                                   ),
                                 ),
                               );

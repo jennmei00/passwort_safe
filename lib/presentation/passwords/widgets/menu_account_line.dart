@@ -37,16 +37,17 @@ class _MenueAccountLineState extends State<MenueAccountLine> {
             size: iconSize,
           ),
         ),
-        Stack(children: [
-          AccountAnimatedOpacity(
-              accountSettingsVisible: _accountSettingsVisible,
-              containerAccountWidth: containerAccountWidth,
-              containerAccountHeight: containerAccountHeight,
-              themeData: themeData,
-              iconSize: iconSize),
-          Positioned(
-            right: 0,
-            child: Container(
+        // Stack(children: [
+          // AccountAnimatedOpacity(
+          //     accountSettingsVisible: _accountSettingsVisible,
+          //     containerAccountWidth: containerAccountWidth,
+          //     containerAccountHeight: containerAccountHeight,
+          //     themeData: themeData,
+          //     iconSize: iconSize),
+          // Positioned(
+          //   right: 0,
+            // child: 
+            Container(
               height: containerIconSize,
               width: containerIconSize,
               decoration: BoxDecoration(
@@ -55,20 +56,21 @@ class _MenueAccountLineState extends State<MenueAccountLine> {
               ),
               child: IconButton(
                 onPressed: () async {
-                  setState(() {
-                    _accountSettingsVisible = !_accountSettingsVisible;
-                  });
+                  // setState(() {
+                  //   _accountSettingsVisible = !_accountSettingsVisible;
+                  // });
                 },
-                icon: Icon(
-                  _accountSettingsVisible
-                      ? CommunityMaterialIcons.account
-                      : CommunityMaterialIcons.account_outline,
+                icon: Icon(CommunityMaterialIcons.cog,
+                // icon: Icon(
+                //   _accountSettingsVisible
+                //       ? CommunityMaterialIcons.account
+                //       : CommunityMaterialIcons.account_outline,
                   size: iconSize,
                 ),
               ),
             ),
-          )
-        ]),
+          // )
+        // ]),
       ],
     );
   }

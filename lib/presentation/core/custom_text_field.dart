@@ -31,7 +31,7 @@ class CustomTextField extends StatelessWidget {
           Text(label),
           Container(
             height: textFieldHeight,
-            width: textFieldWidth,
+            // width: textFieldWidth,
             decoration: BoxDecoration(
                 gradient: AppTheme.textFieldGradient,
                 borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -43,30 +43,51 @@ class CustomTextField extends StatelessWidget {
             //     child: Icon(CommunityMaterialIcons.link_variant_plus, size: linkIconSize,),
             //   ),
             // Expanded(
-            child: TextFormField(
-              enabled: enabled,
-              // style: themeData,
-              validator:
-                  validator == null ? null : (value) => validator!(value),
-              textAlign: TextAlign.center,
-              controller: controller,
-              decoration: InputDecoration(
-                suffixIcon: (label == 'PASSWORT')
-                    ? Icon(
-                        CommunityMaterialIcons.eye,
-                        size: linkIconSize,
-                      )
-                    : null,
-                prefixIcon: (label == 'VERKNÜPFUNG')
-                    ? Icon(
-                        CommunityMaterialIcons.link_variant_plus,
-                        size: linkIconSize,
-                      )
-                    : null,
-                border: InputBorder.none,
+            child: Container(
+              // color: Colors.green,
+              child: Stack(
+                children: [
+                  (label == 'VERKNÜPFUNG')
+                      ? Container(
+                          padding: EdgeInsets.only(left: 2),
+                          alignment: Alignment.centerLeft,
+                          child: Icon(CommunityMaterialIcons.link_variant_plus),
+                        )
+                      : SizedBox(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    child: TextFormField(
+                      enabled: enabled,
+                      // style: themeData,
+                      validator: validator == null
+                          ? null
+                          : (value) => validator!(value),
+                      textAlign: TextAlign.center,
+                      controller: controller,
+
+                      decoration: InputDecoration(
+                        // suffixIcon: this.enabled
+                        //     ? null
+                        //     : (label == 'PASSWORT')
+                        //         ? Icon(
+                        //             CommunityMaterialIcons.eye,
+                        //             size: linkIconSize,
+                        //           )
+                        //         : null,
+                        // prefixIcon: (label == 'VERKNÜPFUNG')
+                        //     ? Icon(
+                        //         CommunityMaterialIcons.link_variant_plus,
+                        //         size: linkIconSize,
+                        //       )
+                        //     : null,
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            //   ),
+            //   ),F
             // ],
             // ),
           ),

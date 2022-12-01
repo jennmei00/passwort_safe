@@ -15,49 +15,52 @@ class CustomPopupCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final double containerWidth = 320;
-    final double containerHeight = 420;
-    final double ellipseSize = 80;
-    final double saveIconSize = 50;
+    final double containerHeight = 440;
+    final double ellipseSize = 70;
+    final double saveIconSize = 40;
 
-    return SingleChildScrollView(
-      child: Container(
-        width: containerWidth + 20,
-        height: containerHeight + 20,
-        child: Stack(
-          children: [
-            Center(
-              child: Container(
-                  width: containerWidth,
-                  height: containerHeight,
-                  decoration: BoxDecoration(
-                    color: themeData.primaryColor,
-                    borderRadius: BorderRadius.all(Radius.circular(40)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: child,
-                  )),
-            ),
-            Positioned(
-              right: 0,
-              child: Container(
-                  height: ellipseSize,
-                  width: ellipseSize,
-                  decoration: BoxDecoration(
-                    color: themeData.colorScheme.secondary,
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    icon: Icon(
-                      add
-                          ? CommunityMaterialIcons.content_save
-                          : CommunityMaterialIcons.link_variant,
-                      size: saveIconSize,
+    return FractionallySizedBox(
+      widthFactor: 0.95,
+      child: SingleChildScrollView(
+        padding: EdgeInsets.only(top: 20),
+        child: Container(
+          height: 500,
+          child: Stack(
+            children: [
+              Center(
+                child: FractionallySizedBox(
+                  widthFactor: 0.9,
+                  child: Container(
+                    height: containerHeight,
+                    decoration: BoxDecoration(
+                      color: themeData.primaryColor,
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
                     ),
-                    onPressed: () => buttonPressed(),
-                  )),
-            ),
-          ],
+                    child: child,
+                  ),
+                ),
+              ),
+              Positioned(
+                right: 0,
+                child: Container(
+                    height: ellipseSize,
+                    width: ellipseSize,
+                    decoration: BoxDecoration(
+                      color: themeData.colorScheme.secondary,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        add
+                            ? CommunityMaterialIcons.content_save
+                            : CommunityMaterialIcons.link_variant,
+                        size: saveIconSize,
+                      ),
+                      onPressed: () => buttonPressed(),
+                    )),
+              ),
+            ],
+          ),
         ),
       ),
     );

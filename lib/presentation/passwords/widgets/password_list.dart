@@ -63,17 +63,20 @@ class PasswordList extends StatelessWidget {
                               );
                             }));
                       },
-                      child: Container(
-                        height: containerHeight,
-                        width: containerWidth,
-                        decoration: BoxDecoration(
-                          color: AppTheme.addCardColor,
+                      child: Card(
+                        elevation: 5,
+                        color: AppTheme.addCardColor,
+                        shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
-                        child: Icon(
-                          CommunityMaterialIcons.plus_thick,
-                          color: AppTheme.addCardPlusColor,
-                          size: iconSize,
+                        child: SizedBox(
+                          height: containerHeight,
+                          width: containerWidth,
+                          child: Icon(
+                            CommunityMaterialIcons.plus_thick,
+                            color: AppTheme.addCardPlusColor,
+                            size: iconSize,
+                          ),
                         ),
                       ),
                     ),

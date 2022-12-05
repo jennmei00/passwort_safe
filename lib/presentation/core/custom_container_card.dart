@@ -26,26 +26,31 @@ class CustomContainerCard extends StatelessWidget {
       child: Stack(
         children: [
           Center(
-            child: Container(
-              height: containerHeight,
-              width: containerWidth,
-              decoration: BoxDecoration(
-                color: themeData.primaryColor,
+            child: Card(
+              color: themeData.primaryColor,
+              elevation: 5,
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40),
               ),
-              child: Column(children: [
-                SizedBox(height: 40),
-                Icon(
-                  password.icon,
-                  size: iconSize,
-                ),
-                Text(
-                  password.title,
-                  softWrap: true,
-                  textAlign: TextAlign.center,
-                  style: themeData.textTheme.bodyText1,
-                ),
-              ]),
+              child: SizedBox(
+                height: containerHeight,
+                width: containerWidth,
+                child: Column(children: [
+                  SizedBox(height: 40),
+                  Icon(
+                    password.icon,
+                    size: iconSize,
+                  ),
+                  Text(
+                    password.title,
+                    maxLines: 2,
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: themeData.textTheme.bodyText1,
+                  ),
+                ]),
+              ),
             ),
           ),
           Positioned(

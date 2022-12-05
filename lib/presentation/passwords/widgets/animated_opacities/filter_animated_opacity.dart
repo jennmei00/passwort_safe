@@ -30,6 +30,7 @@ class FilterAnimatedOpacity extends StatelessWidget {
         child: FractionallySizedBox(
           widthFactor: 0.9,
           child: Container(
+            
             decoration: BoxDecoration(
               gradient: AppTheme.filterContainerBackgroundGradient,
               border: Border(

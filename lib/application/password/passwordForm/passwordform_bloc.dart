@@ -30,6 +30,7 @@ class PasswordformBloc extends Bloc<PasswordformEvent, PasswordformState> {
       if (event.passwordText != null &&
           event.title != null &&
           event.name != null &&
+          event.email != null &&
           event.link != null &&
           event.icon != null &&
           event.tags != null) {
@@ -37,6 +38,7 @@ class PasswordformBloc extends Bloc<PasswordformEvent, PasswordformState> {
           password: event.passwordText,
           title: event.title,
           name: event.name,
+          email: event.email,
           link: event.link,
           icon: event.icon,
           tags: event.tags,

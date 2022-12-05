@@ -24,14 +24,14 @@ class CustomPopupCard extends StatelessWidget {
       child: SingleChildScrollView(
         padding: EdgeInsets.only(top: 20),
         child: Container(
-          height: 500,
           child: Stack(
             children: [
               Center(
-                child: FractionallySizedBox(
-                  widthFactor: 0.9,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.95 - 30,
                   child: Container(
-                    height: containerHeight,
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    margin: EdgeInsets.symmetric(vertical: 20),
                     decoration: BoxDecoration(
                       color: themeData.primaryColor,
                       borderRadius: BorderRadius.all(Radius.circular(30)),

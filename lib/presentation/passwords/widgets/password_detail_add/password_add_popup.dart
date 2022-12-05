@@ -53,26 +53,15 @@ class PasswordAddPopup extends StatelessWidget {
                       icon: CommunityMaterialIcons.cart,
                       tags: [],
                     ),
-                    
                   );
-                } else {
-                  // BlocProvider.of<PasswordformBloc>(context)
-                  //     .add(SafePressedEvent(
-                  //   title: null,
-                  //   name: null,
-                  //   email: null,
-                  //   passwordText: null,
-                  //   link: null,
-                  //   icon: null,
-                  //   tags: null,
-                  // ));
+                  // } else {
 
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      backgroundColor: Colors.redAccent,
-                      content: Text(
-                        "Invalid Input",
-                        style: Theme.of(context).textTheme.bodyText1,
-                      )));
+                  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  //       backgroundColor: Colors.redAccent,
+                  //       content: Text(
+                  //         "Invalid Input",
+                  //         style: Theme.of(context).textTheme.bodyText1,
+                  //       )));
                 }
                 ;
               },

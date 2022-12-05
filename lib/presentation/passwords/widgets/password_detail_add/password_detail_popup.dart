@@ -55,22 +55,13 @@ class PasswordDetailPopup extends StatelessWidget {
       buttonPressed: () {},
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 5.0, right: 50.0, left: 5.0),
-            child: Row(
-              children: [
-                Icon(
-                  CommunityMaterialIcons.cart_variant,
-                  size: iconSize,
-                ),
-                SizedBox(width: 10),
-                Flexible(
-                  child: Text(
-                    password.title,
-                    style: themeData.textTheme.headline1,
-                  ),
-                ),
-              ],
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(
+                top: 20.0, right: 50.0, left: 20.0, bottom: 10.0),
+            child: Text(
+              password.title,
+              style: themeData.textTheme.headline1,
             ),
           ),
           Padding(

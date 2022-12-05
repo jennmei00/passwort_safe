@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_safe/application/password/passwordForm/passwordform_bloc.dart';
 import 'package:password_safe/presentation/core/custom_text_field.dart';
 
-class PasswordForm extends StatelessWidget {
+class PasswordForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController textEditingControllerTitle;
   final TextEditingController textEditingControllerName;
@@ -23,6 +23,75 @@ class PasswordForm extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<PasswordForm> createState() => _PasswordFormState();
+}
+
+class _PasswordFormState extends State<PasswordForm> {
+  double textFieldHeight = 40;
+  double nameHeight = 40;
+  double emailHeight = 40;
+  double passowrdHeight = 40;
+
+  String? validateTitle(String? input) {
+    if (input == null || input.isEmpty) {
+      return 'Bitte Titel eingeben';
+    } else if (input.length > 30) {
+      return "Der Titel ist zu lang";
+    } else {
+      return null;
+    }
+  }
+
+  String? validateName(String? input) {
+    if (input == null || input.isEmpty) {
+      setState(() {
+        nameHeight = 60;
+      });
+      return 'Bitte Name eingeben';
+    } else {
+      setState(() {
+        nameHeight = 40;
+      });
+      return null;
+    }
+  }
+
+  String? validateEmail(String? input) {
+    if (input == null || input.isEmpty) {
+      setState(() {
+        emailHeight = 60;
+      });
+      return 'Bitte E-Mail eingeben';
+    } else if (!RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(input)) {
+      setState(() {
+        emailHeight = 60;
+      });
+      return "Bitte gültige E-Mail eingeben";
+    } else {
+      setState(() {
+        emailHeight = 40;
+      });
+      return null;
+    }
+  }
+
+  String? validatePassword(String? input) {
+    if (input == null || input.isEmpty) {
+      setState(() {
+        passowrdHeight = 60;
+      });
+      return 'Bitte Passwort eingeben';
+    } else {
+      setState(() {
+        passowrdHeight = 40;
+      });
+      return null;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final double imagePlusSize = 70;
@@ -33,30 +102,19 @@ class PasswordForm extends StatelessWidget {
     // late String password;
     // late String link;
 
-    String? validateFields(String? input) {
-      if (input == null || input.isEmpty) {
-        return 'Bitte Daten eingeben';
-      } else if (input.length < 30) {
-        // title = input;
-        return null;
-      } else {
-        return "Text zu lang";
-      }
-    }
-
     return BlocConsumer<PasswordformBloc, PasswordformState>(
       listenWhen: (previous, current) =>
           previous.isEditing != current.isEditing,
       listener: (context, state) {
-        textEditingControllerTitle.text = state.password.title;
-        textEditingControllerName.text = state.password.name;
-        textEditingControllerEmail.text = state.password.email;
-        textEditingControllerPassword.text = state.password.password;
-        textEditingControllerLink.text = state.password.link;
+        widget.textEditingControllerTitle.text = state.password.title;
+        widget.textEditingControllerName.text = state.password.name;
+        widget.textEditingControllerEmail.text = state.password.email;
+        widget.textEditingControllerPassword.text = state.password.password;
+        widget.textEditingControllerLink.text = state.password.link;
       },
       builder: (context, state) {
         return Form(
-          key: formKey,
+          key: widget.formKey,
           autovalidateMode: AutovalidateMode.disabled,
           child: Column(children: [
             Padding(
@@ -70,11 +128,13 @@ class PasswordForm extends StatelessWidget {
                   SizedBox(width: 10),
                   Flexible(
                     child: TextFormField(
-                      validator: validateFields,
-                      controller: textEditingControllerTitle,
+                      validator: validateTitle,
+                      controller: widget.textEditingControllerTitle,
                       maxLines: 2,
                       decoration: InputDecoration(
-                          border: InputBorder.none, hintText: 'Titel...'),
+                        border: InputBorder.none,
+                        hintText: 'Titel...',
+                      ),
                       style: themeData.textTheme.headline1,
                     ),
                   ),
@@ -86,23 +146,26 @@ class PasswordForm extends StatelessWidget {
               child: Divider(thickness: 2),
             ),
             CustomTextField(
-                label: 'NAME',
-                validator: validateFields,
-                controller: textEditingControllerName),
-            CustomTextField(
-              label: 'E-MAIL',
-              validator: validateFields,
-              controller: textEditingControllerEmail,
+              textFieldHeight: nameHeight,
+              label: 'NAME',
+              validator: validateName,
+              controller: widget.textEditingControllerName,
             ),
             CustomTextField(
+              textFieldHeight: emailHeight,
+              label: 'E-MAIL',
+              validator: validateEmail,
+              controller: widget.textEditingControllerEmail,
+            ),
+            CustomTextField(
+              textFieldHeight: passowrdHeight,
               label: 'PASSWORT',
-              validator: validateFields,
-              controller: textEditingControllerPassword,
+              validator: validatePassword,
+              controller: widget.textEditingControllerPassword,
             ),
             CustomTextField(
               label: 'VERKNÜPFUNG',
-              validator: validateFields,
-              controller: textEditingControllerLink,
+              controller: widget.textEditingControllerLink,
             ),
           ]),
         );

@@ -41,13 +41,16 @@ class CustomContainerCard extends StatelessWidget {
                     password.icon,
                     size: iconSize,
                   ),
-                  Text(
-                    password.title,
-                    maxLines: 2,
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: themeData.textTheme.bodyText1,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Text(
+                      password.title,
+                      maxLines: 2,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: themeData.textTheme.bodyText1,
+                    ),
                   ),
                 ]),
               ),

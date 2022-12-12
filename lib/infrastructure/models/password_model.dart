@@ -54,7 +54,7 @@ class PasswordModel {
 
   factory PasswordModel.fromMap(Map<String, dynamic> map) {
     return PasswordModel(
-      id: '',
+      id: map['id'] as String,
       title: map['title'] as String,
       name: map['name'] as String,
       email: map['email'] as String,
@@ -104,7 +104,7 @@ class PasswordModel {
 
   Password toDomain() {
     return Password(
-      id: UniqueID(),
+      id: UniqueID.fromUniqueString(id),
       title: title,
       name: name,
       email: email,

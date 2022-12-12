@@ -26,7 +26,7 @@ class PasswordRepositoryImpl implements PasswordRepository {
   Future<Either<PasswordFailure, Unit>> delete(Password password) async {
     try {
       await dbLocalDatasource.delete('Password',
-          where: 'id = "${password.id}"');
+          where: 'id = "${password.id.value}"');
 
       return Right(unit);
     } catch (e) {
@@ -60,7 +60,7 @@ class PasswordRepositoryImpl implements PasswordRepository {
       await dbLocalDatasource.update(
         'Password',
         PasswordModel.fromDomain(password).toMap(),
-        where: 'id = "${password.id}"',
+        where: 'id = "${password.id.value}"',
       );
 
       return Right(unit);

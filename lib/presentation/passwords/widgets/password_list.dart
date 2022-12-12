@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:password_safe/application/password/controller/controller_bloc.dart';
 import 'package:password_safe/domain/entities/password.dart';
 import 'package:password_safe/presentation/core/custom_container_card.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_add_popup.dart';
@@ -21,6 +23,7 @@ class PasswordList extends StatelessWidget {
   Widget build(BuildContext context) {
     double mediaWidth = MediaQuery.of(context).size.width;
     int columnCount = (mediaWidth / (containerWidth + 40)).round();
+    final controllerBloc = context.read<ControllerBloc>();
 
     return AnimationLimiter(
       child: GridView.count(
@@ -115,8 +118,10 @@ class PasswordList extends StatelessWidget {
                                   child: Dialog(
                                     backgroundColor: Colors.transparent,
                                     insetPadding: EdgeInsets.zero,
-                                    child:
-                                        PasswordDetailPopup(password: password),
+                                    child: PasswordDetailPopup(
+                                      password: password,
+                                      controllerBloc: controllerBloc,
+                                    ),
                                   ),
                                 ),
                               );

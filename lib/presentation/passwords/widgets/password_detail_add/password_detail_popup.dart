@@ -1,23 +1,33 @@
+import 'dart:ui';
+
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:password_safe/application/password/controller/controller_bloc.dart';
 import 'package:password_safe/domain/entities/password.dart';
+import 'package:password_safe/injection.dart';
 import 'package:password_safe/presentation/core/custom_popup_card.dart';
 import 'package:password_safe/presentation/core/custom_text_field.dart';
+import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_add_popup.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class PasswordDetailPopup extends StatelessWidget {
   final Password password;
-  const PasswordDetailPopup({required this.password, super.key});
+  final ControllerBloc controllerBloc;
+  const PasswordDetailPopup(
+      {required this.password, required this.controllerBloc, super.key});
 
-  void _showDeletDialog(
-      {required BuildContext context, required ControllerBloc bloc}) {
+  void _showDeletDialog({
+    required BuildContext context,
+    //  required ControllerBloc bloc
+  }) {
     showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("Selected Todo to delete:"),
+            title: const Text("Passwort sicher löschen?"),
             content: Text(
               password.title,
               maxLines: 3,
@@ -27,16 +37,16 @@ class PasswordDetailPopup extends StatelessWidget {
               TextButton(
                   onPressed: () => Navigator.pop(context),
                   child: const Text(
-                    "CANCLE",
+                    "Abbrechen",
                     style: TextStyle(color: Colors.white),
                   )),
               TextButton(
                   onPressed: () {
-                    bloc.add(DeletePasswordEvent(password: password));
+                    controllerBloc.add(DeletePasswordEvent(password: password));
                     Navigator.pop(context);
                   },
                   child: const Text(
-                    "DELETE",
+                    "Löschen",
                     style: TextStyle(color: Colors.white),
                   )),
             ],
@@ -52,7 +62,10 @@ class PasswordDetailPopup extends StatelessWidget {
 
     return CustomPopupCard(
       add: false,
-      buttonPressed: () {},
+      linkTooltip: password.link,
+      buttonPressed: () async {
+        // await launchUrlString(password.link);
+      },
       child: Column(
         children: [
           Container(
@@ -89,7 +102,28 @@ class PasswordDetailPopup extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(PageRouteBuilder(
+                      opaque: false,
+                      barrierDismissible: true,
+                      transitionDuration: Duration(milliseconds: 500),
+                      pageBuilder: (BuildContext context, _, __) {
+                        return Hero(
+                          tag: 'add',
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                            child: Dialog(
+                              insetPadding: EdgeInsets.zero,
+                              backgroundColor: Colors.transparent,
+                              child: PasswordAddPopup(
+                                password: password,
+                              ),
+                            ),
+                          ),
+                        );
+                      }));
+                },
                 icon: Icon(
                   CommunityMaterialIcons.pencil,
                   size: editDeleteIconSize,
@@ -100,7 +134,10 @@ class PasswordDetailPopup extends StatelessWidget {
                 child: IconButton(
                   onPressed: () {
                     // final controllerBloc = context.read<ControllerBloc>();
-                    // _showDeletDialog(context: context, bloc: controllerBloc);
+                    _showDeletDialog(
+                      context: context,
+                      // bloc: controllerBloc
+                    );
                   },
                   icon: Icon(
                     CommunityMaterialIcons.delete,

@@ -45,7 +45,7 @@ class FilterAnimatedOpacity extends StatelessWidget {
                   IconButton(
                     onPressed: !_filterVisible ? null : () {},
                     iconSize: tagIconSize,
-                    color: HexColor('#AE2323'),
+                    color: AppTheme.tagHeartColor,
                     icon: Icon(
                       CommunityMaterialIcons.heart,
                       shadows: [
@@ -56,7 +56,7 @@ class FilterAnimatedOpacity extends StatelessWidget {
                   IconButton(
                     onPressed: !_filterVisible ? null : () {},
                     iconSize: tagIconSize,
-                    color: HexColor('#BBAD66'),
+                    color: AppTheme.tagEmailColor,
                     icon: Icon(
                       CommunityMaterialIcons.email,
                       // shadows: [
@@ -67,7 +67,7 @@ class FilterAnimatedOpacity extends StatelessWidget {
                   IconButton(
                     onPressed: !_filterVisible ? null : () {},
                     iconSize: tagIconSize,
-                    color: HexColor('#3555A8'),
+                    color: AppTheme.tagWebColor,
                     icon: Icon(
                       CommunityMaterialIcons.web,
                       // shadows: [

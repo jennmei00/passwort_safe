@@ -11,13 +11,34 @@ import 'package:password_safe/presentation/passwords/widgets/password_detail_add
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_detail_popup.dart';
 import 'package:password_safe/theme.dart';
 
-class PasswordList extends StatelessWidget {
+class PasswordList extends StatefulWidget {
   final List<Password> passwordList;
-  final double containerHeight = 190;
-  final double containerWidth = 150;
-  final double iconSize = 70;
 
   const PasswordList({super.key, required this.passwordList});
+
+  @override
+  State<PasswordList> createState() => _PasswordListState();
+}
+
+class _PasswordListState extends State<PasswordList>
+    with TickerProviderStateMixin {
+  final double containerHeight = 190;
+
+  final double containerWidth = 150;
+
+  final double iconSize = 70;
+  // late AnimationController foldableButtonAnimationController;
+  late List<AnimationController> animationControllers = [];
+
+  @override
+  void initState() {
+    widget.passwordList.forEach((element) {
+      animationControllers.add(AnimationController(
+          vsync: this, duration: Duration(milliseconds: 300)));
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,26 +66,29 @@ class PasswordList extends StatelessWidget {
                   child: Center(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            opaque: false,
-                            barrierDismissible: true,
-                            transitionDuration: Duration(milliseconds: 500),
-                            pageBuilder: (BuildContext context, _, __) {
-                              return Hero(
-                                tag: 'add',
-                                child: BackdropFilter(
-                                  filter:
-                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                  child: Dialog(
-                                    insetPadding: EdgeInsets.zero,
-                                    backgroundColor: Colors.transparent,
-                                    child: PasswordAddPopup(
-                                      password: null,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }));
+                        animationControllers
+                            .firstWhere((element) => element.isCompleted)
+                            .reverse();
+                        // Navigator.of(context).push(PageRouteBuilder(
+                        //     opaque: false,
+                        //     barrierDismissible: true,
+                        //     transitionDuration: Duration(milliseconds: 500),
+                        //     pageBuilder: (BuildContext context, _, __) {
+                        //       return Hero(
+                        //         tag: 'add',
+                        //         child: BackdropFilter(
+                        //           filter:
+                        //               ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        //           child: Dialog(
+                        //             insetPadding: EdgeInsets.zero,
+                        //             backgroundColor: Colors.transparent,
+                        //             child: PasswordAddPopup(
+                        //               password: null,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       );
+                        //     }));
                       },
                       child: Card(
                         elevation: 5,
@@ -89,9 +113,9 @@ class PasswordList extends StatelessWidget {
             ),
           ),
         ]..addAll(
-            passwordList.map(
-              (password) => AnimationConfiguration.staggeredGrid(
-                position: passwordList.indexOf(password) + 1,
+            widget.passwordList.map((password) {
+              return AnimationConfiguration.staggeredGrid(
+                position: widget.passwordList.indexOf(password) + 1,
                 columnCount: columnCount,
                 duration: Duration(milliseconds: 500),
                 child: ScaleAnimation(
@@ -103,8 +127,16 @@ class PasswordList extends StatelessWidget {
                           tag: password.id,
                           child: CustomContainerCard(
                             password: password,
+                            foldableButtonAnimationController:
+                                animationControllers[widget.passwordList
+                                    .indexWhere(
+                                        (element) => element == password)],
+                            animationControllers: animationControllers,
                           )),
                       onTap: () {
+                        animationControllers.forEach((element) {
+                          element.reverse();
+                        });
                         Navigator.of(context).push(PageRouteBuilder(
                             opaque: false,
                             barrierDismissible: true,
@@ -130,8 +162,8 @@ class PasswordList extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-            ),
+              );
+            }),
           ),
       ),
     );

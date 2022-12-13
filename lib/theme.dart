@@ -22,6 +22,10 @@ class AppTheme {
   static final Color addCardColor = HexColor('#484E48');
   static final Color addCardPlusColor = HexColor('#53A056');
 
+  static final Color tagHeartColor = HexColor('#AE2323');
+  static final Color tagEmailColor = HexColor('#BBAD66');
+  static final Color tagWebColor = HexColor('#3555A8');
+
   static const TextStyle _lightHeadingText = TextStyle(
     color: _lightTextColorPrimary,
     fontFamily: "Inter",

@@ -10,6 +10,7 @@ import 'package:password_safe/presentation/core/custom_container_card.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_add_popup.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_detail_popup.dart';
 import 'package:password_safe/theme.dart';
+import 'package:password_safe/presentation/passwords/globals.dart' as globals;
 
 class PasswordList extends StatefulWidget {
   final List<Password> passwordList;
@@ -23,6 +24,7 @@ class PasswordList extends StatefulWidget {
 class _PasswordListState extends State<PasswordList>
     with TickerProviderStateMixin {
   final double containerHeight = 190;
+  final List<Password> showPasswordList = [];
 
   final double containerWidth = 150;
 
@@ -32,12 +34,57 @@ class _PasswordListState extends State<PasswordList>
 
   @override
   void initState() {
+    fillShowPasswordList();
+
+    globals.searchQuery.addListener(() {
+      setState(() {
+        fillShowPasswordList();
+      });
+    });
+
     widget.passwordList.forEach((element) {
       animationControllers.add(AnimationController(
           vsync: this, duration: Duration(milliseconds: 300)));
     });
 
     super.initState();
+  }
+
+  void fillShowPasswordList() {
+    showPasswordList.clear();
+    // if (globals.filterTag != null) {
+    //   widget.passwordList.forEach((element) {
+    //     switch (globals.filterTag) {
+    //       case 1:
+    //         if (element.tags.contains(Icon(CommunityMaterialIcons.heart))) {
+    //           showPasswordList.add(element);
+    //         }
+    //         break;
+    //       case 1:
+    //         if (element.tags.contains(Icon(CommunityMaterialIcons.email))) {
+    //           showPasswordList.add(element);
+    //         }
+    //         break;
+    //       case 1:
+    //         if (element.tags.contains(Icon(CommunityMaterialIcons.web))) {
+    //           showPasswordList.add(element);
+    //         }
+    //         break;
+    //       default:
+    //         showPasswordList.add(element);
+    //     }
+    //   });
+    // }
+    if (globals.searchQuery.value == '') {
+      showPasswordList.addAll(widget.passwordList);
+    } else {
+      widget.passwordList.forEach((element) {
+        if (element.title.startsWith(globals.searchQuery.value) &&
+            !showPasswordList.contains(element)) {
+          showPasswordList.add(element);
+        }
+      });
+    }
   }
 
   @override
@@ -67,28 +114,27 @@ class _PasswordListState extends State<PasswordList>
                     child: GestureDetector(
                       onTap: () {
                         animationControllers
-                            .firstWhere((element) => element.isCompleted)
-                            .reverse();
-                        // Navigator.of(context).push(PageRouteBuilder(
-                        //     opaque: false,
-                        //     barrierDismissible: true,
-                        //     transitionDuration: Duration(milliseconds: 500),
-                        //     pageBuilder: (BuildContext context, _, __) {
-                        //       return Hero(
-                        //         tag: 'add',
-                        //         child: BackdropFilter(
-                        //           filter:
-                        //               ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                        //           child: Dialog(
-                        //             insetPadding: EdgeInsets.zero,
-                        //             backgroundColor: Colors.transparent,
-                        //             child: PasswordAddPopup(
-                        //               password: null,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       );
-                        //     }));
+                            .forEach((element) => element.reverse());
+                        Navigator.of(context).push(PageRouteBuilder(
+                            opaque: false,
+                            barrierDismissible: true,
+                            transitionDuration: Duration(milliseconds: 500),
+                            pageBuilder: (BuildContext context, _, __) {
+                              return Hero(
+                                tag: 'add',
+                                child: BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                  child: Dialog(
+                                    insetPadding: EdgeInsets.zero,
+                                    backgroundColor: Colors.transparent,
+                                    child: PasswordAddPopup(
+                                      password: null,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }));
                       },
                       child: Card(
                         elevation: 5,
@@ -113,7 +159,7 @@ class _PasswordListState extends State<PasswordList>
             ),
           ),
         ]..addAll(
-            widget.passwordList.map((password) {
+            showPasswordList.map((password) {
               return AnimationConfiguration.staggeredGrid(
                 position: widget.passwordList.indexOf(password) + 1,
                 columnCount: columnCount,

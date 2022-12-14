@@ -5,10 +5,12 @@ class CustomPopupCard extends StatelessWidget {
   final bool add;
   final Function buttonPressed;
   final Widget child;
+  final String? linkTooltip;
   const CustomPopupCard(
       {required this.add,
       required this.buttonPressed,
       required this.child,
+      this.linkTooltip,
       super.key});
 
   @override
@@ -56,6 +58,7 @@ class CustomPopupCard extends StatelessWidget {
                             : CommunityMaterialIcons.link_variant,
                         size: saveIconSize,
                       ),
+                      tooltip: linkTooltip,
                       onPressed: () => buttonPressed(),
                     )),
               ),

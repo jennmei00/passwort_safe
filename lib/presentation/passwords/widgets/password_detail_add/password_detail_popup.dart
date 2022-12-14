@@ -64,7 +64,17 @@ class PasswordDetailPopup extends StatelessWidget {
       add: false,
       linkTooltip: password.link,
       buttonPressed: () async {
-        // await launchUrlString(password.link);
+        try {
+          if (password.link.startsWith('https')) {
+            await launchUrlString(password.link);
+          } else {
+            await launchUrlString('https://' + password.link);
+          }
+        } catch (e) {
+          print(e);
+          // ScaffoldMessenger.of(context)
+          //     .showSnackBar(SnackBar(content: Text('Ungültiger Link')), );
+        }
       },
       child: Column(
         children: [

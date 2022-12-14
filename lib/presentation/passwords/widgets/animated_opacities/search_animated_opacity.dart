@@ -1,9 +1,10 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:password_safe/theme.dart';
+import 'package:password_safe/presentation/passwords/globals.dart' as globals;
 
 class SearchAnimatedOpacity extends StatelessWidget {
-  const SearchAnimatedOpacity({
+  SearchAnimatedOpacity({
     Key? key,
     required bool searchFieldVisible,
     required this.borderSide,
@@ -14,6 +15,7 @@ class SearchAnimatedOpacity extends StatelessWidget {
   final bool _searchFieldVisible;
   final BorderSide borderSide;
   final double tagIconSize;
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +42,20 @@ class SearchAnimatedOpacity extends StatelessWidget {
             child: Row(children: [
               Expanded(
                 child: TextFormField(
+                  controller: searchController,
                   enabled: _searchFieldVisible,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     label: Text('Search ...'),
                   ),
+                  onChanged: (value) => globals.searchQuery.value = value,
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  searchController.text = '';
+                  globals.searchQuery.value = '';
+                },
                 icon: Icon(
                   CommunityMaterialIcons.close_thick,
                   size: tagIconSize,

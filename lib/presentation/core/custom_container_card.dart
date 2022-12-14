@@ -71,54 +71,6 @@ class CustomContainerCard extends StatelessWidget {
             child: FoldableButton(
               controller: foldableButtonAnimationController,
               animationControllers: animationControllers,
-              //   Container(
-              // height: tagContainerSize,
-              // width: tagContainerSize,
-              // decoration: BoxDecoration(
-              //     color: themeData.colorScheme.secondary,
-              //     shape: BoxShape.circle),
-              // child: Icon(
-              //   CommunityMaterialIcons.plus,
-              //   size: tagIconSize,
-              // ),
-              // ),
-              // Container(
-              //   height: tagContainerSize,
-              //   width: tagContainerSize,
-              //   decoration: BoxDecoration(
-              //       color: themeData.colorScheme.secondary,
-              //       shape: BoxShape.circle),
-              //   child: Icon(
-              //     CommunityMaterialIcons.heart,
-              //     color: AppTheme.tagHeartColor,
-              //     size: tagIconSize,
-              //   ),
-              // ),
-              // Container(
-              //   height: tagContainerSize,
-              //   width: tagContainerSize,
-              //   decoration: BoxDecoration(
-              //       color: themeData.colorScheme.secondary,
-              //       shape: BoxShape.circle),
-              //   child: Icon(
-              //     CommunityMaterialIcons.email,
-              //     color: AppTheme.tagEmailColor,
-              //     size: tagIconSize,
-              //   ),
-              // ),
-              // Container(
-              //   height: tagContainerSize,
-              //   width: tagContainerSize,
-              //   decoration: BoxDecoration(
-              //       color: themeData.colorScheme.secondary,
-              //       shape: BoxShape.circle),
-              //   child: Icon(
-              //     CommunityMaterialIcons.web,
-              //     color: AppTheme.tagWebColor,
-              //     size: tagIconSize,
-              //   ),
-              // ),
-              // ],
             ),
           ),
         ],

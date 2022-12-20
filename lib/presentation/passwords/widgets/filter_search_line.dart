@@ -1,11 +1,8 @@
-import 'dart:ui';
-
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:password_safe/presentation/passwords/widgets/animated_opacities/filter_animated_opacity.dart';
 import 'package:password_safe/presentation/passwords/widgets/animated_opacities/search_animated_opacity.dart';
-import 'package:password_safe/theme.dart';
+import 'package:password_safe/presentation/passwords/globals.dart' as globals;
 
 class FilterSearchLine extends StatefulWidget {
   const FilterSearchLine({
@@ -31,6 +28,8 @@ class _FilterSearchLineState extends State<FilterSearchLine> {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
 
+    print(_searchFieldVisible);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,22 +54,39 @@ class _FilterSearchLineState extends State<FilterSearchLine> {
         Expanded(
             child: Stack(
           alignment: Alignment.center,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: FilterAnimatedOpacity(
-                  filterVisible: _filterVisible,
-                  borderSide: borderSide,
-                  tagIconSize: tagIconSize),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: SearchAnimatedOpacity(
-                  searchFieldVisible: _searchFieldVisible,
-                  borderSide: borderSide,
-                  tagIconSize: tagIconSize),
-            ),
-          ],
+          children: _searchFieldVisible
+              ? [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: FilterAnimatedOpacity(
+                        filterVisible: _filterVisible,
+                        borderSide: borderSide,
+                        tagIconSize: tagIconSize),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: SearchAnimatedOpacity(
+                        searchFieldVisible: _searchFieldVisible,
+                        borderSide: borderSide,
+                        tagIconSize: tagIconSize),
+                  ),
+                ]
+              : [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: SearchAnimatedOpacity(
+                        searchFieldVisible: _searchFieldVisible,
+                        borderSide: borderSide,
+                        tagIconSize: tagIconSize),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: FilterAnimatedOpacity(
+                        filterVisible: _filterVisible,
+                        borderSide: borderSide,
+                        tagIconSize: tagIconSize),
+                  ),
+                ],
         )),
         IconButton(
           padding: EdgeInsets.all(0),

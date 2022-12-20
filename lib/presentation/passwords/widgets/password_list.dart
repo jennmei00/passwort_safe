@@ -36,6 +36,12 @@ class _PasswordListState extends State<PasswordList>
   void initState() {
     fillShowPasswordList();
 
+    globals.filterTag.addListener(() {
+      setState(() {
+        fillShowPasswordList();
+      });
+    });
+
     globals.searchQuery.addListener(() {
       setState(() {
         fillShowPasswordList();
@@ -51,32 +57,34 @@ class _PasswordListState extends State<PasswordList>
   }
 
   void fillShowPasswordList() {
+    //TODO: Filter optimieren
     showPasswordList.clear();
-    // if (globals.filterTag != null) {
-    //   widget.passwordList.forEach((element) {
-    //     switch (globals.filterTag) {
-    //       case 1:
-    //         if (element.tags.contains(Icon(CommunityMaterialIcons.heart))) {
-    //           showPasswordList.add(element);
-    //         }
-    //         break;
-    //       case 1:
-    //         if (element.tags.contains(Icon(CommunityMaterialIcons.email))) {
-    //           showPasswordList.add(element);
-    //         }
-    //         break;
-    //       case 1:
-    //         if (element.tags.contains(Icon(CommunityMaterialIcons.web))) {
-    //           showPasswordList.add(element);
-    //         }
-    //         break;
-    //       default:
-    //         showPasswordList.add(element);
-    //     }
-    //   });
-    // }
     if (globals.searchQuery.value == '') {
-      showPasswordList.addAll(widget.passwordList);
+      if (globals.filterTag.value == 0) {
+        showPasswordList.addAll(widget.passwordList);
+      } else {
+        widget.passwordList.forEach((element) {
+          switch (globals.filterTag.value) {
+            case 1:
+              if (element.favTag) {
+                showPasswordList.add(element);
+              }
+              break;
+            case 2:
+              if (element.emailTag) {
+                showPasswordList.add(element);
+              }
+              break;
+            case 3:
+              if (element.webTag) {
+                showPasswordList.add(element);
+              }
+              break;
+            default:
+              break;
+          }
+        });
+      }
     } else {
       widget.passwordList.forEach((element) {
         if (element.title.startsWith(globals.searchQuery.value) &&

@@ -114,20 +114,24 @@ class PasswordModel {
           fontFamily: fontFamily,
           fontPackage: fontPackage,
           matchTextDirection: matchTextDirection),
-      tags: getIconsFromTags(),
+      // tags: getIconsFromTags(),
+      favTag: favoriteTag,
+      emailTag: mailTag,
+      webTag: networkTag,
     );
   }
 
   factory PasswordModel.fromDomain(Password passwordItem) {
-    bool fav = passwordItem.tags.contains(Icon(CommunityMaterialIcons.heart))
-        ? true
-        : false;
-    bool mail = passwordItem.tags.contains(Icon(CommunityMaterialIcons.mail))
-        ? true
-        : false;
-    bool net = passwordItem.tags.contains(Icon(CommunityMaterialIcons.web))
-        ? true
-        : false;
+    // bool fav = false;
+    // bool mail = false;
+    // bool net = false;
+    // passwordItem.tags.forEach((element) {
+    //   if (element.icon == CommunityMaterialIcons.heart)
+    //     fav = true;
+    //   else if (element.icon == CommunityMaterialIcons.mail)
+    //     mail = true;
+    //   else if (element.icon == CommunityMaterialIcons.web) net = true;
+    // });
 
     return PasswordModel(
       id: passwordItem.id.value,
@@ -140,27 +144,27 @@ class PasswordModel {
       fontFamily: passwordItem.icon.fontFamily,
       fontPackage: passwordItem.icon.fontPackage,
       matchTextDirection: passwordItem.icon.matchTextDirection,
-      favoriteTag: fav,
-      mailTag: mail,
-      networkTag: net,
+      favoriteTag: passwordItem.favTag,
+      mailTag: passwordItem.emailTag,
+      networkTag: passwordItem.webTag,
     );
   }
 
-  List<Icon> getIconsFromTags() {
-    List<Icon> tags = [];
+  // List<Icon> getIconsFromTags() {
+  //   List<Icon> tags = [];
 
-    if (favoriteTag) {
-      tags.add(Icon(CommunityMaterialIcons.heart));
-    }
+  //   if (favoriteTag) {
+  //     tags.add(Icon(CommunityMaterialIcons.heart));
+  //   }
 
-    if (mailTag) {
-      tags.add(Icon(CommunityMaterialIcons.mail));
-    }
+  //   if (mailTag) {
+  //     tags.add(Icon(CommunityMaterialIcons.mail));
+  //   }
 
-    if (networkTag) {
-      tags.add(Icon(CommunityMaterialIcons.web));
-    }
+  //   if (networkTag) {
+  //     tags.add(Icon(CommunityMaterialIcons.web));
+  //   }
 
-    return tags;
-  }
+  //   return tags;
+  // }
 }

@@ -43,78 +43,76 @@ class _FilterAnimatedOpacityState extends State<FilterAnimatedOpacity> {
               right: widget.borderSide,
             ),
           ),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  onPressed: !widget._filterVisible
-                      ? null
-                      : () {
-                          setState(() {});
-                          globals.filterTag.value = 1;
-                        },
-                  iconSize: widget.tagIconSize,
-                  disabledColor: AppTheme.tagHeartColor,
-                  color: AppTheme.tagHeartColor,
-                  icon: Icon(CommunityMaterialIcons.heart, shadows: [
-                    if (globals.filterTag.value == 1) ...[
-                      Shadow(color: HexColor('#AE2323'), blurRadius: 30)
-                    ],
-                  ]),
-                ),
-                IconButton(
-                  onPressed: !widget._filterVisible
-                      ? null
-                      : () {
-                          setState(() {});
-                          globals.filterTag.value = 2;
-                        },
-                  iconSize: widget.tagIconSize,
-                  disabledColor: AppTheme.tagEmailColor,
-                  color: AppTheme.tagEmailColor,
-                  icon: Icon(
-                    CommunityMaterialIcons.email,
-                    shadows: [
-                      if (globals.filterTag.value == 2) ...[
-                        Shadow(color: HexColor('#BBAD66'), blurRadius: 30)
-                      ],
-                    ],
-                  ),
-                ),
-                IconButton(
-                  onPressed: !widget._filterVisible
-                      ? null
-                      : () {
-                        print('Test');
-                          setState(() {});
-                          globals.filterTag.value = 3;
-                        },
-                  iconSize: widget.tagIconSize,
-                  disabledColor: AppTheme.tagWebColor,
-                  color: AppTheme.tagWebColor,
-                  icon: Icon(
-                    CommunityMaterialIcons.web,
-                    shadows: [
-                      if (globals.filterTag.value == 3) ...[
-                        Shadow(color: HexColor('#3555A8'), blurRadius: 30)
-                      ],
-                    ],
-                  ),
-                ),
-                IconButton(
-                  onPressed: !widget._filterVisible
-                      ? null
-                      : () {
-                          setState(() {});
-                          globals.filterTag.value = 0;
-                        },
-                  iconSize: widget.tagIconSize,
-                  color: HexColor('#FFFFFF'),
-                  icon: Icon(
-                    CommunityMaterialIcons.close_thick,
-                  ),
-                ),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            IconButton(
+              onPressed: !widget._filterVisible
+                  ? null
+                  : () {
+                      setState(() {});
+                      globals.filterTag.value = 1;
+                    },
+              iconSize: widget.tagIconSize,
+              disabledColor: AppTheme.tagHeartColor,
+              color: AppTheme.tagHeartColor,
+              icon: Icon(CommunityMaterialIcons.heart, shadows: [
+                if (globals.filterTag.value == 1) ...[
+                  Shadow(color: HexColor('#AE2323'), blurRadius: 30)
+                ],
               ]),
+            ),
+            IconButton(
+              onPressed: !widget._filterVisible
+                  ? null
+                  : () {
+                      setState(() {});
+                      globals.filterTag.value = 2;
+                    },
+              iconSize: widget.tagIconSize,
+              disabledColor: AppTheme.tagEmailColor,
+              color: AppTheme.tagEmailColor,
+              icon: Icon(
+                CommunityMaterialIcons.email,
+                shadows: [
+                  if (globals.filterTag.value == 2) ...[
+                    Shadow(color: HexColor('#BBAD66'), blurRadius: 30)
+                  ],
+                ],
+              ),
+            ),
+            IconButton(
+              onPressed: !widget._filterVisible
+                  ? null
+                  : () {
+                      setState(() {});
+                      globals.filterTag.value = 3;
+                    },
+              iconSize: widget.tagIconSize,
+              disabledColor: AppTheme.tagWebColor,
+              color: AppTheme.tagWebColor,
+              icon: Icon(
+                CommunityMaterialIcons.web,
+                shadows: [
+                  if (globals.filterTag.value == 3) ...[
+                    Shadow(color: HexColor('#3555A8'), blurRadius: 30)
+                  ],
+                ],
+              ),
+            ),
+            IconButton(
+              onPressed: !widget._filterVisible
+                  ? null
+                  : () {
+                      setState(() {});
+                      globals.filterTag.value = 0;
+                    },
+              iconSize: widget.tagIconSize,
+              color: HexColor('#FFFFFF'),
+              icon: Icon(
+                CommunityMaterialIcons.close_thick,
+              ),
+            ),
+          ]),
         ),
       ),
     );

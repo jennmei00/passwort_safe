@@ -71,6 +71,7 @@ class CustomContainerCard extends StatelessWidget {
             child: FoldableButton(
               controller: foldableButtonAnimationController,
               animationControllers: animationControllers,
+              password: password,
             ),
           ),
         ],

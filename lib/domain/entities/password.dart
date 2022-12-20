@@ -10,7 +10,10 @@ class Password {
   final String password;
   final String link;
   final IconData icon;
-  final List<Icon> tags;
+  final bool favTag;
+  final bool emailTag;
+  final bool webTag;
+  // final List<Icon> tags;
 
   Password({
     required this.id,
@@ -20,7 +23,10 @@ class Password {
     required this.password,
     required this.link,
     required this.icon,
-    required this.tags,
+    // required this.tags,
+    required this.favTag,
+    required this.emailTag,
+    required this.webTag,
   });
 
   factory Password.empty() {
@@ -32,7 +38,10 @@ class Password {
       password: '',
       link: '',
       icon: CommunityMaterialIcons.image_plus,
-      tags: [],
+      // tags: [],
+      favTag: false,
+      emailTag: false,
+      webTag: false,
     );
   }
 
@@ -44,7 +53,10 @@ class Password {
     String? password,
     String? link,
     IconData? icon,
-    List<Icon>? tags,
+    // List<Icon>? tags,
+    bool? favTag,
+    bool? emailTag,
+    bool? webTag,
   }) {
     return Password(
       id: id ?? this.id,
@@ -54,7 +66,10 @@ class Password {
       password: password ?? this.password,
       link: link ?? this.link,
       icon: icon ?? this.icon,
-      tags: tags ?? this.tags,
+      // tags: tags ?? this.tags,
+      favTag: favTag ?? this.favTag,
+      emailTag: emailTag ?? this.emailTag,
+      webTag: webTag ?? this.webTag,
     );
   }
 }

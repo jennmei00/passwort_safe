@@ -1,16 +1,22 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:password_safe/application/password/passwordForm/passwordform_bloc.dart';
+import 'package:password_safe/application/password/password_tag/password_tag_bloc.dart';
+import 'package:password_safe/domain/entities/password.dart';
 import 'package:password_safe/theme.dart';
+import 'package:password_safe/injection.dart';
 
 class FoldableButton extends StatefulWidget {
   final AnimationController controller;
   final List<AnimationController> animationControllers;
+  final Password password;
   const FoldableButton({
     super.key,
     required this.controller,
     required this.animationControllers,
+    required this.password,
   });
 
   @override
@@ -22,30 +28,6 @@ class _FoldableButtonState extends State<FoldableButton>
   bool isTapped = true;
   bool isExpanded = false;
 
-  @override
-  Widget build(BuildContext context) {
-    return FoldableOptions(
-      controller: widget.controller,
-      animationControllers: widget.animationControllers,
-    );
-  }
-}
-
-class FoldableOptions extends StatefulWidget {
-  final AnimationController controller;
-  final List<AnimationController> animationControllers;
-
-  const FoldableOptions(
-      {super.key,
-      required this.controller,
-      required this.animationControllers});
-
-  @override
-  _FoldableOptionsState createState() => _FoldableOptionsState();
-}
-
-class _FoldableOptionsState extends State<FoldableOptions>
-    with SingleTickerProviderStateMixin {
   final List<IconData> options = [
     CommunityMaterialIcons.heart,
     CommunityMaterialIcons.email,
@@ -58,10 +40,99 @@ class _FoldableOptionsState extends State<FoldableOptions>
   // late AnimationController controller;
   final duration = Duration(milliseconds: 190);
 
-  Widget getItem(IconData source, Color iconColor) {
+  Icon getIcon() {
+    Icon icon = Icon(CommunityMaterialIcons.plus,
+        color: Colors.white.withOpacity(1), size: 30);
+    // Color color = Colors.white.withOpacity(1);
+
+    int countTags = 0;
+
+    if (widget.password.favTag) {
+      countTags += 1;
+    }
+    if (widget.password.emailTag) {
+      countTags += 1;
+    }
+    if (widget.password.webTag) {
+      countTags += 1;
+    }
+
+    if (countTags > 1) {
+      icon = Icon(CommunityMaterialIcons.numeric_1_box_multiple,
+          color: Colors.white.withOpacity(1), size: 30);
+    } else if (countTags == 1) {
+      if (widget.password.favTag) {
+        icon = Icon(CommunityMaterialIcons.heart,
+            color: AppTheme.tagHeartColor, size: 30);
+      } else if (widget.password.emailTag) {
+        icon = Icon(CommunityMaterialIcons.email,
+            color: AppTheme.tagEmailColor, size: 30);
+      } else if (widget.password.webTag) {
+        icon = Icon(CommunityMaterialIcons.web,
+            color: AppTheme.tagWebColor, size: 30);
+      }
+    }
+
+    return icon;
+  }
+
+  Widget getItem(
+      IconData source, Color iconColor, BuildContext context, int tag) {
     final size = 48.0;
+    bool addTag = false;
+    List<Shadow> shadows = [];
+
+    //tag description:
+    //1: heart
+    //2: email
+    //3: web
+
+    switch (tag) {
+      case 1:
+        if (widget.password.favTag) {
+          // shadows.add(Shadow(color: iconColor, blurRadius: 30));
+
+          shadows.add(
+              Shadow(color: iconColor, blurRadius: 10, offset: Offset(5, 5)));
+          shadows.add(
+              Shadow(color: iconColor, blurRadius: 10, offset: Offset(-5, -5)));
+        }
+        break;
+      case 2:
+        if (widget.password.emailTag) {
+          shadows.add(
+              Shadow(color: iconColor, blurRadius: 10, offset: Offset(5, 5)));
+          shadows.add(
+              Shadow(color: iconColor, blurRadius: 10, offset: Offset(-5, -5)));
+        }
+        break;
+      case 3:
+        if (widget.password.webTag) {
+          shadows.add(
+              Shadow(color: iconColor, blurRadius: 10, offset: Offset(5, 5)));
+          shadows.add(
+              Shadow(color: iconColor, blurRadius: 10, offset: Offset(-5, -5)));
+        }
+        break;
+      default:
+    }
+
     return GestureDetector(
       onTap: () {
+        switch (tag) {
+          case 1:
+            addTag = !widget.password.favTag;
+            break;
+          case 2:
+            addTag = !widget.password.emailTag;
+            break;
+          case 3:
+            addTag = !widget.password.webTag;
+            break;
+          default:
+        }
+        BlocProvider.of<PasswordTagBloc>(context)
+            .add(TagPressedEvent(tag: tag, addTag: addTag));
         widget.controller.reverse();
       },
       child: Container(
@@ -77,12 +148,13 @@ class _FoldableOptionsState extends State<FoldableOptions>
           source,
           color: iconColor,
           size: 30,
+          shadows: shadows,
         ),
       ),
     );
   }
 
-  Widget buildPrimaryItem(IconData source) {
+  Widget buildPrimaryItem(Icon icon) {
     final size = 48.0;
     return Container(
       width: size,
@@ -99,11 +171,7 @@ class _FoldableOptionsState extends State<FoldableOptions>
           ),
         ],
       ),
-      child: Icon(
-        source,
-        color: Colors.white.withOpacity(1),
-        size: 30,
-      ),
+      child: icon,
     );
   }
 
@@ -133,45 +201,81 @@ class _FoldableOptionsState extends State<FoldableOptions>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 48,
-      child: AnimatedBuilder(
-        animation: widget.controller,
-        builder: (context, child) {
-          return Stack(
-            children: <Widget>[
-              Padding(
-                padding: firstAnim.value,
-                child: getItem(options.elementAt(0), AppTheme.tagHeartColor),
-              ),
-              Padding(
-                padding: secondAnim.value,
-                child: Container(
-                  child: getItem(options.elementAt(1), AppTheme.tagEmailColor),
-                ),
-              ),
-              Padding(
-                padding: thirdAnim.value,
-                child: getItem(options.elementAt(2), AppTheme.tagWebColor),
-              ),
-              GestureDetector(
-                onTap: () {
-                  widget.animationControllers.forEach((element) {
-                    if (element != widget.controller) {
-                      element.reverse();
-                    }
-                  });
-                  widget.controller.isCompleted
-                      ? widget.controller.reverse()
-                      : widget.controller.forward();
-                },
-                child: buildPrimaryItem(
-                  widget.controller.isCompleted || widget.controller.isAnimating
-                      ? Icons.close
-                      : Icons.add,
-                ),
-              ),
-            ],
+    return BlocProvider(
+      create: (context) => sl<PasswordTagBloc>()
+        ..add(InitializePassword(password: widget.password)),
+      child: BlocConsumer<PasswordTagBloc, PasswordTagState>(
+        listenWhen: (previous, current) =>
+            previous.failureOrSuccessOption != current.failureOrSuccessOption,
+        listener: (context, state) {
+          state.failureOrSuccessOption.fold(
+              () => null,
+              (eitherFailureOrSuccess) => eitherFailureOrSuccess.fold(
+                  (failure) => ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text("Failure"),
+                          backgroundColor: Colors.redAccent)),
+                  (_) => null));
+        },
+        builder: (context, state) {
+          return Container(
+            width: 48,
+            child: AnimatedBuilder(
+              animation: widget.controller,
+              builder: (context, child) {
+                return Stack(
+                  children: <Widget>[
+                    Padding(
+                      padding: firstAnim.value,
+                      child: getItem(
+                        options.elementAt(0),
+                        AppTheme.tagHeartColor,
+                        context,
+                        1,
+                      ),
+                    ),
+                    Padding(
+                      padding: secondAnim.value,
+                      child: Container(
+                        child: getItem(
+                          options.elementAt(1),
+                          AppTheme.tagEmailColor,
+                          context,
+                          2,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: thirdAnim.value,
+                      child: getItem(
+                        options.elementAt(2),
+                        AppTheme.tagWebColor,
+                        context,
+                        3,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        widget.animationControllers.forEach((element) {
+                          if (element != widget.controller) {
+                            element.reverse();
+                          }
+                        });
+                        widget.controller.isCompleted
+                            ? widget.controller.reverse()
+                            : widget.controller.forward();
+                      },
+                      child: buildPrimaryItem(
+                        widget.controller.isCompleted ||
+                                widget.controller.isAnimating
+                            ? Icon(Icons.close)
+                            : getIcon(),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
           );
         },
       ),

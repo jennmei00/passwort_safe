@@ -14,3 +14,6 @@ ValueNotifier<String> searchQuery = ValueNotifier('');
 // int? filterTag;
 ValueNotifier<int> filterTag = ValueNotifier(0);
 
+// Color getColorOfTag(Icon icon) {
+//   return Color(2);
+// }

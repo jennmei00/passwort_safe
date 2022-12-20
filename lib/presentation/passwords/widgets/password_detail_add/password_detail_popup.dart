@@ -44,6 +44,7 @@ class PasswordDetailPopup extends StatelessWidget {
                   onPressed: () {
                     controllerBloc.add(DeletePasswordEvent(password: password));
                     Navigator.pop(context);
+                    Navigator.pop(context);
                   },
                   child: const Text(
                     "Löschen",

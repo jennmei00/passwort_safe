@@ -34,6 +34,12 @@ class _PasswordListState extends State<PasswordList>
 
   @override
   void initState() {
+    refreshList();
+
+    super.initState();
+  }
+
+  void refreshList() {
     fillShowPasswordList();
 
     globals.filterTag.addListener(() {
@@ -52,8 +58,6 @@ class _PasswordListState extends State<PasswordList>
       animationControllers.add(AnimationController(
           vsync: this, duration: Duration(milliseconds: 300)));
     });
-
-    super.initState();
   }
 
   void fillShowPasswordList() {
@@ -100,6 +104,7 @@ class _PasswordListState extends State<PasswordList>
     double mediaWidth = MediaQuery.of(context).size.width;
     int columnCount = (mediaWidth / (containerWidth + 40)).round();
     final controllerBloc = context.read<ControllerBloc>();
+    refreshList();
 
     return AnimationLimiter(
       child: GridView.count(
@@ -182,6 +187,7 @@ class _PasswordListState extends State<PasswordList>
                           child: CustomContainerCard(
                             password: password,
                             foldableButtonAnimationController:
+                                // animationControllers.first,
                                 animationControllers[widget.passwordList
                                     .indexWhere(
                                         (element) => element == password)],

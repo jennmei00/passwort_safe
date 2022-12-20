@@ -23,12 +23,11 @@ class ObserverBloc extends Bloc<ObserverEvent, ObserverState> {
       _passwordStreamSub = passwordRepository.getAll().listen(
           (failureOrPasswords) => add(
               PasswordUpdatedEvent(failureOrPasswords: failureOrPasswords)));
-
-      on<PasswordUpdatedEvent>(((event, emit) {
-        event.failureOrPasswords.fold(
-            (failure) => emit(ObserverFailure(passwordFailure: failure)),
-            (password) => emit(ObserverSuccess(passwords: password)));
-      }));
     });
+    on<PasswordUpdatedEvent>(((event, emit) {
+      event.failureOrPasswords.fold(
+          (failure) => emit(ObserverFailure(passwordFailure: failure)),
+          (password) => emit(ObserverSuccess(passwords: password)));
+    }));
   }
 }

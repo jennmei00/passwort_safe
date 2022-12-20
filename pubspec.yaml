@@ -53,6 +53,7 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   url_launcher: ^6.1.7
   flutter_expandable_fab: ^1.6.1
+  sqlbrite: ^2.5.0
 
 dev_dependencies:
   flutter_test:

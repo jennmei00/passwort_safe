@@ -37,21 +37,29 @@ class PasswordRepositoryImpl implements PasswordRepository {
 
   @override
   Stream<Either<PasswordFailure, List<Password>>> getAll() async* {
-    try {
-      List<Password> passwords = [];
+    // try {
+    List<Password> passwords = [];
 
-      final mapList = await dbLocalDatasource.getData('Password');
+    // final mapList = await dbLocalDatasource.getData('Password');
+    final mapList = await dbLocalDatasource.getDataa('Password');
 
-      mapList.forEach((element) {
-        passwords.add(PasswordModel.fromMap(element).toDomain());
-      });
+    yield* mapList
+        .map((event) => right<PasswordFailure, List<Password>>(
+            event.map((e) => PasswordModel.fromMap(e).toDomain()).toList()))
+        .handleError((e) {
+      return Left(DBFailure);
+    });
 
+    // mapList.forEach((element) {
+    //   passwords.add(PasswordModel.fromMap(element).toDomain());
+    // });
 
-      yield*  Stream.value(Right(passwords));
-    } catch (e) {
-      print(e);
-      yield* Stream.value(Left(DBFailure()));
-    }
+    // yield* Stream.value(Right(passwords));
+    // } catch (e) {
+    //   print(e);
+    //   return Left(DBFailure);
+    //   // yield* Stream.value(cLeft(DBFailure()));
+    // }
   }
 
   @override

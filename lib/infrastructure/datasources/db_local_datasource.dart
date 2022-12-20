@@ -1,10 +1,13 @@
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
+import 'package:sqlbrite/sqlbrite.dart';
 
 abstract class DBLocalDatasource {
-  Future<sql.Database> openDatabase();
+  Future<BriteDatabase> openDatabase();
   Future<void> deleteDatabase();
   Future<List<Map<String, dynamic>>> getData(String table,
+      {List<String>? columns, String? where, String? orderBy});
+  Stream<List<Map<String, dynamic>>> getDataa(String table,
       {List<String>? columns, String? where, String? orderBy});
   Future<Map<String, dynamic>> getOneData(String table,
       {List<String>? columns, String? where, String? orderBy});
@@ -19,17 +22,18 @@ abstract class DBLocalDatasource {
 }
 
 class DBLocalDatasourceImpl implements DBLocalDatasource {
-  static sql.Database? _database;
+  // static sql.Database? _database;
+  static BriteDatabase? _database;
   static int _versionNumber = 1;
 
   @override
-  Future<sql.Database> openDatabase() async {
+  Future<BriteDatabase> openDatabase() async {
     final dbPath = await sql.getDatabasesPath();
-    return _database ??= await sql.openDatabase(
+    return _database ??= BriteDatabase(await sql.openDatabase(
         path.join(dbPath, 'PasswordSafe.db'),
         onCreate: _createTables,
         onUpgrade: _upgradeTables,
-        version: _versionNumber);
+        version: _versionNumber));
   }
 
   @override
@@ -50,6 +54,15 @@ class DBLocalDatasourceImpl implements DBLocalDatasource {
   }
 
   @override
+  Stream<List<Map<String, dynamic>>> getDataa(String table,
+      {List<String>? columns, String? where, String? orderBy}) async* {
+    final db = await this.openDatabase();
+    yield* db
+        .createQuery(table, columns: columns, where: where, orderBy: orderBy)
+        .mapToList((json) => json);
+  }
+
+  @override
   Future<Map<String, dynamic>> getOneData(String table,
       {List<String>? columns, String? where, String? orderBy}) async {
     List<Map<String, dynamic>> _data =
@@ -62,55 +75,63 @@ class DBLocalDatasourceImpl implements DBLocalDatasource {
   Future<void> multipleInsert(
       String table, List<Map<String, dynamic>> dataList) async {
     final db = await this.openDatabase();
-    sql.Batch batch = db.batch();
+    // sql.Batch batch = db.batch();
     dataList.forEach((Map<String, dynamic> data) {
-      batch.insert(table, data);
+      // batch.insert(table, data);
+      db.insert(table, data);
     });
-    await batch.commit();
+    // await batch.commit();
   }
 
   @override
   Future<void> multipleInsertOrUpdate(String table,
       List<Map<String, dynamic>> dataList, String primaryKey) async {
     final db = await this.openDatabase();
-    sql.Batch batch = db.batch();
+
+    // sql.Batch batch = db.batch();
     for (var data in dataList) {
       var _primaryKeyValue = data[primaryKey];
       int _count = await count(table,
           where: "WHERE $primaryKey = '${data[primaryKey]}'");
       if (_count > 0) {
         data.removeWhere((k, v) => k == primaryKey);
-        batch.update(table, data, where: "$primaryKey = '$_primaryKeyValue'");
+        await db.update(table, data,
+            where: "$primaryKey = '$_primaryKeyValue'");
+        // batch.update(table, data, where: "$primaryKey = '$_primaryKeyValue'");
       } else {
-        batch.insert(table, data);
+        await db.insert(table, data);
+        // batch.insert(table, data);
       }
     }
-    await batch.commit();
+    // await batch.commit();
   }
 
   @override
   Future<void> insert(String table, Map<String, dynamic> data) async {
     final db = await this.openDatabase();
-    sql.Batch batch = db.batch();
-    batch.insert(table, data);
-    await batch.commit();
+    await db.insert(table, data);
+    // sql.Batch batch = db.batch();
+    // batch.insert(table, data);
+    // await batch.commit();
   }
 
   @override
   Future<void> update(String table, Map<String, dynamic> data,
       {String? where}) async {
     final db = await this.openDatabase();
-    sql.Batch batch = db.batch();
-    batch.update(table, data, where: where);
-    await batch.commit();
+    // sql.Batch batch = db.batch();
+    // batch.update(table, data, where: where);
+    await db.update(table, data, where: where);
+    // await batch.commit();
   }
 
   @override
   Future<void> delete(String table, {String? where}) async {
     final db = await this.openDatabase();
-    sql.Batch batch = db.batch();
-    batch.delete(table, where: where);
-    await batch.commit();
+    await db.delete(table, where: where);
+    // sql.Batch batch = db.batch();
+    // batch.delete(table, where: where);
+    // await batch.commit();
   }
 
   @override

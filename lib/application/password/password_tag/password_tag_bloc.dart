@@ -57,7 +57,9 @@ class PasswordTagBloc extends Bloc<PasswordTagEvent, PasswordTagState> {
       failureOrSuccess = await passwordRepository.update(editedPassword);
 
       emit(state.copyWith(
-          isSaving: false, failureOrSuccessOption: optionOf(failureOrSuccess)));
+          isSaving: false,
+          failureOrSuccessOption: optionOf(failureOrSuccess),
+          password: editedPassword));
     });
   }
 }

@@ -132,6 +132,8 @@ class _FoldableButtonState extends State<FoldableButton>
           default:
         }
         BlocProvider.of<PasswordTagBloc>(context)
+            .add(InitializePassword(password: widget.password));
+        BlocProvider.of<PasswordTagBloc>(context)
             .add(TagPressedEvent(tag: tag, addTag: addTag));
         widget.controller.reverse();
       },
@@ -202,8 +204,8 @@ class _FoldableButtonState extends State<FoldableButton>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<PasswordTagBloc>()
-        ..add(InitializePassword(password: widget.password)),
+      create: (context) => sl<PasswordTagBloc>(),
+      // ..add(InitializePassword(password: widget.password)),
       child: BlocConsumer<PasswordTagBloc, PasswordTagState>(
         listenWhen: (previous, current) =>
             previous.failureOrSuccessOption != current.failureOrSuccessOption,

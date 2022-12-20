@@ -1,10 +1,7 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:password_safe/domain/entities/password.dart';
-import 'package:password_safe/presentation/core/foldable_button.dart';
-import 'package:password_safe/theme.dart';
+import 'package:password_safe/presentation/passwords/widgets/foldable_button.dart';
 
 class CustomContainerCard extends StatelessWidget {
   final Password password;

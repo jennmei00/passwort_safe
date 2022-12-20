@@ -15,7 +15,8 @@ class SearchAnimatedOpacity extends StatelessWidget {
   final bool _searchFieldVisible;
   final BorderSide borderSide;
   final double tagIconSize;
-  final TextEditingController searchController = TextEditingController();
+  final TextEditingController searchController =
+      TextEditingController(text: globals.searchQuery.value);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class SearchAnimatedOpacity extends StatelessWidget {
         child: FractionallySizedBox(
           widthFactor: 0.9,
           child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 8),
             decoration: BoxDecoration(
               gradient: AppTheme.searchContainerBackgroundGradient,
               border: Border(
@@ -46,7 +48,7 @@ class SearchAnimatedOpacity extends StatelessWidget {
                   enabled: _searchFieldVisible,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    label: Text('Search ...'),
+                    label: Text('Suche...'),
                   ),
                   onChanged: (value) => globals.searchQuery.value = value,
                 ),

@@ -3,27 +3,53 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_safe/application/password/passwordForm/passwordform_bloc.dart';
 import 'package:password_safe/domain/entities/password.dart';
-import 'package:password_safe/presentation/core/custom_popup_card.dart';
+import 'package:password_safe/presentation/passwords/widgets/custom_popup_card.dart';
 import 'package:password_safe/injection.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_form.dart';
 import 'package:password_safe/presentation/passwords/widgets/safe_progress_overlay.dart';
 
-class PasswordAddPopup extends StatelessWidget {
+class PasswordAddPopup extends StatefulWidget {
   final Password? password;
   const PasswordAddPopup({super.key, required this.password});
 
   @override
-  Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    final textEditingControllerTitle = TextEditingController();
-    final textEditingControllerName = TextEditingController();
-    final textEditingControllerEmail = TextEditingController();
-    final textEditingControllerPassword = TextEditingController();
-    final textEditingControllerLink = TextEditingController();
+  State<PasswordAddPopup> createState() => _PasswordAddPopupState();
+}
 
+class _PasswordAddPopupState extends State<PasswordAddPopup> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final textEditingControllerTitle = TextEditingController();
+  final textEditingControllerName = TextEditingController();
+  final textEditingControllerEmail = TextEditingController();
+  final textEditingControllerPassword = TextEditingController();
+  final textEditingControllerLink = TextEditingController();
+  IconData iconData = CommunityMaterialIcons.cart;
+
+  void loadInit() {
+    // icon = widget.password!.icon;
+    if (widget.password != null) {
+      textEditingControllerTitle.text = widget.password!.title;
+      textEditingControllerName.text = widget.password!.name;
+      textEditingControllerEmail.text = widget.password!.email;
+      textEditingControllerPassword.text = widget.password!.password;
+      textEditingControllerLink.text = widget.password!.link;
+    }
+  }
+
+  @override
+  void initState() {
+    if (widget.password != null) {
+      iconData = widget.password!.icon;
+    }
+    loadInit();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) => sl<PasswordformBloc>()
-          ..add(InitializePasswordDetailContainer(password: password)),
+          ..add(InitializePasswordDetailContainer(password: widget.password)),
         child: BlocConsumer<PasswordformBloc, PasswordformState>(
           listenWhen: ((previous, current) =>
               previous.failureOrSuccessOption !=
@@ -50,7 +76,7 @@ class PasswordAddPopup extends StatelessWidget {
                       email: textEditingControllerEmail.text,
                       passwordText: textEditingControllerPassword.text,
                       link: textEditingControllerLink.text,
-                      icon: CommunityMaterialIcons.cart,
+                      icon: iconData,
                       tags: [],
                     ),
                   );
@@ -75,6 +101,16 @@ class PasswordAddPopup extends StatelessWidget {
                     textEditingControllerPassword:
                         textEditingControllerPassword,
                     textEditingControllerLink: textEditingControllerLink,
+                    iconPressed: (icon) {
+                      print('PRESSED');
+                      setState(() {
+                        iconData = icon;
+                        loadInit();
+                      });
+
+                      Navigator.of(context).pop();
+                    },
+                    icon: iconData,
                   ),
                   SafeInProgressOverlay(isSaving: state.isSaving),
                 ],

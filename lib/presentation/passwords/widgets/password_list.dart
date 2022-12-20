@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:password_safe/application/password/controller/controller_bloc.dart';
 import 'package:password_safe/domain/entities/password.dart';
-import 'package:password_safe/presentation/core/custom_container_card.dart';
+import 'package:password_safe/presentation/passwords/widgets/custom_container_card.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_add_popup.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_detail_popup.dart';
 import 'package:password_safe/theme.dart';
@@ -91,7 +91,7 @@ class _PasswordListState extends State<PasswordList>
       }
     } else {
       widget.passwordList.forEach((element) {
-        if (element.title.startsWith(globals.searchQuery.value) &&
+        if (element.title.toLowerCase().startsWith(globals.searchQuery.value.toLowerCase()) &&
             !showPasswordList.contains(element)) {
           showPasswordList.add(element);
         }

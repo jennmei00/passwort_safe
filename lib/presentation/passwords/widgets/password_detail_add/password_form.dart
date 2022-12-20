@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:password_safe/application/password/passwordForm/passwordform_bloc.dart';
-import 'package:password_safe/presentation/core/custom_text_field.dart';
+import 'package:password_safe/presentation/passwords/widgets/custom_text_field.dart';
+import 'package:password_safe/presentation/passwords/widgets/icon_container_card.dart';
 
 class PasswordForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -11,6 +15,8 @@ class PasswordForm extends StatefulWidget {
   final TextEditingController textEditingControllerEmail;
   final TextEditingController textEditingControllerPassword;
   final TextEditingController textEditingControllerLink;
+  final Function iconPressed;
+  final IconData icon;
 
   const PasswordForm({
     required this.formKey,
@@ -19,6 +25,8 @@ class PasswordForm extends StatefulWidget {
     required this.textEditingControllerEmail,
     required this.textEditingControllerPassword,
     required this.textEditingControllerLink,
+    required this.iconPressed,
+    required this.icon,
     Key? key,
   }) : super(key: key);
 
@@ -121,9 +129,25 @@ class _PasswordFormState extends State<PasswordForm> {
               padding: const EdgeInsets.only(top: 5.0, right: 50.0, left: 5.0),
               child: Row(
                 children: [
-                  Icon(
-                    CommunityMaterialIcons.image_plus,
-                    size: imagePlusSize,
+                  IconButton(
+                    onPressed: () {
+                      showPlatformDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              insetPadding: EdgeInsets.zero,
+                              backgroundColor: Colors.transparent,
+                              child: IconContainerCard(
+                                icon: widget.icon,
+                                iconPressed: (icon) => widget.iconPressed(icon),
+                              ),
+                            );
+                          });
+                    },
+                    icon: Icon(
+                      widget.icon
+                    ),
+                    iconSize: imagePlusSize,
                   ),
                   SizedBox(width: 10),
                   Flexible(

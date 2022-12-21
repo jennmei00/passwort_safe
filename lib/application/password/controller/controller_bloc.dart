@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:password_safe/core/failures/password_failures.dart';
 import 'package:password_safe/domain/entities/password.dart';

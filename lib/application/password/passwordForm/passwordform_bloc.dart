@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:password_safe/core/failures/password_failures.dart';
 import 'package:password_safe/domain/entities/password.dart';
@@ -39,7 +40,6 @@ class PasswordformBloc extends Bloc<PasswordformEvent, PasswordformState> {
           email: event.email,
           link: event.link,
           icon: event.icon,
-          // tags: event.tags,
         );
 
         if (state.isEditing) {
@@ -47,12 +47,12 @@ class PasswordformBloc extends Bloc<PasswordformEvent, PasswordformState> {
         } else {
           failureOrSuccess = await passwordRepository.create(editedPassword);
         }
-
-        emit(state.copyWith(
-            isSaving: false,
-            showErrorMessages: true,
-            failureOrSuccessOption: optionOf(failureOrSuccess)));
       }
+
+      emit(state.copyWith(
+          isSaving: false,
+          showErrorMessages: true,
+          failureOrSuccessOption: optionOf(failureOrSuccess)));
     });
   }
 }

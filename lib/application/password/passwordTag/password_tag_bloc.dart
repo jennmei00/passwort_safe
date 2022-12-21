@@ -30,7 +30,6 @@ class PasswordTagBloc extends Bloc<PasswordTagEvent, PasswordTagState> {
           failureOrSuccessOption: none(),
           tagAdded: event.addTag));
 
-      // final List<Icon> originalTagList = state.password.tag;
       Password editedPassword = state.password;
       switch (event.tag) {
         case 1:
@@ -44,15 +43,6 @@ class PasswordTagBloc extends Bloc<PasswordTagEvent, PasswordTagState> {
           break;
         default:
       }
-      // if (state.tagAdded) {
-      //   originalTagList.add(event.tag);
-      // } else {
-      //   originalTagList.remove(event.tag);
-      // }
-
-      // final Password editedPassword = state.password.copyWith(
-      //   tags: originalTagList,
-      // );
 
       failureOrSuccess = await passwordRepository.update(editedPassword);
 

@@ -1,7 +1,7 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:password_safe/application/password/password_tag/password_tag_bloc.dart';
+import 'package:password_safe/application/password/passwordTag/password_tag_bloc.dart';
 import 'package:password_safe/domain/entities/password.dart';
 import 'package:password_safe/theme.dart';
 import 'package:password_safe/injection.dart';

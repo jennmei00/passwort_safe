@@ -77,7 +77,6 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
                       passwordText: textEditingControllerPassword.text,
                       link: textEditingControllerLink.text,
                       icon: iconData,
-                      tags: [],
                     ),
                   );
                   // } else {

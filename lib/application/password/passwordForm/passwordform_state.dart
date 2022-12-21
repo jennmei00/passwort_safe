@@ -1,6 +1,6 @@
 part of 'passwordform_bloc.dart';
 
-class PasswordformState {
+class PasswordformState with EquatableMixin {
   final Password password;
   final bool showErrorMessages;
   final bool isSaving;
@@ -39,4 +39,7 @@ class PasswordformState {
           failureOrSuccessOption ?? this.failureOrSuccessOption,
     );
   }
+
+  @override
+  List<Object?> get props => [];
 }

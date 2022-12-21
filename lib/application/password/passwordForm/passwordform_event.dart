@@ -15,7 +15,6 @@ class SafePressedEvent extends PasswordformEvent {
   final String? passwordText;
   final String? link;
   final IconData? icon;
-  final List<Icon>? tags;
 
   SafePressedEvent({
     required this.title,
@@ -24,6 +23,5 @@ class SafePressedEvent extends PasswordformEvent {
     required this.passwordText,
     required this.link,
     required this.icon,
-    required this.tags,
   });
 }

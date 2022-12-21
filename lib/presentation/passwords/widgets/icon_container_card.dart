@@ -30,12 +30,11 @@ class IconContainerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double mediaWidth = MediaQuery.of(context).size.width;
     final themeData = Theme.of(context);
-    final double containerHeight = 220;
-    final double containerWidth = 500;
+    final double containerWidth = mediaWidth * 0.8;
     final double iconSize = 70;
-    double mediaWidth = MediaQuery.of(context).size.width;
-    int columnCount = (containerWidth / (iconSize + 40)).round();
+    final int columnCount = (containerWidth / (iconSize + 40)).round();
 
     return Card(
       color: themeData.primaryColor,
@@ -43,38 +42,18 @@ class IconContainerCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40),
       ),
-      // child: Text('Test'),
-      // child: Column(
-      //   children: iconList
-      //       .map((e) => Icon(
-      //             e,
-      //             size: iconSize,
-      //           ))
-      //       .toList(),
-      // ),
       child: Padding(
-        padding: EdgeInsets.all(20),
-        child: ConstrainedBox(
-          constraints: new BoxConstraints(
-            minHeight: containerHeight,
-            minWidth: containerWidth,
-            maxHeight: containerHeight + 20,
-            maxWidth: containerWidth + 20,
-          ),
-
-          // height: containerHeight,
-          // width: containerWidth,
+        padding: EdgeInsets.all(0),
+        child: FractionallySizedBox(
+          alignment: Alignment.center,
+          heightFactor: 0.5,
+          widthFactor: 0.8,
           child: GridView.count(
+              physics: BouncingScrollPhysics(),
               crossAxisCount: columnCount,
-              childAspectRatio: (containerWidth / containerHeight),
-              mainAxisSpacing: 50,
-              crossAxisSpacing: 20,
-              // crossAxisCount: 3,
-              // crossAxisSpacing: 10,
               children: iconList.map((e) {
                 return GestureDetector(
                   onTap: () => iconPressed(e),
-                  // iconSize: iconSize,
                   child: Icon(
                     e,
                     size: iconSize,

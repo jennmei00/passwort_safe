@@ -1,8 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:password_safe/application/password/passwordForm/passwordform_bloc.dart';
 import 'package:password_safe/application/password/password_tag/password_tag_bloc.dart';
 import 'package:password_safe/domain/entities/password.dart';
 import 'package:password_safe/theme.dart';
@@ -37,13 +35,11 @@ class _FoldableButtonState extends State<FoldableButton>
   late Animation<EdgeInsetsGeometry> firstAnim;
   late Animation<EdgeInsetsGeometry> secondAnim;
   late Animation<EdgeInsetsGeometry> thirdAnim;
-  // late AnimationController controller;
   final duration = Duration(milliseconds: 190);
 
   Icon getIcon() {
     Icon icon = Icon(CommunityMaterialIcons.plus,
         color: Colors.white.withOpacity(1), size: 30);
-    // Color color = Colors.white.withOpacity(1);
 
     int countTags = 0;
 
@@ -90,8 +86,6 @@ class _FoldableButtonState extends State<FoldableButton>
     switch (tag) {
       case 1:
         if (widget.password.favTag) {
-          // shadows.add(Shadow(color: iconColor, blurRadius: 30));
-
           shadows.add(
               Shadow(color: iconColor, blurRadius: 10, offset: Offset(5, 5)));
           shadows.add(
@@ -169,7 +163,6 @@ class _FoldableButtonState extends State<FoldableButton>
         boxShadow: [
           BoxShadow(
             color: Theme.of(context).colorScheme.secondary,
-            // blurRadius: verticalPadding.value
           ),
         ],
       ),
@@ -180,8 +173,6 @@ class _FoldableButtonState extends State<FoldableButton>
   @override
   void initState() {
     super.initState();
-    // widget.controller = AnimationController(vsync: this, duration: duration);
-
     final anim =
         CurvedAnimation(parent: widget.controller, curve: Curves.linear);
     firstAnim = Tween<EdgeInsetsGeometry>(
@@ -196,16 +187,9 @@ class _FoldableButtonState extends State<FoldableButton>
   }
 
   @override
-  void dispose() {
-    // widget.controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<PasswordTagBloc>(),
-      // ..add(InitializePassword(password: widget.password)),
       child: BlocConsumer<PasswordTagBloc, PasswordTagState>(
         listenWhen: (previous, current) =>
             previous.failureOrSuccessOption != current.failureOrSuccessOption,

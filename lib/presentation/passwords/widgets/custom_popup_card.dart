@@ -16,8 +16,6 @@ class CustomPopupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    final double containerWidth = 320;
-    final double containerHeight = 440;
     final double ellipseSize = 70;
     final double saveIconSize = 40;
 

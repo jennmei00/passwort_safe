@@ -2,6 +2,7 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:password_safe/theme.dart';
 
+// ignore: must_be_immutable
 class CustomTextField extends StatelessWidget {
   final bool enabled;
   final String label;
@@ -11,17 +12,16 @@ class CustomTextField extends StatelessWidget {
   bool obscurePassword;
 
   CustomTextField({
-    this.enabled = true,
     required this.label,
-    this.validator = null,
     required this.controller,
+    this.enabled = true,
+    this.validator = null,
     this.textFieldHeight = 40,
     this.obscurePassword = false,
     super.key,
   });
 
   final double textFieldWidth = 260;
-  // final double textFieldHeight = 40;
   final double linkIconSize = 30;
 
   @override

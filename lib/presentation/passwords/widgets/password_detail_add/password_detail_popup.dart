@@ -2,15 +2,12 @@ import 'dart:ui';
 
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:password_safe/application/password/controller/controller_bloc.dart';
 import 'package:password_safe/domain/entities/password.dart';
-import 'package:password_safe/injection.dart';
 import 'package:password_safe/presentation/passwords/widgets/custom_popup_card.dart';
 import 'package:password_safe/presentation/passwords/widgets/custom_text_field.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_add_popup.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class PasswordDetailPopup extends StatelessWidget {
@@ -21,7 +18,6 @@ class PasswordDetailPopup extends StatelessWidget {
 
   void _showDeletDialog({
     required BuildContext context,
-    //  required ControllerBloc bloc
   }) {
     showDialog(
         context: context,
@@ -59,7 +55,6 @@ class PasswordDetailPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final double editDeleteIconSize = 30;
-    final double iconSize = 70;
 
     return CustomPopupCard(
       add: false,
@@ -73,8 +68,6 @@ class PasswordDetailPopup extends StatelessWidget {
           }
         } catch (e) {
           print(e);
-          // ScaffoldMessenger.of(context)
-          //     .showSnackBar(SnackBar(content: Text('Ungültiger Link')), );
         }
       },
       child: Column(
@@ -144,10 +137,8 @@ class PasswordDetailPopup extends StatelessWidget {
               Flexible(
                 child: IconButton(
                   onPressed: () {
-                    // final controllerBloc = context.read<ControllerBloc>();
                     _showDeletDialog(
                       context: context,
-                      // bloc: controllerBloc
                     );
                   },
                   icon: Icon(

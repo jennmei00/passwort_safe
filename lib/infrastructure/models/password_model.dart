@@ -1,4 +1,3 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:password_safe/domain/entities/id.dart';
 import 'package:password_safe/domain/entities/password.dart';

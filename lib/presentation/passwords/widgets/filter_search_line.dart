@@ -2,7 +2,6 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:password_safe/presentation/passwords/widgets/animated_opacities/filter_animated_opacity.dart';
 import 'package:password_safe/presentation/passwords/widgets/animated_opacities/search_animated_opacity.dart';
-import 'package:password_safe/presentation/passwords/globals.dart' as globals;
 
 class FilterSearchLine extends StatefulWidget {
   const FilterSearchLine({
@@ -26,10 +25,6 @@ class _FilterSearchLineState extends State<FilterSearchLine> {
 
   @override
   Widget build(BuildContext context) {
-    final themeData = Theme.of(context);
-
-    print(_searchFieldVisible);
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,

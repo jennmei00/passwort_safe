@@ -29,7 +29,6 @@ class _PasswordListState extends State<PasswordList>
   final double containerWidth = 150;
 
   final double iconSize = 70;
-  // late AnimationController foldableButtonAnimationController;
   late List<AnimationController> animationControllers = [];
 
   @override
@@ -61,7 +60,6 @@ class _PasswordListState extends State<PasswordList>
   }
 
   void fillShowPasswordList() {
-    //TODO: Filter optimieren
     showPasswordList.clear();
     if (globals.searchQuery.value == '') {
       if (globals.filterTag.value == 0) {
@@ -227,7 +225,5 @@ class _PasswordListState extends State<PasswordList>
           ),
       ),
     );
-    //   ],
-    // );
   }
 }

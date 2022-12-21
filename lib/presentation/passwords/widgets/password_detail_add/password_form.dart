@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -103,12 +100,6 @@ class _PasswordFormState extends State<PasswordForm> {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final double imagePlusSize = 70;
-
-    // late String title;
-    // late String name;
-    // late String email;
-    // late String password;
-    // late String link;
 
     return BlocConsumer<PasswordformBloc, PasswordformState>(
       listenWhen: (previous, current) =>

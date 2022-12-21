@@ -1,6 +1,5 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:password_safe/presentation/passwords/widgets/animated_opacities/account_animated_opacity.dart';
 
 class MenueAccountLine extends StatefulWidget {
   const MenueAccountLine({
@@ -16,7 +15,6 @@ class _MenueAccountLineState extends State<MenueAccountLine> {
   final double iconSize = 30;
   final double containerAccountHeight = 50;
   final double containerAccountWidth = 150;
-  bool _accountSettingsVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +35,6 @@ class _MenueAccountLineState extends State<MenueAccountLine> {
             size: iconSize,
           ),
         ),
-        // Stack(children: [
-          // AccountAnimatedOpacity(
-          //     accountSettingsVisible: _accountSettingsVisible,
-          //     containerAccountWidth: containerAccountWidth,
-          //     containerAccountHeight: containerAccountHeight,
-          //     themeData: themeData,
-          //     iconSize: iconSize),
-          // Positioned(
-          //   right: 0,
-            // child: 
             Container(
               height: containerIconSize,
               width: containerIconSize,
@@ -56,21 +44,12 @@ class _MenueAccountLineState extends State<MenueAccountLine> {
               ),
               child: IconButton(
                 onPressed: () async {
-                  // setState(() {
-                  //   _accountSettingsVisible = !_accountSettingsVisible;
-                  // });
                 },
                 icon: Icon(CommunityMaterialIcons.cog,
-                // icon: Icon(
-                //   _accountSettingsVisible
-                //       ? CommunityMaterialIcons.account
-                //       : CommunityMaterialIcons.account_outline,
                   size: iconSize,
                 ),
               ),
             ),
-          // )
-        // ]),
       ],
     );
   }

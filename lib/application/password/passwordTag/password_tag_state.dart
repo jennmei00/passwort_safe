@@ -1,6 +1,6 @@
 part of 'password_tag_bloc.dart';
 
-class PasswordTagState {
+class PasswordTagState with EquatableMixin {
   final Password password;
   final bool tagAdded;
   final bool isSaving;
@@ -33,4 +33,8 @@ class PasswordTagState {
           failureOrSuccessOption ?? this.failureOrSuccessOption,
     );
   }
+  
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
 }

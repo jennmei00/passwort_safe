@@ -78,7 +78,7 @@ class PasswordDetailPopup extends StatelessWidget {
                 top: 20.0, right: 50.0, left: 20.0, bottom: 10.0),
             child: Text(
               password.title,
-              style: themeData.textTheme.headline1,
+              style: themeData.textTheme.headlineMedium,
             ),
           ),
           Padding(

@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:password_safe/application/password/passwordForm/passwordform_bloc.dart';
-import 'package:password_safe/core/failures/password_failures.dart';
 import 'package:password_safe/domain/entities/id.dart';
 import 'package:password_safe/domain/entities/password.dart';
 import 'package:password_safe/domain/repositories/password_repository.dart';
@@ -130,6 +129,28 @@ void main() {
       verifyNoMoreInteractions(mockPasswordRepository);
     });
 
-    
+    // test('should get failure', () async {
+    //   //arrange
+    //   when(mockPasswordRepository.update(any))
+    //       .thenAnswer((_) async => Left(DBFailure()));
+
+    //   //act
+    //   passwordformBloc.add(InitializePasswordDetailContainer(password: tPassword));
+    //   passwordformBloc.add(SafePressedEvent(
+    //     title: tTitle,
+    //     name: tName,
+    //     email: tEmail,
+    //     passwordText: tPasswordText,
+    //     link: tLink,
+    //     icon: tIcon,
+    //   ));
+
+    //   await untilCalled(mockPasswordRepository.update(any));
+    //   await emitsDone;
+
+    //   //assert
+    //   expect(passwordformBloc.state.failureOrSuccessOption, none());
+    //TODO: schould get optionOf(DBFailure()) instead of none()
+    // });
   });
 }

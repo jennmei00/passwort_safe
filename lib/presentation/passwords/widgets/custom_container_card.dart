@@ -50,7 +50,7 @@ class CustomContainerCard extends StatelessWidget {
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
-                      style: themeData.textTheme.bodyText1,
+                      style: themeData.textTheme.bodyMedium,
                     ),
                   ),
                 ]),

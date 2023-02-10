@@ -39,8 +39,8 @@ class AppTheme {
       fontWeight: FontWeight.bold,
       fontSize: 25);
   static const TextTheme _lightTextTheme = TextTheme(
-    headline1: _lightHeadingText,
-    bodyText1: _lightBodyText,
+    headlineMedium: _lightHeadingText,
+    bodyMedium: _lightBodyText,
   );
 
   static final TextStyle _darkThemeHeadingTextStyle =
@@ -50,8 +50,8 @@ class AppTheme {
       _lightBodyText.copyWith(color: _darkTextColorPrimary);
 
   static final TextTheme _darkTextTheme = TextTheme(
-    headline1: _darkThemeHeadingTextStyle,
-    bodyText1: _darkThemeBodyeTextStyle,
+    headlineMedium: _darkThemeHeadingTextStyle,
+    bodyMedium: _darkThemeBodyeTextStyle,
   );
 
   static final LinearGradient filterContainerBackgroundGradient =
@@ -86,7 +86,7 @@ class AppTheme {
     scaffoldBackgroundColor: _lightPrimaryColor,
     appBarTheme: const AppBarTheme(
         color: _appbarColorLight, iconTheme: IconThemeData(color: _iconColor)),
-    bottomAppBarColor: _appbarColorLight,
+    bottomAppBarTheme: BottomAppBarTheme(color: _appbarColorLight),
     colorScheme: ColorScheme.light(
         primary: _lightPrimaryColor,
         onPrimary: _lightOnPrimaryColor,
@@ -99,7 +99,7 @@ class AppTheme {
     appBarTheme: AppBarTheme(
         color: _appbarColorDark,
         iconTheme: const IconThemeData(color: _iconColor)),
-    bottomAppBarColor: _appbarColorDark,
+    bottomAppBarTheme: BottomAppBarTheme(color: _appbarColorDark),
     colorScheme: ColorScheme.dark(
       primary: _darkPrimaryColor,
       secondary: _accentColorDark,

@@ -35,6 +35,5 @@ class PasswordTagState with EquatableMixin {
   }
   
   @override
-  // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [password, tagAdded, isSaving, failureOrSuccessOption];
 }

@@ -18,13 +18,14 @@ class ObserverFailure extends ObserverState with EquatableMixin {
   ObserverFailure({required this.passwordFailure});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [passwordFailure];
 }
 
 class ObserverSuccess extends ObserverState with EquatableMixin {
   final List<Password> passwords;
   ObserverSuccess({required this.passwords});
-
+  
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [passwords];
+
 }

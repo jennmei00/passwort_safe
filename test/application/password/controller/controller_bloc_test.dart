@@ -21,7 +21,7 @@ void main() {
     controllerBloc = ControllerBloc(passwordRepository: mockPasswordRepository);
   });
 
-  test('initState chould be ControllerInitial', () {
+  test('initState should be ControllerInitial', () {
     //assert
     expect(controllerBloc.state, equals(ControllerInitial()));
   });

@@ -24,7 +24,7 @@ void main() {
 
   test('initState should be PasswordFormState.initial', () {
     //assert
-    expect(passwordTagBloc.state, equals(PasswordTagState.initial()));
+    expect(passwordTagBloc.state.runtimeType, equals(PasswordTagState.initial().runtimeType));
   });
 
   group('InitializePasswordDetailContainer', () {

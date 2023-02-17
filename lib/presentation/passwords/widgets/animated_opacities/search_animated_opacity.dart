@@ -44,12 +44,14 @@ class SearchAnimatedOpacity extends StatelessWidget {
             child: Row(children: [
               Expanded(
                 child: TextFormField(
+                  cursorColor: Theme.of(context).colorScheme.secondary,
                   controller: searchController,
                   enabled: _searchFieldVisible,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    label: Text('Suche...'),
+                    hintText: 'Suche...',
                   ),
+                  style: TextStyle(fontSize: 20),
                   onChanged: (value) => globals.searchQuery.value = value,
                 ),
               ),

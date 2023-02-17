@@ -32,7 +32,10 @@ class CustomTextField extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Text(label),
+              Text(
+                label,
+                style: TextStyle(fontSize: 15),
+              ),
               Container(
                 height: textFieldHeight,
                 decoration: BoxDecoration(
@@ -60,19 +63,25 @@ class CustomTextField extends StatelessWidget {
                                     : CommunityMaterialIcons.eye),
                               ))
                           : SizedBox(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30),
+                      Container(
+                        alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(horizontal: 30),
                         child: TextFormField(
+                          cursorColor:
+                              Theme.of(context).colorScheme.secondary,
                           enabled: enabled,
                           validator: validator == null
                               ? null
                               : (value) => validator!(value),
                           textAlign: TextAlign.center,
+                          textAlignVertical: TextAlignVertical.center,
                           controller: controller,
                           obscureText: obscurePassword,
                           decoration: InputDecoration(
                             border: InputBorder.none,
+                            isCollapsed: true,
                           ),
+                          style: TextStyle(fontSize: 20),
                         ),
                       ),
                     ],

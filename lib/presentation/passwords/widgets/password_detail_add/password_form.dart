@@ -150,7 +150,7 @@ class _PasswordFormState extends State<PasswordForm> {
                         border: InputBorder.none,
                         hintText: 'Titel...',
                       ),
-                      style: themeData.textTheme.headlineMedium,
+                      style: themeData.textTheme.headlineSmall,
                     ),
                   ),
                 ],

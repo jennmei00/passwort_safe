@@ -87,25 +87,25 @@ class _FoldableButtonState extends State<FoldableButton>
       case 1:
         if (widget.password.favTag) {
           shadows.add(
-              Shadow(color: iconColor, blurRadius: 10, offset: Offset(5, 5)));
+              Shadow(color: iconColor, blurRadius: 40, offset: Offset(3, 3)));
           shadows.add(
-              Shadow(color: iconColor, blurRadius: 10, offset: Offset(-5, -5)));
+              Shadow(color: iconColor, blurRadius: 40, offset: Offset(-3, -3)));
         }
         break;
       case 2:
         if (widget.password.emailTag) {
           shadows.add(
-              Shadow(color: iconColor, blurRadius: 10, offset: Offset(5, 5)));
+              Shadow(color: iconColor, blurRadius: 40, offset: Offset(3, 3)));
           shadows.add(
-              Shadow(color: iconColor, blurRadius: 10, offset: Offset(-5, -5)));
+              Shadow(color: iconColor, blurRadius: 40, offset: Offset(-3, -3)));
         }
         break;
       case 3:
         if (widget.password.webTag) {
           shadows.add(
-              Shadow(color: iconColor, blurRadius: 10, offset: Offset(5, 5)));
+              Shadow(color: iconColor, blurRadius: 40, offset: Offset(3, 3)));
           shadows.add(
-              Shadow(color: iconColor, blurRadius: 10, offset: Offset(-5, -5)));
+              Shadow(color: iconColor, blurRadius: 40, offset: Offset(-3, -3)));
         }
         break;
       default:

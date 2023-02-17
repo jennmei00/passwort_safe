@@ -50,7 +50,7 @@ class AppTheme {
       _lightBodyText.copyWith(color: _darkTextColorPrimary);
 
   static final TextTheme _darkTextTheme = TextTheme(
-    headlineMedium: _darkThemeHeadingTextStyle,
+    headlineSmall: _darkThemeHeadingTextStyle,
     bodyMedium: _darkThemeBodyeTextStyle,
   );
 

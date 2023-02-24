@@ -51,6 +51,7 @@ class _FilterAnimatedOpacityState extends State<FilterAnimatedOpacity> {
                   : () {
                       setState(() {});
                       globals.filterTag.value = 1;
+                      globals.searchQuery.value = '';
                     },
               iconSize: widget.tagIconSize,
               disabledColor: AppTheme.tagHeartColor,
@@ -67,6 +68,7 @@ class _FilterAnimatedOpacityState extends State<FilterAnimatedOpacity> {
                   : () {
                       setState(() {});
                       globals.filterTag.value = 2;
+                      globals.searchQuery.value = '';
                     },
               iconSize: widget.tagIconSize,
               disabledColor: AppTheme.tagEmailColor,
@@ -86,6 +88,7 @@ class _FilterAnimatedOpacityState extends State<FilterAnimatedOpacity> {
                   : () {
                       setState(() {});
                       globals.filterTag.value = 3;
+                      globals.searchQuery.value = '';
                     },
               iconSize: widget.tagIconSize,
               disabledColor: AppTheme.tagWebColor,

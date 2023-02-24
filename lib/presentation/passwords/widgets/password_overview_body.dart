@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:password_safe/application/password/observer/observer_bloc.dart';
+import 'package:password_safe/presentation/passwords/widgets/account_count_text.dart';
 import 'package:password_safe/presentation/passwords/widgets/menu_account_line.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_list.dart';
 import 'package:password_safe/presentation/passwords/widgets/filter_search_line.dart';
@@ -38,17 +39,23 @@ class PasswordOverViewBody extends StatelessWidget {
           } else if (state is ObserverFailure) {
             return const Center(child: Text("Failure"));
           } else if (state is ObserverSuccess) {
-            return Column(
-              children: [
-                SizedBox(height: 20),
-                MenueAccountLine(),
-                SizedBox(height: 20),
-                FilterSearchLine(),
-                SizedBox(height: 5),
-                Expanded(
-                  child: PasswordList(passwordList: state.passwords),
-                ),
-              ],
+            return GestureDetector(
+              onTap: () {
+                FocusScope.of(context).requestFocus(new FocusNode());
+              },
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  MenueAccountLine(),
+                  SizedBox(height: 20),
+                  FilterSearchLine(),
+                  SizedBox(height: 5),
+                  AccountCount(),
+                  Expanded(
+                    child: PasswordList(passwordList: state.passwords),
+                  ),
+                ],
+              ),
             );
           }
           return Container();

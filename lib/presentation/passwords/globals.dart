@@ -14,6 +14,9 @@ ValueNotifier<String> searchQuery = ValueNotifier('');
 // int? filterTag;
 ValueNotifier<int> filterTag = ValueNotifier(0);
 
+int passwordLength = 0;
+int showPasswordLength = 0;
+
 // Color getColorOfTag(Icon icon) {
 //   return Color(2);
 // }

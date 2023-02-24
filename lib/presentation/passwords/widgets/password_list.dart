@@ -41,6 +41,8 @@ class _PasswordListState extends State<PasswordList>
   void refreshList() {
     fillShowPasswordList();
 
+    globals.passwordLength = widget.passwordList.length;
+
     globals.filterTag.addListener(() {
       setState(() {
         fillShowPasswordList();
@@ -95,6 +97,7 @@ class _PasswordListState extends State<PasswordList>
         }
       });
     }
+    globals.showPasswordLength = showPasswordList.length;
   }
 
   @override

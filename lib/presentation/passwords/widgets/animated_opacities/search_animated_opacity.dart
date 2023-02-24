@@ -52,7 +52,10 @@ class SearchAnimatedOpacity extends StatelessWidget {
                     hintText: 'Suche...',
                   ),
                   style: TextStyle(fontSize: 20),
-                  onChanged: (value) => globals.searchQuery.value = value,
+                  onChanged: (value) {
+                    globals.searchQuery.value = value;
+                    globals.filterTag.value = 0;
+                  },
                 ),
               ),
               IconButton(

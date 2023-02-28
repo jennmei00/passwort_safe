@@ -5,16 +5,19 @@ import 'package:password_safe/theme.dart';
 // ignore: must_be_immutable
 class CustomTextField extends StatelessWidget {
   final bool enabled;
+  final bool login;
   final String label;
   final Function? validator;
   final TextEditingController controller;
   final double textFieldHeight;
   bool obscurePassword;
 
+
   CustomTextField({
     required this.label,
     required this.controller,
     this.enabled = true,
+    this.login = false,
     this.validator = null,
     this.textFieldHeight = 40,
     this.obscurePassword = false,
@@ -51,7 +54,7 @@ class CustomTextField extends StatelessWidget {
                               child: Icon(
                                   CommunityMaterialIcons.link_variant_plus))
                           : SizedBox(),
-                      (label == 'PASSWORT' && !enabled)
+                      (label == 'PASSWORT' && (!enabled || login))
                           ? Container(
                               padding: EdgeInsets.only(right: 2),
                               alignment: Alignment.centerRight,

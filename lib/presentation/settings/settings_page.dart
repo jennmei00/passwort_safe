@@ -3,6 +3,7 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/theme.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -11,11 +12,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AppTheme.backgroundImage, fit: BoxFit.fill),
-        ),
+      body: BackgroundContainer(
         child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

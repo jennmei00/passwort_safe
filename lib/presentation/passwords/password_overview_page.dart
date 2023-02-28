@@ -6,6 +6,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:password_safe/application/password/controller/controller_bloc.dart';
 import 'package:password_safe/application/password/observer/observer_bloc.dart';
 import 'package:password_safe/core/failures/password_failures.dart';
+import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_overview_body.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/theme.dart';
@@ -46,36 +47,32 @@ class PasswordOverViewPage extends StatelessWidget {
           }
         },
         child: PlatformScaffold(
-          body: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AppTheme.backgroundImage, fit: BoxFit.fill),
-              ),
+          body: BackgroundContainer(
               child: Stack(children: [
-                PasswordOverViewBody(),
-                Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: SizedBox(
-                        height: 70,
-                        width: 70,
-                        child: FloatingActionButton(
-                            onPressed: () {
-                              AutoRouter.of(context)
-                                  .push(const SettingsPageRoute());
-                            },
-                            child: Icon(
-                              CommunityMaterialIcons.cog,
-                              size: 40,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(25),
-                                bottomLeft: Radius.circular(25),
-                              ),
-                            )))),
-              ])),
+            PasswordOverViewBody(),
+            Positioned(
+                right: 0,
+                bottom: 0,
+                child: SizedBox(
+                    height: 70,
+                    width: 70,
+                    child: FloatingActionButton(
+                        onPressed: () {
+                          AutoRouter.of(context)
+                              .push(const SettingsPageRoute());
+                        },
+                        child: Icon(
+                          CommunityMaterialIcons.cog,
+                          size: 40,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            topRight: Radius.circular(25),
+                            bottomLeft: Radius.circular(25),
+                          ),
+                        )))),
+          ])),
         ),
       ),
     );

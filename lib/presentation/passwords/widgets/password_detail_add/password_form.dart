@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:password_safe/application/password/passwordForm/passwordform_bloc.dart';
-import 'package:password_safe/presentation/passwords/widgets/custom_text_field.dart';
+import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/passwords/widgets/icon_container_card.dart';
 
 class PasswordForm extends StatefulWidget {

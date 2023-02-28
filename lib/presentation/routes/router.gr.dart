@@ -55,11 +55,11 @@ class AppRouter extends _i5.RootStackRouter {
   List<_i5.RouteConfig> get routes => [
         _i5.RouteConfig(
           SignUpPageRoute.name,
-          path: '/sign-up-page',
+          path: '/',
         ),
         _i5.RouteConfig(
           LoginPageRoute.name,
-          path: '/',
+          path: '/login-page',
         ),
         _i5.RouteConfig(
           SettingsPageRoute.name,
@@ -78,7 +78,7 @@ class SignUpPageRoute extends _i5.PageRouteInfo<void> {
   const SignUpPageRoute()
       : super(
           SignUpPageRoute.name,
-          path: '/sign-up-page',
+          path: '/',
         );
 
   static const String name = 'SignUpPageRoute';
@@ -90,7 +90,7 @@ class LoginPageRoute extends _i5.PageRouteInfo<void> {
   const LoginPageRoute()
       : super(
           LoginPageRoute.name,
-          path: '/',
+          path: '/login-page',
         );
 
   static const String name = 'LoginPageRoute';

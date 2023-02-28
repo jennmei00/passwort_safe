@@ -27,11 +27,16 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 25),
-              Text('Hallo Jenny.', style: themeData.textTheme.headlineLarge,),
+              Text(
+                'Hallo Jenny.',
+                style: themeData.textTheme.headlineLarge!
+                    .copyWith(letterSpacing: 5),
+              ),
               SizedBox(height: 20),
               Text(
                 'Bitte melde dich an.',
-                style: themeData.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w100),
+                style: themeData.textTheme.bodyMedium!
+                    .copyWith(fontWeight: FontWeight.w100),
               ),
               SizedBox(height: 20),
               Padding(

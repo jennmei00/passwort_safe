@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:password_safe/application/password/observer/observer_bloc.dart';
 import 'package:password_safe/presentation/passwords/widgets/account_count_text.dart';
-import 'package:password_safe/presentation/passwords/widgets/menu_account_line.dart';
+// import 'package:password_safe/presentation/passwords/widgets/menu_account_line.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_list.dart';
 import 'package:password_safe/presentation/passwords/widgets/filter_search_line.dart';
 
@@ -45,9 +45,9 @@ class PasswordOverViewBody extends StatelessWidget {
               },
               child: Column(
                 children: [
-                  SizedBox(height: 20),
-                  MenueAccountLine(),
-                  SizedBox(height: 20),
+                  // SizedBox(height: 20),
+                  // MenueAccountLine(),
+                  SizedBox(height: 25),
                   FilterSearchLine(),
                   SizedBox(height: 5),
                   AccountCount(),

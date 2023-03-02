@@ -11,9 +11,12 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+
     return PlatformScaffold(
       body: BackgroundContainer(
         child: Container(
+          padding: EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -21,15 +24,78 @@ class SettingsPage extends StatelessWidget {
               Row(
                 children: [
                   PlatformIconButton(
-                    materialIcon: Icon(CommunityMaterialIcons.arrow_left),
+                    materialIcon: Icon(CommunityMaterialIcons.arrow_left_bold),
                     cupertinoIcon: Icon(CupertinoIcons.back),
                     onPressed: () => AutoRouter.of(context).pop(),
                   ),
-                  Text('Einstellungen')
+                  Text('     Einstellungen')
                 ],
               ),
               SizedBox(height: 20),
-              Expanded(child: Placeholder())
+              Card(
+                color: themeData.primaryColor,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListTile(
+                          title: Text(
+                            'Anmeldung',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Divider(thickness: 3),
+                        ListTile(
+                          title: GestureDetector(
+                              onTap: () {}, child: Text('Passwort ändern')),
+                        ),
+                        SwitchListTile(
+                          value: false,
+                          onChanged: (val) {},
+                          title: Text('Biometr. Authentifizierung'),
+                        ),
+                      ]),
+                ),
+              ),
+              SizedBox(height: 20),
+              Card(
+                color: themeData.primaryColor,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListTile(
+                          title: Text(
+                            'Daten',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Divider(thickness: 3),
+                        ListTile(
+                          title: GestureDetector(
+                              onTap: () {}, child: Text('CSV Import')),
+                        ),
+                        ListTile(
+                          title: GestureDetector(
+                              onTap: () {}, child: Text('CSV Export')),
+                        ),
+                      ]),
+                ),
+              ),
             ],
           ),
         ),

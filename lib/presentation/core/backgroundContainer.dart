@@ -13,6 +13,7 @@ class BackgroundContainer extends StatelessWidget {
             DecorationImage(image: AppTheme.backgroundImage, fit: BoxFit.fill),
       ),
       width: double.infinity,
+      height: double.infinity,
       child: child,
     );
   }

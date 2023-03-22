@@ -23,6 +23,8 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
   final textEditingControllerEmail = TextEditingController();
   final textEditingControllerPassword = TextEditingController();
   final textEditingControllerLink = TextEditingController();
+  final textEditingControllerZusatz = TextEditingController();
+
   IconData iconData = CommunityMaterialIcons.cart;
 
   void loadInit() {
@@ -100,6 +102,7 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
                     textEditingControllerPassword:
                         textEditingControllerPassword,
                     textEditingControllerLink: textEditingControllerLink,
+                    textEditingControllerZusatz: textEditingControllerZusatz,
                     iconPressed: (icon) {
                       print('PRESSED');
                       setState(() {

@@ -12,7 +12,6 @@ class CustomTextField extends StatelessWidget {
   final double textFieldHeight;
   bool obscurePassword;
 
-
   CustomTextField({
     required this.label,
     required this.controller,
@@ -40,7 +39,7 @@ class CustomTextField extends StatelessWidget {
                 style: TextStyle(fontSize: 15),
               ),
               Container(
-                height: textFieldHeight,
+                height: label != 'ZUSATZ' ? textFieldHeight : null,
                 decoration: BoxDecoration(
                     gradient: AppTheme.textFieldGradient,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -54,7 +53,9 @@ class CustomTextField extends StatelessWidget {
                               child: Icon(
                                   CommunityMaterialIcons.link_variant_plus))
                           : SizedBox(),
-                      ((label == 'PASSWORT' || label == 'PASSWORT WIEDERHOLEN') && (!enabled || login))
+                      ((label == 'PASSWORT' ||
+                                  label == 'PASSWORT WIEDERHOLEN') &&
+                              (!enabled || login))
                           ? Container(
                               padding: EdgeInsets.only(right: 2),
                               alignment: Alignment.centerRight,
@@ -66,25 +67,32 @@ class CustomTextField extends StatelessWidget {
                                     : CommunityMaterialIcons.eye),
                               ))
                           : SizedBox(),
-                      Container(
-                        alignment: Alignment.center,
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                        child: TextFormField(
-                          cursorColor:
-                              Theme.of(context).colorScheme.secondary,
-                          enabled: enabled,
-                          validator: validator == null
-                              ? null
-                              : (value) => validator!(value),
-                          textAlign: TextAlign.center,
-                          textAlignVertical: TextAlignVertical.center,
-                          controller: controller,
-                          obscureText: obscurePassword,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            isCollapsed: true,
+                      ConstrainedBox(
+                        constraints: BoxConstraints(minHeight: textFieldHeight),
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 30,
+                              vertical: label == 'ZUSATZ' ? 5 : 0),
+                          child: TextFormField(
+                            cursorColor:
+                                Theme.of(context).colorScheme.secondary,
+                            enabled: enabled,
+                            validator: validator == null
+                                ? null
+                                : (value) => validator!(value),
+                            textAlign: TextAlign.center,
+                            textAlignVertical: TextAlignVertical.center,
+                            controller: controller,
+                            obscureText: obscurePassword,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              isCollapsed: true,
+                            ),
+                            style: TextStyle(fontSize: 20),
+                            minLines: label == 'ZUSATZ' ? 1 : null,
+                            maxLines: label == 'ZUSATZ' ? 5 : 1,
                           ),
-                          style: TextStyle(fontSize: 20),
                         ),
                       ),
                     ],

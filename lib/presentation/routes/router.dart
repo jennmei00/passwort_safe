@@ -3,10 +3,14 @@ import 'package:password_safe/presentation/passwords/password_overview_page.dart
 import 'package:password_safe/presentation/settings/settings_page.dart';
 import 'package:password_safe/presentation/signup/login_page.dart';
 import 'package:password_safe/presentation/signup/signup_page.dart';
+import 'package:password_safe/presentation/splash/splash_page.dart';
+
+
 
 @MaterialAutoRouter(routes: <AutoRoute>[
-  AutoRoute(page: SignUpPage, initial: true),
-  AutoRoute(page: LoginPage, initial: false),
+  AutoRoute(page: SplashPage, initial: true),
+  AutoRoute(page: SignUpPage, initial: false),
+  AutoRoute(page: LoginPage, initial: false, ),
   AutoRoute(page: SettingsPage, initial: false),
   AutoRoute(page: PasswordOverViewPage, initial: false),
 ])

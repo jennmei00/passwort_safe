@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "463431064647",
+    "project_id": "passwordsafe-532ca",
+    "storage_bucket": "passwordsafe-532ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463431064647:android:f9f663476abfdd64bce562",
+        "android_client_info": {
+          "package_name": "com.example.password_safe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463431064647-4bvka3edfrp4a7r3iuto39q5ee0gj36b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7mqPVxmhx6cME5gj8T5hUmYjPGG9VOTI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463431064647-4bvka3edfrp4a7r3iuto39q5ee0gj36b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

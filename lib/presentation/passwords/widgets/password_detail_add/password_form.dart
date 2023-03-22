@@ -12,6 +12,7 @@ class PasswordForm extends StatefulWidget {
   final TextEditingController textEditingControllerEmail;
   final TextEditingController textEditingControllerPassword;
   final TextEditingController textEditingControllerLink;
+  final TextEditingController textEditingControllerZusatz;
   final Function iconPressed;
   final IconData icon;
 
@@ -22,6 +23,7 @@ class PasswordForm extends StatefulWidget {
     required this.textEditingControllerEmail,
     required this.textEditingControllerPassword,
     required this.textEditingControllerLink,
+    required this.textEditingControllerZusatz,
     required this.iconPressed,
     required this.icon,
     Key? key,
@@ -135,9 +137,7 @@ class _PasswordFormState extends State<PasswordForm> {
                             );
                           });
                     },
-                    icon: Icon(
-                      widget.icon
-                    ),
+                    icon: Icon(widget.icon),
                     iconSize: imagePlusSize,
                   ),
                   SizedBox(width: 10),
@@ -181,6 +181,10 @@ class _PasswordFormState extends State<PasswordForm> {
             CustomTextField(
               label: 'VERKNÜPFUNG',
               controller: widget.textEditingControllerLink,
+            ),
+            CustomTextField(
+              label: 'ZUSATZ',
+              controller: widget.textEditingControllerZusatz,
             ),
           ]),
         );

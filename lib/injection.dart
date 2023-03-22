@@ -1,13 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:password_safe/application/auth/authbloc/auth_bloc.dart';
 import 'package:password_safe/application/password/controller/controller_bloc.dart';
 import 'package:password_safe/application/password/observer/observer_bloc.dart';
 import 'package:password_safe/application/password/passwordForm/passwordform_bloc.dart';
 import 'package:password_safe/application/password/passwordTag/password_tag_bloc.dart';
 import 'package:password_safe/application/theme/theme_service.dart';
+import 'package:password_safe/domain/repositories/auth_repository.dart';
 import 'package:password_safe/domain/repositories/password_repository.dart';
 import 'package:password_safe/domain/repositories/theme_repository.dart';
+import 'package:password_safe/infrastructure/datasources/db_local_auth_datasource.dart';
 import 'package:password_safe/infrastructure/datasources/db_local_datasource.dart';
 import 'package:password_safe/infrastructure/datasources/theme_local_datasource.dart';
+import 'package:password_safe/infrastructure/repositories/auth_repository_impl.dart';
 import 'package:password_safe/infrastructure/repositories/password_repository_impl.dart';
 import 'package:password_safe/infrastructure/repositories/theme_repository_impl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,6 +20,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 final sl = GetIt.I; // sl == service locator
 
 Future<void> init() async {
+  //? ################ auth ##################
+  //! state management
+  sl.registerFactory(() => AuthBloc(authRepository: sl()));
+
+  //! datasources
+  sl.registerLazySingleton<DBLocalAuthDatasource>(
+      () => DBLocalAuthDatasourceImpl());
+
+  //! extern
+  final friebaseAuth = FirebaseAuth.instance;
+  sl.registerLazySingleton(() => friebaseAuth);
+
+  //! repos
+  sl.registerLazySingleton<AuthRepository>(() =>
+      AuthRepositoryImpl(firebaseAuth: sl(), dbLocalAuthDatasource: sl()));
+
   //! application layer
   sl.registerLazySingleton<ThemeService>(
       () => ThemeServiceImpl(themeRepository: sl()));

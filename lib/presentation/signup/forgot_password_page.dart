@@ -15,16 +15,16 @@ import 'package:password_safe/theme.dart';
 
 import '../../application/auth/authbloc/auth_bloc.dart';
 
-class LoginPage extends StatefulWidget {
+class ForgotPasswordPage extends StatefulWidget {
   final UserModel user;
-  const LoginPage({super.key, required this.user});
+  const ForgotPasswordPage({super.key, required this.user});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  TextEditingController passwordController = TextEditingController();
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+  TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +45,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 20),
               Text(
-                'Bitte melde dich an.',
+                'Zum Zurücksetzten des Passwortes, gebe bitte deine verwendete Email an.',
                 style: themeData.textTheme.bodyMedium!
                     .copyWith(fontWeight: FontWeight.w100),
+                textAlign: TextAlign.center,
               ),
               SizedBox(height: 20),
               Padding(
@@ -62,8 +63,8 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.all(10.0),
                     child: Column(children: [
                       CustomTextField(
-                        label: 'PASSWORT',
-                        controller: passwordController,
+                        label: 'EMAIL',
+                        controller: emailController,
                         enabled: true,
                         login: true,
                       ),
@@ -75,30 +76,27 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             CircleAvatar(
                               backgroundColor:
-                                  Colors.redAccent.withOpacity(0.5),
+                                  Colors.greenAccent.withOpacity(0.3),
                               child: PlatformIconButton(
                                 onPressed: () {
-                                  context.router.push(
-                                      ForgotPasswordPageRoute(
-                                          user: widget.user));
+                                  context.router.pop();
                                 },
                                 materialIcon:
                                     Icon(CommunityMaterialIcons.rotate_left),
-                                color: Color.fromARGB(255, 100, 5, 5),
+                                color: AppTheme.addCardPlusColor,
                               ),
                             ),
                             PlatformElevatedButton(
                               onPressed: () async {
-                                if (widget.user.password !=
-                                    passwordController.text) {
+                                if (widget.user.email != emailController.text) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content: Text('Falsches Passwort')));
+                                      SnackBar(content: Text('Falsche Email')));
                                 } else {
-                                  BlocProvider.of<AuthBloc>(context).add(
-                                      LoginPressedEvent(
-                                          password: passwordController.text,
-                                          user: widget.user));
+                                  BlocProvider.of<AuthBloc>(context)
+                                      .add(ChangePasswordPressedEvent(
+                                    user: widget.user,
+                                    forgot: true,
+                                  ));
                                   context.router
                                       .replace(const SplashPageRoute());
                                 }
@@ -106,9 +104,9 @@ class _LoginPageState extends State<LoginPage> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Login',
+                                  'Zurücksetzen',
                                   style: TextStyle(
-                                      color: AppTheme.addCardPlusColor,
+                                      color: Colors.redAccent.withOpacity(0.5),
                                       fontSize: 20),
                                 ),
                               ),

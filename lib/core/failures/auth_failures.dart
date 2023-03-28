@@ -9,3 +9,5 @@ class LoginFailure extends AuthFailure {}
 class WrongPasswordFailure extends AuthFailure {}
 
 class EmailAlreadyInUseFailure extends AuthFailure {}
+
+class PasswordChangeFailure extends AuthFailure {}

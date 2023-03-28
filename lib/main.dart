@@ -2,22 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:password_safe/application/theme/theme_service.dart';
-import 'package:password_safe/firebase_options.dart';
 import 'package:password_safe/injection.dart';
 // import 'package:password_safe/presentation/passwords/password_overview_page.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import 'application/auth/authbloc/auth_bloc.dart';
 import 'injection.dart' as di; // di == dipendency injection
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   await di.init();
   await di.sl<ThemeService>().init();
   runApp(ChangeNotifierProvider(

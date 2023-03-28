@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:password_safe/application/auth/authbloc/auth_bloc.dart';
 import 'package:password_safe/application/password/controller/controller_bloc.dart';
@@ -28,13 +27,9 @@ Future<void> init() async {
   sl.registerLazySingleton<DBLocalAuthDatasource>(
       () => DBLocalAuthDatasourceImpl());
 
-  //! extern
-  final friebaseAuth = FirebaseAuth.instance;
-  sl.registerLazySingleton(() => friebaseAuth);
-
-  //! repos
+  // //! repos
   sl.registerLazySingleton<AuthRepository>(() =>
-      AuthRepositoryImpl(firebaseAuth: sl(), dbLocalAuthDatasource: sl()));
+      AuthRepositoryImpl( dbLocalAuthDatasource: sl())); 
 
   //! application layer
   sl.registerLazySingleton<ThemeService>(

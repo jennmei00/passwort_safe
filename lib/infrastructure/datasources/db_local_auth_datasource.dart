@@ -70,7 +70,7 @@ class DBLocalAuthDatasourceImpl implements DBLocalAuthDatasource {
   Future<void> changePassword(Map<String, dynamic> data) async {
     final db = await this.openDatabase();
     sql.Batch batch = db.batch();
-    batch.update('User', data, where: 'email = ${data['email']}');
+    batch.update('User', data);
     await batch.commit();
   }
 

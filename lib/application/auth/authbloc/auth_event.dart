@@ -28,3 +28,12 @@ class LocalAuthPressedEvent extends AuthEvent {
 
   LocalAuthPressedEvent({required this.user});
 }
+
+class ChangePasswordPressedEvent extends AuthEvent {
+  final UserModel? user;
+  final bool forgot;
+  final String newPassword;
+
+  ChangePasswordPressedEvent(
+      {required this.user, required this.forgot, this.newPassword = ''});
+}

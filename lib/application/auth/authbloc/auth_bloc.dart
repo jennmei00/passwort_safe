@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:password_safe/domain/repositories/auth_repository.dart';
 import 'package:password_safe/infrastructure/datasources/db_local_auth_datasource.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
@@ -40,6 +39,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final failureOrSuccess = await authRepository.authenticateWithLocalAuth();
       failureOrSuccess.fold((l) => emit(AuthStateAuthDenied()),
           (r) => emit(AuthStateAuthenticated()));
+    });
+
+     on<ChangePasswordPressedEvent>((event, emit) async {
+      // final failureOrSuccess = 
+      await authRepository.changePassword(user: event.user!, forgot: event.forgot, newPassword: event.newPassword);
+      // failureOrSuccess.fold((l) => emit(AuthStateAuthDenied()),
+      //     (r) => emit(AuthStateAuthenticated()));
     });
   }
 }

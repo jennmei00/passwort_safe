@@ -1,19 +1,20 @@
 import 'package:dartz/dartz.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 import 'package:password_safe/core/failures/auth_failures.dart';
 import 'package:password_safe/domain/entities/user.dart';
+import 'package:password_safe/domain/failures/failures.dart';
 import 'package:password_safe/domain/repositories/auth_repository.dart';
 import 'package:password_safe/infrastructure/datasources/db_local_auth_datasource.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
+import 'package:random_password_generator/random_password_generator.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final DBLocalAuthDatasource dbLocalAuthDatasource;
   final LocalAuthentication _localAuth = LocalAuthentication();
-  final FirebaseAuth firebaseAuth;
 
-  AuthRepositoryImpl(
-      {required this.firebaseAuth, required this.dbLocalAuthDatasource});
+  AuthRepositoryImpl({required this.dbLocalAuthDatasource});
 
   @override
   Future<Either<AuthFailure, Unit>> authenticateWithLocalAuth() async {
@@ -40,21 +41,15 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<AuthFailure, Unit>> loginWithEmailAndPassword(
       String password, String email) async {
     try {
-      await firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      // final user = User.fromMap(await dbLocalAuthDatasource.getUser());
-      // if (user.password == password) {
-      return Right(unit);
-      // } else {
-      //   return Left(WrongPasswordFailure());
-      // }
-    } on FirebaseAuthException catch (e) {
-      print(e);
-      if (e.code == 'wrong-password' || e.code == "user-not-found") {
-        return Left(WrongPasswordFailure());
+      final user = UserModel.fromMap(await dbLocalAuthDatasource.getUser());
+      if (user.password == password) {
+        return Right(unit);
       } else {
-        return Left(LoginFailure());
+        return Left(WrongPasswordFailure());
       }
+    } catch (e) {
+      print(e);
+      return Left(LoginFailure());
     }
   }
 
@@ -62,23 +57,64 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword(
       UserModel user) async {
     try {
-      await firebaseAuth.createUserWithEmailAndPassword(
-          email: user.email, password: user.password!);
       await dbLocalAuthDatasource.addUser(user.toMap());
       return Right(unit);
-    } on FirebaseAuthException catch (e) {
+    } catch (e) {
       print(e);
-      if (e.code == "email-alreade-in-use") {
-        return Left(EmailAlreadyInUseFailure());
+      return Left(RegisterFailure());
+    }
+  }
+
+  @override
+  Future<Either<AuthFailure, Unit>> changePassword(
+      {UserModel? user, forgot = false, String newPassword = ''}) async {
+    try {
+      String password = user!.password!;
+      if (forgot) {
+        password = RandomPasswordGenerator()
+            .randomPassword(letters: true, numbers: true);
+        print(password);
+
+        final emailJStudios = 'jstudios0096@gmail.com';
+        final token = '';
+
+        final smptServer = gmailSaslXoauth2(emailJStudios, token);
+
+        final message = Message()
+          ..from = Address(emailJStudios, 'Jstudios+')
+          ..recipients = [user.email]
+          ..subject = 'Passwort zurückgesetzt'
+          ..text =
+              'Dein Passwort wurde erfolgreich zurückgesetzt.\nNeues Passwort: $password\nDu kannst das Passwort in den Einstellungen ändern.';
+        try {
+          await send(message, smptServer);
+        } on MailerException catch (e) {
+          print(e);
+        }
+        // final Email email = Email(
+        //     subject: 'Passwort zurückgesetzt',
+        //     recipients: [user.email],
+        //     body:
+        //         'Dein Passwort wurde erfolgreich zurückgesetzt.\nNeues Passwort: $password\nDu kannst das Passwort in den Einstellungen ändern.');
+
+        // await FlutterEmailSender.send(email);
       } else {
-        return Left(RegisterFailure());
+        password = newPassword;
       }
+      UserModel u =
+          UserModel(name: user.name, email: user.email, password: password);
+      await dbLocalAuthDatasource.changePassword(u.toMap());
+
+      return Right(unit);
+    } catch (e) {
+      print(e);
+      return Left(PasswordChangeFailure());
     }
   }
 
   @override
   Future<void> signOut() => Future.wait([
-        firebaseAuth.signOut(),
+        // firebaseAuth.signOut(),
         dbLocalAuthDatasource.deleteUser(),
       ]);
 

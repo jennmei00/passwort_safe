@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/passwords/password_overview_page.dart';
+import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/theme.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -196,6 +198,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                                       password:
                                                           passwordController
                                                               .text)));
+                                          context.router
+                                              .replace(const SplashPageRoute());
                                         }
                                       },
                                       child: Padding(

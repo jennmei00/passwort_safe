@@ -28,8 +28,8 @@ Future<void> init() async {
       () => DBLocalAuthDatasourceImpl());
 
   // //! repos
-  sl.registerLazySingleton<AuthRepository>(() =>
-      AuthRepositoryImpl( dbLocalAuthDatasource: sl())); 
+  sl.registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImpl(dbLocalAuthDatasource: sl()));
 
   //! application layer
   sl.registerLazySingleton<ThemeService>(

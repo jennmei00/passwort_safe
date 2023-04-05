@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:password_safe/core/enums.dart';
 import 'package:password_safe/domain/repositories/auth_repository.dart';
 import 'package:password_safe/infrastructure/datasources/db_local_datasource.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
@@ -12,19 +15,37 @@ import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/presentation/splash/splash_page.dart';
 import 'package:password_safe/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../application/auth/authbloc/auth_bloc.dart';
 
-class LoginPage extends StatefulWidget {
+class SecurityQuestionPage extends StatefulWidget {
   final UserModel user;
-  const LoginPage({super.key, required this.user});
+  const SecurityQuestionPage({super.key, required this.user});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SecurityQuestionPage> createState() => _SecurityQuestionPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  TextEditingController passwordController = TextEditingController();
+class _SecurityQuestionPageState extends State<SecurityQuestionPage> {
+  TextEditingController answerController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  double answerHeight = 40;
+  int dropdownValue = 0;
+
+  String? validateAnswer(String? input) {
+    if (input == null || input.isEmpty) {
+      setState(() {
+        answerHeight = 60;
+      });
+      return 'Bitte Antwort eingeben';
+    } else {
+      setState(() {
+        answerHeight = 40;
+      });
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +60,19 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               SizedBox(height: 25),
               Text(
-                'Hallo ${widget.user.name}.',
+                'Sicherheitsfrage',
                 style: themeData.textTheme.headlineLarge!
                     .copyWith(letterSpacing: 5),
               ),
               SizedBox(height: 20),
-              Text(
-                'Bitte melde dich an.',
-                style: themeData.textTheme.bodyMedium!
-                    .copyWith(fontWeight: FontWeight.w100),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Text(
+                  'Wähle eine Sicherheitsfrage aus.\nDiese wird benötigt um das Passwort, wenn nötig, zurücksetzen zu können.',
+                  style: themeData.textTheme.bodyMedium!
+                      .copyWith(fontWeight: FontWeight.w100),
+                  textAlign: TextAlign.justify,
+                ),
               ),
               SizedBox(height: 20),
               Padding(
@@ -61,11 +86,36 @@ class _LoginPageState extends State<LoginPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(children: [
-                      CustomTextField(
-                        label: 'PASSWORT',
-                        controller: passwordController,
-                        enabled: true,
-                        login: true,
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: DropdownButton<int>(
+                            value: dropdownValue,
+                            underline: Container(),
+                            isExpanded: true,
+                            items: SecurityQuestion.values
+                                .map((e) => DropdownMenuItem(
+                                    value: e.index,
+                                    child: Text(
+                                      e.value,
+                                      overflow: TextOverflow.visible,
+                                    )))
+                                .toList(),
+                            onChanged: (val) {
+                              setState(() {
+                                dropdownValue = val!;
+                              });
+                            }),
+                      ),
+                      Form(
+                        key: formKey,
+                        child: CustomTextField(
+                          textFieldHeight: answerHeight,
+                          label: 'Antwort',
+                          controller: answerController,
+                          enabled: true,
+                          login: true,
+                          validator: validateAnswer,
+                        ),
                       ),
                       SizedBox(height: 10),
                       Padding(
@@ -75,39 +125,37 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             CircleAvatar(
                               backgroundColor:
-                                  Colors.redAccent.withOpacity(0.5),
+                                  Colors.greenAccent.withOpacity(0.3),
                               child: PlatformIconButton(
                                 onPressed: () {
-                                  context.router.push(ForgotPasswordPageRoute(
-                                      user: widget.user));
+                                  context.router.pop();
                                 },
                                 materialIcon:
                                     Icon(CommunityMaterialIcons.rotate_left),
-                                color: Color.fromARGB(255, 100, 5, 5),
+                                color: AppTheme.addCardPlusColor,
                               ),
                             ),
                             PlatformElevatedButton(
                               onPressed: () async {
-                                if (widget.user.password !=
-                                    passwordController.text) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content: Text('Falsches Passwort')));
-                                } else {
+                                if (formKey.currentState!.validate()) {
                                   BlocProvider.of<AuthBloc>(context).add(
-                                      LoginPressedEvent(
-                                          password: passwordController.text,
-                                          user: widget.user));
+                                      RegisterPressedEvent(
+                                          user: widget.user.copyWith(
+                                              securityQuestionIndex:
+                                                  dropdownValue,
+                                              securityAnswer:
+                                                  answerController.text)));
                                   context.router
                                       .replace(const SplashPageRoute());
                                 }
+                                ;
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Login',
+                                  'Antworten',
                                   style: TextStyle(
-                                      color: AppTheme.addCardPlusColor,
+                                      color: Colors.redAccent.withOpacity(0.5),
                                       fontSize: 20),
                                 ),
                               ),

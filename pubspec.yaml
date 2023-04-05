@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.5
   get_it: ^7.2.0
   dartz: ^0.10.1
-  shared_preferences: ^2.0.17
+  shared_preferences: ^2.0.20
   provider: ^6.0.5
   flutter_platform_widgets: ^3.0.0
   community_material_icon: ^5.9.55
@@ -59,11 +59,6 @@ dependencies:
   equatable: ^2.0.5
   auto_route: ^5.0.3
   local_auth: ^2.1.5
-  password: ^1.0.0
-  random_password_generator: ^0.2.1
-  mailer: ^6.0.0
-  # firebase_auth: ^4.2.2
-  # firebase_core: ^2.8.0
 
 dev_dependencies:
   flutter_test:

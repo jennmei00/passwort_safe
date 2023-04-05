@@ -32,8 +32,9 @@ class MyApp extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider<AuthBloc>(
-              create: (context) =>
-                  sl<AuthBloc>()..add(AuthCheckRequestedEvent()), //..add(LocalAuthPressedEvent())
+              create: (context) => sl<AuthBloc>()
+                ..add(
+                    AuthCheckRequestedEvent()), //..add(LocalAuthPressedEvent())
             )
           ],
           child: PlatformApp.router(

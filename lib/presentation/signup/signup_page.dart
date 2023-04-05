@@ -10,6 +10,7 @@ import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/passwords/password_overview_page.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -187,19 +188,19 @@ class _SignUpPageState extends State<SignUpPage> {
                                       ),
                                     ),
                                     PlatformElevatedButton(
-                                      onPressed: () {
+                                      onPressed: () async {
                                         if (formKey.currentState!.validate()) {
-                                          BlocProvider.of<AuthBloc>(context)
-                                              .add(RegisterPressedEvent(
-                                                  user: UserModel(
-                                                      email:
-                                                          emailController.text,
-                                                      name: nameController.text,
-                                                      password:
-                                                          passwordController
-                                                              .text)));
                                           context.router
-                                              .replace(const SplashPageRoute());
+                                              .push(SecurityQuestionPageRoute(
+                                                  // prefs: await SharedPreferences
+                                                  //     .getInstance(),
+                                                  user: UserModel(
+                                            email: emailController.text,
+                                            name: nameController.text,
+                                            password: passwordController.text,
+                                            securityQuestionIndex: 0,
+                                            securityAnswer: '',
+                                          )));
                                         }
                                       },
                                       child: Padding(

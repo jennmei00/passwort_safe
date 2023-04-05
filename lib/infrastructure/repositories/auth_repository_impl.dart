@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server/gmail.dart';
+import 'package:password_safe/application/auth/authbloc/auth_bloc.dart';
+import 'package:password_safe/core/enums.dart';
 import 'package:password_safe/core/failures/auth_failures.dart';
 import 'package:password_safe/domain/entities/user.dart';
 import 'package:password_safe/domain/failures/failures.dart';
 import 'package:password_safe/domain/repositories/auth_repository.dart';
 import 'package:password_safe/infrastructure/datasources/db_local_auth_datasource.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
-import 'package:random_password_generator/random_password_generator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final DBLocalAuthDatasource dbLocalAuthDatasource;
@@ -41,7 +41,19 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<AuthFailure, Unit>> loginWithEmailAndPassword(
       String password, String email) async {
     try {
-      final user = UserModel.fromMap(await dbLocalAuthDatasource.getUser());
+      // await dbLocalAuthDatasource.deleteDatabase();
+      // final user2 = UserModel.fromMap(await dbLocalAuthDatasource.getUser());
+      UserModel? user;
+      final prefs = await SharedPreferences.getInstance();
+      user = UserModel(
+        name: prefs.getString('username')!,
+        email: prefs.getString('email')!,
+        password: prefs.getString('password')!,
+        securityQuestionIndex: prefs.getInt('securityQuestion') ?? 0,
+        securityAnswer: prefs.getString('securityAnswer'),
+      );
+
+      // await dbLocalAuthDatasource.openDatabase();
       if (user.password == password) {
         return Right(unit);
       } else {
@@ -57,7 +69,15 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword(
       UserModel user) async {
     try {
-      await dbLocalAuthDatasource.addUser(user.toMap());
+      final prefs = await SharedPreferences.getInstance();
+
+      prefs.setString('username', user.name);
+      prefs.setString('email', user.email);
+      prefs.setString('password', user.password!);
+      prefs.setInt('securityQuestion', user.securityQuestionIndex);
+      prefs.setString('securityAnswer', user.securityAnswer!);
+
+      // await dbLocalAuthDatasource.addUser(user.toMap());
       return Right(unit);
     } catch (e) {
       print(e);
@@ -67,43 +87,19 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<AuthFailure, Unit>> changePassword(
-      {UserModel? user, forgot = false, String newPassword = ''}) async {
+      {UserModel? user, bool forgot = false, String newPassword = ''}) async {
     try {
-      String password = user!.password!;
-      if (forgot) {
-        password = RandomPasswordGenerator()
-            .randomPassword(letters: true, numbers: true);
-        print(password);
-
-        final emailJStudios = 'jstudios0096@gmail.com';
-        final token = '';
-
-        final smptServer = gmailSaslXoauth2(emailJStudios, token);
-
-        final message = Message()
-          ..from = Address(emailJStudios, 'Jstudios+')
-          ..recipients = [user.email]
-          ..subject = 'Passwort zurückgesetzt'
-          ..text =
-              'Dein Passwort wurde erfolgreich zurückgesetzt.\nNeues Passwort: $password\nDu kannst das Passwort in den Einstellungen ändern.';
-        try {
-          await send(message, smptServer);
-        } on MailerException catch (e) {
-          print(e);
-        }
-        // final Email email = Email(
-        //     subject: 'Passwort zurückgesetzt',
-        //     recipients: [user.email],
-        //     body:
-        //         'Dein Passwort wurde erfolgreich zurückgesetzt.\nNeues Passwort: $password\nDu kannst das Passwort in den Einstellungen ändern.');
-
-        // await FlutterEmailSender.send(email);
-      } else {
-        password = newPassword;
-      }
-      UserModel u =
-          UserModel(name: user.name, email: user.email, password: password);
-      await dbLocalAuthDatasource.changePassword(u.toMap());
+      // String password = user!.password!;
+      // UserModel u = UserModel(
+      //   name: user.name,
+      //   email: user.email,
+      //   password: password,
+      //   securityQuestionIndex: user.securityQuestionIndex,
+      //   securityAnswer: user.securityAnswer,
+      // );
+      // // await dbLocalAuthDatasource.changePassword(u.toMap());
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('password', newPassword);
 
       return Right(unit);
     } catch (e) {
@@ -115,17 +111,39 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> signOut() => Future.wait([
         // firebaseAuth.signOut(),
-        dbLocalAuthDatasource.deleteUser(),
+        // dbLocalAuthDatasource.deleteUser(),
       ]);
 
   @override
   Future<Option<UserModel>> getSignedInUser() async {
-    final userMap = await dbLocalAuthDatasource.getUser();
-    if (userMap.isEmpty) {
-      return optionOf(null);
+    // final userMap = await dbLocalAuthDatasource.getUser();
+    final prefs = await SharedPreferences.getInstance();
+
+    final username = prefs.getString('username');
+    final email = prefs.getString('email');
+    final password = prefs.getString('password');
+    print('PASSWORT;');
+    print(password);
+    final sq = prefs.getInt('securityQuestion');
+    final sa = prefs.getString('securityAnswer');
+
+    if (username != null && email != null) {
+      return optionOf(UserModel(
+          name: username,
+          email: email,
+          password: password,
+          securityQuestionIndex: sq ?? 0,
+          securityAnswer: sa));
     } else {
-      return optionOf(UserModel.fromMap(userMap));
+      return optionOf(null);
     }
+
+    // if (userMap.isEmpty) {
+    //   return optionOf(null);
+    // } else {
+    //   return optionOf(UserModel.fromMap(userMap));
+    // }
+    // return optionOf(null);
 
     // return firebaseAuth.currentUser != null
     //     ? optionOf(UserModel(

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:password_safe/domain/repositories/auth_repository.dart';
-import 'package:password_safe/infrastructure/datasources/db_local_auth_datasource.dart';
+// import 'package:password_safe/infrastructure/datasources/db_local_auth_datasource.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
 
 part 'auth_event.dart';
@@ -24,8 +25,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginPressedEvent>((event, emit) async {
       final failureOrSuccess = await authRepository.loginWithEmailAndPassword(
           event.password!, event.user!.email);
-      failureOrSuccess.fold((l) => null,
-          (r) => emit(AuthStateAuthenticated()));
+      failureOrSuccess.fold((l) => null, (r) => emit(AuthStateAuthenticated()));
+      print('Im LoginPressedEvent');
     });
 
     on<RegisterPressedEvent>((event, emit) async {
@@ -41,9 +42,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           (r) => emit(AuthStateAuthenticated()));
     });
 
-     on<ChangePasswordPressedEvent>((event, emit) async {
-      // final failureOrSuccess = 
-      await authRepository.changePassword(user: event.user!, forgot: event.forgot, newPassword: event.newPassword);
+    on<ChangePasswordPressedEvent>((event, emit) async {
+      // final failureOrSuccess =
+      await authRepository.changePassword(
+          user: event.user!,
+          forgot: event.forgot,
+          newPassword: event.newPassword);
       // failureOrSuccess.fold((l) => emit(AuthStateAuthDenied()),
       //     (r) => emit(AuthStateAuthenticated()));
     });

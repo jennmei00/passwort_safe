@@ -26,34 +26,34 @@ class AuthRepositoryImpl implements AuthRepository {
             biometricOnly: false, useErrorDialogs: true, stickyAuth: true),
       );
       if (isAuthorized) {
-        right(unit);
+        await dbLocalAuthDatasource.openDatabase();
+        return right(unit);
       } else {
-        left(LocalAuthFailure());
+        return left(LocalAuthFailure());
       }
     } catch (e) {
       print('Error authenticating with local auth: $e');
       return left(LocalAuthFailure());
     }
-    return left(LocalAuthFailure());
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> loginWithEmailAndPassword(
-      String password, String email) async {
+  Future<Either<AuthFailure, Unit>> loginWithPassword(String password) async {
     try {
       // await dbLocalAuthDatasource.deleteDatabase();
-      // final user2 = UserModel.fromMap(await dbLocalAuthDatasource.getUser());
-      UserModel? user;
-      final prefs = await SharedPreferences.getInstance();
-      user = UserModel(
-        name: prefs.getString('username')!,
-        email: prefs.getString('email')!,
-        password: prefs.getString('password')!,
-        securityQuestionIndex: prefs.getInt('securityQuestion') ?? 0,
-        securityAnswer: prefs.getString('securityAnswer'),
-      );
+      final user = UserModel.fromMap(await dbLocalAuthDatasource.getUser());
+      print('PASSWORD');
+      print(user.password);
+      // UserModel? user;
+      // final prefs = await SharedPreferences.getInstance();
+      // user = UserModel(
+      //   name: prefs.getString('username')!,
+      //   email: prefs.getString('email')!,
+      //   password: prefs.getString('password')!,
+      //   securityQuestionIndex: prefs.getInt('securityQuestion') ?? 0,
+      //   securityAnswer: prefs.getString('securityAnswer'),
+      // );
 
-      // await dbLocalAuthDatasource.openDatabase();
       if (user.password == password) {
         return Right(unit);
       } else {
@@ -66,18 +66,17 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword(
-      UserModel user) async {
+  Future<Either<AuthFailure, Unit>> registerWithPassword(UserModel user) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
+      // final prefs = await SharedPreferences.getInstance();
 
-      prefs.setString('username', user.name);
-      prefs.setString('email', user.email);
-      prefs.setString('password', user.password!);
-      prefs.setInt('securityQuestion', user.securityQuestionIndex);
-      prefs.setString('securityAnswer', user.securityAnswer!);
+      // prefs.setString('username', user.name);
+      // prefs.setString('email', user.email);
+      // prefs.setString('password', user.password!);
+      // prefs.setInt('securityQuestion', user.securityQuestionIndex);
+      // prefs.setString('securityAnswer', user.securityAnswer!);
 
-      // await dbLocalAuthDatasource.addUser(user.toMap());
+      await dbLocalAuthDatasource.addUser(user.toMap());
       return Right(unit);
     } catch (e) {
       print(e);
@@ -87,19 +86,41 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<AuthFailure, Unit>> changePassword(
-      {UserModel? user, bool forgot = false, String newPassword = ''}) async {
+      {String newPassword = ''}) async {
     try {
-      // String password = user!.password!;
-      // UserModel u = UserModel(
-      //   name: user.name,
-      //   email: user.email,
-      //   password: password,
-      //   securityQuestionIndex: user.securityQuestionIndex,
-      //   securityAnswer: user.securityAnswer,
-      // );
-      // // await dbLocalAuthDatasource.changePassword(u.toMap());
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString('password', newPassword);
+      final user = UserModel.fromMap(await dbLocalAuthDatasource.getUser());
+      UserModel u = UserModel(
+        name: user.name,
+        password: newPassword,
+        securityQuestionIndex: user.securityQuestionIndex,
+        securityAnswer: user.securityAnswer,
+        bioAuth: user.bioAuth,
+      );
+      await dbLocalAuthDatasource.changePassword(u.toMap());
+      // final prefs = await SharedPreferences.getInstance();
+      // prefs.setString('password', newPassword);
+      return Right(unit);
+    } catch (e) {
+      print(e);
+      return Left(PasswordChangeFailure());
+    }
+  }
+
+  @override
+  Future<Either<AuthFailure, Unit>> changeBioAuth(
+      {bool bioAuth = false}) async {
+    try {
+      final user = UserModel.fromMap(await dbLocalAuthDatasource.getUser());
+      UserModel u = UserModel(
+        name: user.name,
+        password: user.password,
+        securityQuestionIndex: user.securityQuestionIndex,
+        securityAnswer: user.securityAnswer,
+        bioAuth: bioAuth,
+      );
+      await dbLocalAuthDatasource.changeBioAuth(u.toMap());
+      // final prefs = await SharedPreferences.getInstance();
+      // prefs.setString('password', newPassword);
 
       return Right(unit);
     } catch (e) {
@@ -116,41 +137,34 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Option<UserModel>> getSignedInUser() async {
-    // final userMap = await dbLocalAuthDatasource.getUser();
-    final prefs = await SharedPreferences.getInstance();
+    print('ingetsigneIn user');
+    // await dbLocalAuthDatasource.deleteDatabase();
+    final userMap = await dbLocalAuthDatasource.getUser();
+    // final prefs = await SharedPreferences.getInstance();
 
-    final username = prefs.getString('username');
-    final email = prefs.getString('email');
-    final password = prefs.getString('password');
-    print('PASSWORT;');
-    print(password);
-    final sq = prefs.getInt('securityQuestion');
-    final sa = prefs.getString('securityAnswer');
+    // final username = prefs.getString('username');
+    // final email = prefs.getString('email');
+    // final password = prefs.getString('password');
+    // print('PASSWORT;');
+    // print(password);
+    // final sq = prefs.getInt('securityQuestion');
+    // final sa = prefs.getString('securityAnswer');
 
-    if (username != null && email != null) {
-      return optionOf(UserModel(
-          name: username,
-          email: email,
-          password: password,
-          securityQuestionIndex: sq ?? 0,
-          securityAnswer: sa));
-    } else {
-      return optionOf(null);
-    }
-
-    // if (userMap.isEmpty) {
-    //   return optionOf(null);
+    // if (username != null && email != null) {
+    //   return optionOf(UserModel(
+    //       name: username,
+    //       email: email,
+    //       password: password,
+    //       securityQuestionIndex: sq ?? 0,
+    //       securityAnswer: sa));
     // } else {
-    //   return optionOf(UserModel.fromMap(userMap));
+    //   return optionOf(null);
     // }
-    // return optionOf(null);
 
-    // return firebaseAuth.currentUser != null
-    //     ? optionOf(UserModel(
-    //         name: 'TestName',
-    //         email: firebaseAuth.currentUser!.email!,
-    //         password: null,
-    //       ))
-    //     : optionOf(null);
+    if (userMap.isEmpty) {
+      return optionOf(null);
+    } else {
+      return optionOf(UserModel.fromMap(userMap));
+    }
   }
 }

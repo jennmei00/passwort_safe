@@ -87,6 +87,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         controller: newPassword,
         enabled: true,
         login: true,
+        obscurePassword: true,
       ),
       SizedBox(height: 10),
       CustomTextField(
@@ -94,6 +95,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         controller: newPassword2,
         enabled: true,
         login: true,
+        obscurePassword: true,
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
@@ -122,8 +124,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     forgot: true,
                     newPassword: newPassword.text,
                   ));
-                  context.router.replace(const SplashPageRoute());
+                  context.router.replace(LoginPageRoute(user: widget.user.copyWith(password: newPassword.text)));
                 }
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Passwort wurde zurückgesetzt')));
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

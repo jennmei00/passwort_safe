@@ -6,6 +6,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:password_safe/application/password/controller/controller_bloc.dart';
 import 'package:password_safe/application/password/observer/observer_bloc.dart';
 import 'package:password_safe/core/failures/password_failures.dart';
+import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_overview_body.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
@@ -13,7 +14,9 @@ import 'package:password_safe/theme.dart';
 import 'package:password_safe/injection.dart';
 
 class PasswordOverViewPage extends StatelessWidget {
-  const PasswordOverViewPage({super.key});
+  final UserModel user;
+
+  const PasswordOverViewPage({super.key, required this.user});
 
   String _mapFailureToMessage(PasswordFailure todoFailure) {
     switch (todoFailure.runtimeType) {
@@ -59,7 +62,7 @@ class PasswordOverViewPage extends StatelessWidget {
                     child: FloatingActionButton(
                         onPressed: () {
                           AutoRouter.of(context)
-                              .push(const SettingsPageRoute());
+                              .push(SettingsPageRoute(user:  user));
                         },
                         child: Icon(
                           CommunityMaterialIcons.cog,

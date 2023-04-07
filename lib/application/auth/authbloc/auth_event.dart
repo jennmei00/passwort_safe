@@ -6,7 +6,9 @@ part of 'auth_bloc.dart';
 
 abstract class AuthEvent {}
 
-class SignOutPressedEvent extends AuthEvent {}
+class SignOutPressedEvent extends AuthEvent {
+  SignOutPressedEvent();
+}
 
 class AuthCheckRequestedEvent extends AuthEvent {}
 
@@ -23,17 +25,30 @@ class LoginPressedEvent extends AuthEvent {
   LoginPressedEvent({required this.password, required this.user});
 }
 
-class LocalAuthPressedEvent extends AuthEvent {
-  final UserModel? user;
+// class LocalAuthPressedEvent extends AuthEvent {
+//   final UserModel? user;
 
-  LocalAuthPressedEvent({required this.user});
-}
+//   LocalAuthPressedEvent({required this.user});
+// }
 
 class ChangePasswordPressedEvent extends AuthEvent {
-  final UserModel? user;
+  final UserModel user;
   final bool forgot;
   final String newPassword;
 
-  ChangePasswordPressedEvent(
-      {required this.user, required this.forgot, this.newPassword = ''});
+  ChangePasswordPressedEvent({
+    required this.forgot,
+    this.newPassword = '',
+    required this.user,
+  });
+}
+
+class ChangeBioAuthPressedEvent extends AuthEvent {
+  final bool bioAuth;
+  final UserModel user;
+
+  ChangeBioAuthPressedEvent({
+    this.bioAuth = false,
+    required this.user,
+  });
 }

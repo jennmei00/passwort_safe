@@ -8,6 +8,7 @@ abstract class DBLocalAuthDatasource {
   Future<Map<String, dynamic>> getUser();
   Future<void> addUser(Map<String, dynamic> data);
   Future<void> changePassword(Map<String, dynamic> data);
+  Future<void> changeBioAuth(Map<String, dynamic> data);
   Future<void> deleteUser();
 }
 
@@ -74,9 +75,17 @@ class DBLocalAuthDatasourceImpl implements DBLocalAuthDatasource {
     await batch.commit();
   }
 
+  @override
+  Future<void> changeBioAuth(Map<String, dynamic> data) async {
+    final db = await this.openDatabase();
+    sql.Batch batch = db.batch();
+    batch.update('User', data);
+    await batch.commit();
+  }
+
   Future<void> _createTables(sql.Database db, int version) async {
-    await db
-        .execute('CREATE TABLE User(name TEXT, email TEXT, password TEXT);');
+    await db.execute(
+        'CREATE TABLE User(name TEXT, password TEXT, securityQuestionIndex INTEGER, securityAnswer TEXT, bioAuth BOOLEAN);');
   }
 
   Future<void> _upgradeTables(

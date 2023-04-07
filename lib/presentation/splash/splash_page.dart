@@ -9,10 +9,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
 
-  Future<void> deleteUserPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.clear();
-  }
+  // Future<void> deleteUserPrefs() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   prefs.clear();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class SplashPage extends StatelessWidget {
         print(state);
         if (state is AuthStateAuthenticated) {
           // navigate to home
-          context.router.replace(const PasswordOverViewPageRoute());
+          context.router.replace(PasswordOverViewPageRoute(user: state.userModel));
         } else if (state is AuthStateUnauthenticated) {
           // navigate to signin
           context.router.replace(const SignUpPageRoute());

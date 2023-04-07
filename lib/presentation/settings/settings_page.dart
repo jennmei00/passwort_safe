@@ -2,12 +2,39 @@ import 'package:auto_route/auto_route.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:password_safe/application/auth/authbloc/auth_bloc.dart';
+import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
+import 'package:password_safe/presentation/routes/router.gr.dart';
+import 'package:password_safe/presentation/settings/change_passwort_page.dart';
 import 'package:password_safe/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+class SettingsPage extends StatefulWidget {
+  final UserModel user;
+
+  SettingsPage({super.key, required this.user});
+
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  Future<void> setBioAuth(BuildContext context, bool ba) async {
+    BlocProvider.of<AuthBloc>(context)
+        .add(ChangeBioAuthPressedEvent(bioAuth: ba, user: widget.user));
+
+    context.router.removeUntil((route) => route == SplashPageRoute());
+    context.router.push(const SplashPageRoute());
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +81,29 @@ class SettingsPage extends StatelessWidget {
                         Divider(thickness: 3),
                         ListTile(
                           title: GestureDetector(
-                              onTap: () {}, child: Text('Passwort ändern')),
+                              onTap: () {
+                                context.router.push(
+                                    ChangePasswordPageRoute(user: widget.user));
+                              },
+                              child: Text('Passwort ändern')),
                         ),
                         SwitchListTile(
-                          value: false,
-                          onChanged: (val) {},
+                          value: widget.user.bioAuth,
+                          onChanged: (val) async {
+                            if (val) {
+                              await LocalAuthentication()
+                                  .authenticate(
+                                      localizedReason:
+                                          'Authentifizieren, um die Anmeldeart zu genehmigen.')
+                                  .then((value) {
+                                if (value) {
+                                  setBioAuth(context, value);
+                                }
+                              });
+                            } else {
+                              setBioAuth(context, val);
+                            }
+                          },
                           title: Text('Biometr. Authentifizierung'),
                         ),
                       ]),

@@ -21,14 +21,12 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController password2Controller = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   double textFieldHeight = 40;
   double nameHeight = 40;
-  double emailHeight = 40;
   double passowrdHeight = 40;
   double passowrd2Height = 40;
 
@@ -41,27 +39,6 @@ class _SignUpPageState extends State<SignUpPage> {
     } else {
       setState(() {
         nameHeight = 40;
-      });
-      return null;
-    }
-  }
-
-  String? validateEmail(String? input) {
-    if (input == null || input.isEmpty) {
-      setState(() {
-        emailHeight = 60;
-      });
-      return 'Bitte E-Mail eingeben';
-    } else if (!RegExp(
-            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-        .hasMatch(input)) {
-      setState(() {
-        emailHeight = 60;
-      });
-      return "Bitte gültige E-Mail eingeben";
-    } else {
-      setState(() {
-        emailHeight = 40;
       });
       return null;
     }
@@ -147,12 +124,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                 validator: validateName,
                               ),
                               CustomTextField(
-                                label: 'EMAIL',
-                                controller: emailController,
-                                textFieldHeight: emailHeight,
-                                validator: validateEmail,
-                              ),
-                              CustomTextField(
                                 label: 'PASSWORT',
                                 controller: passwordController,
                                 enabled: true,
@@ -195,11 +166,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                                   // prefs: await SharedPreferences
                                                   //     .getInstance(),
                                                   user: UserModel(
-                                            email: emailController.text,
                                             name: nameController.text,
                                             password: passwordController.text,
                                             securityQuestionIndex: 0,
                                             securityAnswer: '',
+                                            bioAuth: false,
                                           )));
                                         }
                                       },

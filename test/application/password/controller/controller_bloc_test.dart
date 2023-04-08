@@ -34,6 +34,7 @@ void main() {
       email: 'test@email.de',
       password: 'TestPassword',
       link: 'TestLink',
+      info: 'InfoText',
       icon: CommunityMaterialIcons.netflix,
       favTag: false,
       emailTag: false,
@@ -54,7 +55,8 @@ void main() {
       verifyNoMoreInteractions(mockPasswordRepository);
     });
 
-     test('should emit in progress then the success state after event is added', () async {
+    test('should emit in progress then the success state after event is added',
+        () async {
       //arrange
       when(mockPasswordRepository.delete(tPassword))
           .thenAnswer((_) async => Right(unit));
@@ -71,7 +73,9 @@ void main() {
       controllerBloc.add(DeletePasswordEvent(password: tPassword));
     });
 
-    test('should emit in progress then the failure state after event is added -> db failure', () async {
+    test(
+        'should emit in progress then the failure state after event is added -> db failure',
+        () async {
       //arrange
       when(mockPasswordRepository.delete(tPassword))
           .thenAnswer((_) async => Left(DBFailure()));
@@ -97,6 +101,7 @@ void main() {
       email: 'test@email.de',
       password: 'TestPassword',
       link: 'TestLink',
+      info: 'InfoText',
       icon: CommunityMaterialIcons.netflix,
       favTag: false,
       emailTag: false,
@@ -117,7 +122,8 @@ void main() {
       verifyNoMoreInteractions(mockPasswordRepository);
     });
 
-     test('should emit in progress then the success state after event is added', () async {
+    test('should emit in progress then the success state after event is added',
+        () async {
       //arrange
       when(mockPasswordRepository.update(tPassword))
           .thenAnswer((_) async => Right(unit));
@@ -134,7 +140,9 @@ void main() {
       controllerBloc.add(UpdatePasswordEvent(password: tPassword));
     });
 
-    test('should emit in progress then the failure state after event is added -> db failure', () async {
+    test(
+        'should emit in progress then the failure state after event is added -> db failure',
+        () async {
       //arrange
       when(mockPasswordRepository.update(tPassword))
           .thenAnswer((_) async => Left(DBFailure()));

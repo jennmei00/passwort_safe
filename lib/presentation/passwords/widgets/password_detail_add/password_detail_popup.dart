@@ -101,6 +101,11 @@ class PasswordDetailPopup extends StatelessWidget {
             controller: TextEditingController(text: password.password),
             obscurePassword: true,
           ),
+          password.info != '' ? CustomTextField(
+            label: 'INFO',
+            enabled: false,
+            controller: TextEditingController(text: password.info),
+          ) : Container(),
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -19,34 +19,39 @@ class SplashPage extends StatelessWidget {
     // deleteUserPrefs();
     print('Load SplashScreen');
     // return PasswordOverViewPage();
-    return BlocListener<AuthBloc, AuthState>(
-      listenWhen: (previous, current) {
-        print('LISTENWHEN');
-        print(previous);
-        print(current);
-        return previous != current;
-      },
-      listener: (context, state) {
-        print('HEEEEEERE');
-        print(state);
-        if (state is AuthStateAuthenticated) {
-          // navigate to home
-          context.router.replace(PasswordOverViewPageRoute(user: state.userModel));
-        } else if (state is AuthStateUnauthenticated) {
-          // navigate to signin
-          context.router.replace(const SignUpPageRoute());
-        } else if (state is AuthStateTryLogin) {
-          //navigate to login
-          context.router.replace(LoginPageRoute(user: state.userModel));
-        }
-      },
-      child: Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-        ),
-      ),
-    );
+    return BlocConsumer<AuthBloc, AuthState>(listenWhen: (previous, current) {
+      print('LISTENWHEN');
+      print(previous);
+      print(current);
+      return previous != current;
+    }, listener: (context, state) {
+      print('HEEEEEERE');
+      print(state);
+      // if (state is AuthStateAuthenticated) {
+      //   // navigate to home
+      //   context.router
+      //       .replace(PasswordOverViewPageRoute(user: state.userModel));
+      // } else
+       if (state is AuthStateUnauthenticated) {
+        // navigate to signin
+        context.router.replace(const SignUpPageRoute());
+      } else if (state is AuthStateTryLogin) {
+        //navigate to login
+        context.router.replace(LoginPageRoute(user: state.userModel));
+      }
+    }, builder: (context, state) {
+      print('Im Builder SplashScreen');
+      print(state);
+
+      return state is AuthStateAuthenticated
+          ? PasswordOverViewPage(user: state.userModel)
+          : Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+            );
+    });
   }
 }

@@ -43,6 +43,7 @@ class PasswordRepositoryImpl implements PasswordRepository {
         .map((event) => right<PasswordFailure, List<Password>>(
             event.map((e) => PasswordModel.fromMap(e).toDomain()).toList()))
         .handleError((e) {
+          print(e);
       return Left(DBFailure);
     });
   }

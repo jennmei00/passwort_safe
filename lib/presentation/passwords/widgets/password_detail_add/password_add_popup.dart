@@ -23,7 +23,7 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
   final textEditingControllerEmail = TextEditingController();
   final textEditingControllerPassword = TextEditingController();
   final textEditingControllerLink = TextEditingController();
-  final textEditingControllerZusatz = TextEditingController();
+  final textEditingControllerInfo = TextEditingController();
 
   IconData iconData = CommunityMaterialIcons.cart;
 
@@ -35,6 +35,7 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
       textEditingControllerEmail.text = widget.password!.email;
       textEditingControllerPassword.text = widget.password!.password;
       textEditingControllerLink.text = widget.password!.link;
+      textEditingControllerInfo.text = widget.password!.info;
     }
   }
 
@@ -79,6 +80,7 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
                       passwordText: textEditingControllerPassword.text,
                       link: textEditingControllerLink.text,
                       icon: iconData,
+                      info: textEditingControllerInfo.text,
                     ),
                   );
                   // } else {
@@ -102,7 +104,7 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
                     textEditingControllerPassword:
                         textEditingControllerPassword,
                     textEditingControllerLink: textEditingControllerLink,
-                    textEditingControllerZusatz: textEditingControllerZusatz,
+                    textEditingControllerInfo: textEditingControllerInfo,
                     iconPressed: (icon) {
                       print('PRESSED');
                       setState(() {

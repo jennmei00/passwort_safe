@@ -32,13 +32,15 @@ class PasswordformBloc extends Bloc<PasswordformEvent, PasswordformState> {
           event.name != null &&
           event.email != null &&
           event.link != null &&
-          event.icon != null) {
+          event.icon != null &&
+          event.info != null) {
         final Password editedPassword = state.password.copyWith(
           password: event.passwordText,
           title: event.title,
           name: event.name,
           email: event.email,
           link: event.link,
+          info: event.info,
           icon: event.icon,
         );
 

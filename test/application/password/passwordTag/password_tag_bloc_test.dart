@@ -24,7 +24,8 @@ void main() {
 
   test('initState should be PasswordFormState.initial', () {
     //assert
-    expect(passwordTagBloc.state.runtimeType, equals(PasswordTagState.initial().runtimeType));
+    expect(passwordTagBloc.state.runtimeType,
+        equals(PasswordTagState.initial().runtimeType));
   });
 
   group('InitializePasswordDetailContainer', () {
@@ -35,6 +36,7 @@ void main() {
       email: 'test@email.de',
       password: 'TestPassword',
       link: 'TestLink',
+      info: 'InfoText',
       icon: CommunityMaterialIcons.netflix,
       favTag: false,
       emailTag: false,
@@ -60,6 +62,7 @@ void main() {
       email: 'test@email.de',
       password: 'TestPassword',
       link: 'TestLink',
+      info: 'InfoText',
       icon: CommunityMaterialIcons.netflix,
       favTag: false,
       emailTag: false,
@@ -92,7 +95,8 @@ void main() {
       verifyNoMoreInteractions(mockPasswordRepository);
     });
 
-    test('should get falure and first isSaving=true then isSaving=false', () async {
+    test('should get falure and first isSaving=true then isSaving=false',
+        () async {
       //arrange
       when(mockPasswordRepository.update(any))
           .thenAnswer((_) async => Left(DBFailure()));

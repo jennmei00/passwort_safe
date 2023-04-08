@@ -42,7 +42,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       // await dbLocalAuthDatasource.deleteDatabase();
       final user = UserModel.fromMap(await dbLocalAuthDatasource.getUser());
-      print('PASSWORD');
+      print('PASSWORD im loginWithPassword()');
       print(user.password);
       // UserModel? user;
       // final prefs = await SharedPreferences.getInstance();

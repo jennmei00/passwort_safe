@@ -9,6 +9,7 @@ class Password {
   final String email;
   final String password;
   final String link;
+  final String info;
   final IconData icon;
   final bool favTag;
   final bool emailTag;
@@ -23,6 +24,7 @@ class Password {
     required this.password,
     required this.link,
     required this.icon,
+    required this.info,
     // required this.tags,
     required this.favTag,
     required this.emailTag,
@@ -37,6 +39,7 @@ class Password {
       email: '',
       password: '',
       link: '',
+      info: '',
       icon: CommunityMaterialIcons.image_plus,
       // tags: [],
       favTag: false,
@@ -52,6 +55,7 @@ class Password {
     String? email,
     String? password,
     String? link,
+    String? info,
     IconData? icon,
     // List<Icon>? tags,
     bool? favTag,
@@ -65,6 +69,7 @@ class Password {
       email: email ?? this.email,
       password: password ?? this.password,
       link: link ?? this.link,
+      info: info ?? this.info,
       icon: icon ?? this.icon,
       // tags: tags ?? this.tags,
       favTag: favTag ?? this.favTag,

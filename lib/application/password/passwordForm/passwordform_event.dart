@@ -14,6 +14,7 @@ class SafePressedEvent extends PasswordformEvent {
   final String? email;
   final String? passwordText;
   final String? link;
+  final String? info;
   final IconData? icon;
 
   SafePressedEvent({
@@ -22,6 +23,7 @@ class SafePressedEvent extends PasswordformEvent {
     required this.email,
     required this.passwordText,
     required this.link,
+    required this.info,
     required this.icon,
   });
 }

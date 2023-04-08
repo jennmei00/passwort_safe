@@ -147,7 +147,7 @@ class DBLocalDatasourceImpl implements DBLocalDatasource {
   Future<void> _createTables(sql.Database db, int version) async {
     await db.execute(
         'CREATE TABLE Password(id TEXT PRIAMRY KEY, title TEXT, name TEXT, email TEXT, password TEXT, '
-        'link TEXT, codePoint INTEGER, fontFamily TEXT, fontPackage TEXT, matchTextDirection BOOLEAN, '
+        'link TEXT, info TEXT, codePoint INTEGER, fontFamily TEXT, fontPackage TEXT, matchTextDirection BOOLEAN, '
         'favoriteTag BOOLEAN, mailTag BOOLEAN, networkTag BOOLEAN);');
   }
 

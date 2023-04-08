@@ -12,7 +12,7 @@ class PasswordForm extends StatefulWidget {
   final TextEditingController textEditingControllerEmail;
   final TextEditingController textEditingControllerPassword;
   final TextEditingController textEditingControllerLink;
-  final TextEditingController textEditingControllerZusatz;
+  final TextEditingController textEditingControllerInfo;
   final Function iconPressed;
   final IconData icon;
 
@@ -23,7 +23,7 @@ class PasswordForm extends StatefulWidget {
     required this.textEditingControllerEmail,
     required this.textEditingControllerPassword,
     required this.textEditingControllerLink,
-    required this.textEditingControllerZusatz,
+    required this.textEditingControllerInfo,
     required this.iconPressed,
     required this.icon,
     Key? key,
@@ -183,8 +183,8 @@ class _PasswordFormState extends State<PasswordForm> {
               controller: widget.textEditingControllerLink,
             ),
             CustomTextField(
-              label: 'ZUSATZ',
-              controller: widget.textEditingControllerZusatz,
+              label: 'INFO',
+              controller: widget.textEditingControllerInfo,
             ),
           ]),
         );

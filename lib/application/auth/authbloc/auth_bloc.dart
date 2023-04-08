@@ -32,6 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       failureOrSuccess.fold((l) => null,
           (r) => emit(AuthStateAuthenticated(userModel: event.user!)));
       print('Im LoginPressedEvent');
+      print(failureOrSuccess);
     });
 
     on<RegisterPressedEvent>((event, emit) async {
@@ -56,6 +57,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthStateTryLogin(
             userModel: event.user.copyWith(password: event.newPassword)));
       }
+
       // failureOrSuccess.fold((l) => emit(AuthStateAuthDenied()),
       //     (r) => emit(AuthStateAuthenticated()));
     });

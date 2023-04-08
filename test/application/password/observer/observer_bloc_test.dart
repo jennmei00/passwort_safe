@@ -34,6 +34,7 @@ void main() {
       email: 'test@email.de',
       password: 'TestPassword',
       link: 'TestLink',
+      info: 'Infotext',
       icon: CommunityMaterialIcons.netflix,
       favTag: false,
       emailTag: false,

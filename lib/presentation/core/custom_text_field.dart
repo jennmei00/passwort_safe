@@ -39,7 +39,7 @@ class CustomTextField extends StatelessWidget {
                 style: TextStyle(fontSize: 15),
               ),
               Container(
-                height: label != 'ZUSATZ' ? textFieldHeight : null,
+                height: label != 'INFO' ? textFieldHeight : null,
                 decoration: BoxDecoration(
                     gradient: AppTheme.textFieldGradient,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -73,7 +73,7 @@ class CustomTextField extends StatelessWidget {
                           alignment: Alignment.center,
                           padding: EdgeInsets.symmetric(
                               horizontal: 30,
-                              vertical: label == 'ZUSATZ' ? 5 : 0),
+                              vertical: label == 'INFO' ? 5 : 0),
                           child: TextFormField(
                             cursorColor:
                                 Theme.of(context).colorScheme.secondary,
@@ -90,8 +90,8 @@ class CustomTextField extends StatelessWidget {
                               isCollapsed: true,
                             ),
                             style: TextStyle(fontSize: 20),
-                            minLines: label == 'ZUSATZ' ? 1 : null,
-                            maxLines: label == 'ZUSATZ' ? 5 : 1,
+                            minLines: label == 'INFO' ? 1 : null,
+                            maxLines: label == 'INFO' ? 5 : 1,
                           ),
                         ),
                       ),

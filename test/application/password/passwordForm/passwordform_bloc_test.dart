@@ -23,7 +23,8 @@ void main() {
 
   test('initState should be PasswordFormState.initial', () {
     //assert
-    expect(passwordformBloc.state.runtimeType, equals(PasswordformState.initial().runtimeType));
+    expect(passwordformBloc.state.runtimeType,
+        equals(PasswordformState.initial().runtimeType));
   });
 
   group('InitializePasswordDetailContainer', () {
@@ -34,6 +35,7 @@ void main() {
       email: 'test@email.de',
       password: 'TestPassword',
       link: 'TestLink',
+      info: 'InfoText',
       icon: CommunityMaterialIcons.netflix,
       favTag: false,
       emailTag: false,
@@ -69,6 +71,7 @@ void main() {
       email: 'test@email.de',
       password: 'TestPassword',
       link: 'TestLink',
+      info: 'InfoText',
       icon: CommunityMaterialIcons.netflix,
       favTag: false,
       emailTag: false,
@@ -81,6 +84,7 @@ void main() {
     final tPasswordText = 'TestPassword';
     final tLink = 'TestLink';
     final tIcon = CommunityMaterialIcons.netflix;
+    final tInfo = 'InfoText';
 
     test('should call update', () async {
       //arrange
@@ -97,6 +101,7 @@ void main() {
         passwordText: tPasswordText,
         link: tLink,
         icon: tIcon,
+        info: tInfo,
       ));
 
       await untilCalled(mockPasswordRepository.update(any));
@@ -119,6 +124,7 @@ void main() {
         email: tEmail,
         passwordText: tPasswordText,
         link: tLink,
+        info: tInfo,
         icon: tIcon,
       ));
 

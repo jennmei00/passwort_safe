@@ -9,6 +9,7 @@ class PasswordModel {
   final String email;
   final String password;
   final String link;
+  final String info;
   final int codePoint;
   final String? fontFamily;
   final String? fontPackage;
@@ -24,6 +25,7 @@ class PasswordModel {
     required this.email,
     required this.password,
     required this.link,
+    required this.info,
     required this.codePoint,
     required this.fontFamily,
     required this.fontPackage,
@@ -41,6 +43,7 @@ class PasswordModel {
       'email': email,
       'password': password,
       'link': link,
+      'info': info,
       'codePoint': codePoint,
       'fontFamily': fontFamily,
       'fontPackage': fontPackage,
@@ -59,6 +62,7 @@ class PasswordModel {
       email: map['email'] as String,
       password: map['password'] as String,
       link: map['link'] as String,
+      info: map['info'] == null ? '' : map['info'] as String,
       codePoint: map['codePoint'] as int,
       fontFamily: map['fontFamily'] as String,
       fontPackage: map['fontPackage'] as String,
@@ -76,6 +80,7 @@ class PasswordModel {
     String? email,
     String? password,
     String? link,
+    String? info,
     int? codePoint,
     String? fontFamily,
     String? fontPackage,
@@ -91,6 +96,7 @@ class PasswordModel {
       email: email ?? this.email,
       password: password ?? this.password,
       link: link ?? this.link,
+      info: info ?? this.info,
       codePoint: codePoint ?? this.codePoint,
       fontFamily: fontFamily ?? this.fontFamily,
       fontPackage: fontPackage ?? this.fontPackage,
@@ -109,6 +115,7 @@ class PasswordModel {
       email: email,
       password: password,
       link: link,
+      info: info,
       icon: IconData(codePoint,
           fontFamily: fontFamily,
           fontPackage: fontPackage,
@@ -139,6 +146,7 @@ class PasswordModel {
       email: passwordItem.email,
       password: passwordItem.password,
       link: passwordItem.link,
+      info: passwordItem.info,
       codePoint: passwordItem.icon.codePoint,
       fontFamily: passwordItem.icon.fontFamily,
       fontPackage: passwordItem.icon.fontPackage,

@@ -70,5 +70,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       // failureOrSuccess.fold((l) => emit(AuthStateAuthDenied()),
       //     (r) => emit(AuthStateAuthenticated()));
     });
+
+    on<DeleteAccountPressedEvent>((event, emit) async {
+      await authRepository.deleteAccount();
+      emit(AuthStateUnauthenticated());
+    });
   }
 }

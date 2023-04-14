@@ -167,4 +167,9 @@ class AuthRepositoryImpl implements AuthRepository {
       return optionOf(UserModel.fromMap(userMap));
     }
   }
+
+  @override
+  Future<void> deleteAccount() async {
+    await dbLocalAuthDatasource.deleteDatabase();
+  }
 }

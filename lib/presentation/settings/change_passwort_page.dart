@@ -9,6 +9,7 @@ import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
+import 'package:password_safe/presentation/settings/widgets/change_password_form.dart';
 import 'package:password_safe/theme.dart';
 
 class ChangePasswordPage extends StatefulWidget {
@@ -58,7 +59,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
-                            child: ChangePasswordForm(context, widget.user),
+                            child: ChangePasswordForm(user: widget.user),
                           ),
                         ),
                       ],
@@ -72,117 +73,4 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       ),
     );
   }
-}
-
-Widget ChangePasswordForm(BuildContext context, UserModel user) {
-  TextEditingController newPassword = TextEditingController();
-  TextEditingController newPassword2 = TextEditingController();
-  TextEditingController oldPassword = TextEditingController();
-
-  return Column(
-    // mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      CustomTextField(
-        label: 'Altes Passwort',
-        controller: oldPassword,
-        enabled: true,
-        login: true,
-        obscurePassword: true,
-      ),
-      CustomTextField(
-        label: 'Neues Passwort',
-        controller: newPassword,
-        enabled: true,
-        login: true,
-        obscurePassword: true,
-      ),
-      SizedBox(height: 10),
-      CustomTextField(
-        label: 'Neues Passwort Wiederholen',
-        controller: newPassword2,
-        enabled: true,
-        login: true,
-        obscurePassword: true,
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // CircleAvatar(
-            //   backgroundColor: Colors.greenAccent.withOpacity(0.3),
-            //   child: PlatformIconButton(
-            //     onPressed: () {
-            //       // context.router.pop();
-            //     },
-            //     materialIcon: Icon(CommunityMaterialIcons.rotate_left),
-            //     color: AppTheme.addCardPlusColor,
-            //   ),
-            // ),
-            PlatformElevatedButton(
-              onPressed: () async {
-                try {
-                  if (oldPassword.text != user.password) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Altes Passwort stimmt nicht')));
-                  } else if (newPassword.text != newPassword2.text) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Passwörter stimmen nicht überein')));
-                  } else {
-                    BlocProvider.of<AuthBloc>(context).add(
-                        ChangePasswordPressedEvent(
-                            user: user,
-                            forgot: false,
-                            newPassword: newPassword.text));
-
-                    // BlocProvider.of<AuthBloc>(context)
-                    //     .add(SignOutPressedEvent());
-                    context.router
-                        .removeUntil((route) => route == SplashPageRoute());
-                    context.router.push(const SplashPageRoute());
-
-                    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    //     content: Text('Passwort wurde erfolgreich geändert')));
-                  }
-                } catch (e) {
-                  print(e);
-                }
-                // if (newPassword.text != newPassword2.text) {
-                //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                //       content: Text('Passwörter stimmen nicht überein')));
-                // } else {
-                //   BlocProvider.of<AuthBloc>(context)
-                //       .add(ChangePasswordPressedEvent(
-                //     user: widget.user,
-                //     forgot: true,
-                //     newPassword: newPassword.text,
-                //   ));
-                //   context.router.replace(LoginPageRoute(
-                //       user: widget.user.copyWith(password: newPassword.text)));
-                // }
-                // ScaffoldMessenger.of(context).showSnackBar(
-                //     SnackBar(content: Text('Passwort wurde zurückgesetzt')));
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Ändern',
-                  style: TextStyle(
-                      color: Colors.redAccent.withOpacity(0.5), fontSize: 20),
-                ),
-              ),
-              material: (context, platform) => MaterialElevatedButtonData(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  )),
-                ),
-              ),
-            ),
-          ],
-        ),
-      )
-    ],
-  );
 }

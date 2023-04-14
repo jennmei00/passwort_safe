@@ -7,6 +7,7 @@ import 'package:password_safe/infrastructure/models/user_model.dart';
 
 abstract class AuthRepository {
   Future<void> signOut();
+  Future<void> deleteAccount();
   Future<Either<AuthFailure, Unit>> authenticateWithLocalAuth();
   Future<Either<AuthFailure, Unit>> loginWithPassword(String password);
   Future<Either<AuthFailure, Unit>> registerWithPassword(

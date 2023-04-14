@@ -50,6 +50,11 @@ class _SignUpPageState extends State<SignUpPage> {
         passowrdHeight = 60;
       });
       return 'Bitte Passwort eingeben';
+    } else if (input.length < 5) {
+      setState(() {
+        passowrdHeight = 60;
+      });
+      return 'mind. 5 Zeichen nötig';
     } else {
       setState(() {
         passowrdHeight = 40;

@@ -2,14 +2,18 @@ import 'package:auto_route/auto_route.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:password_safe/application/auth/authbloc/auth_bloc.dart';
+import 'package:password_safe/infrastructure/datasources/db_local_auth_datasource.dart';
+import 'package:password_safe/infrastructure/datasources/db_local_datasource.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/presentation/settings/change_passwort_page.dart';
+import 'package:password_safe/presentation/settings/widgets/dialog_widget.dart';
 import 'package:password_safe/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -91,15 +95,25 @@ class _SettingsPageState extends State<SettingsPage> {
                           value: widget.user.bioAuth,
                           onChanged: (val) async {
                             if (val) {
-                              await LocalAuthentication()
-                                  .authenticate(
-                                      localizedReason:
-                                          'Authentifizieren, um die Anmeldeart zu genehmigen.')
-                                  .then((value) {
-                                if (value) {
-                                  setBioAuth(context, value);
+                              try {
+                                await LocalAuthentication()
+                                    .authenticate(
+                                        localizedReason:
+                                            'Authentifizieren, um die Anmeldeart zu genehmigen.')
+                                    .then((value) {
+                                  if (value) {
+                                    setBioAuth(context, value);
+                                  }
+                                });
+                              } catch (e) {
+                                print(e);
+                                if (e is PlatformException) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'Dein Gerät verfügt nicht über diese Funktion.')));
                                 }
-                              });
+                              }
                             } else {
                               setBioAuth(context, val);
                             }
@@ -130,13 +144,103 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                         ),
                         Divider(thickness: 3),
+                        // ListTile(
+                        //   title: GestureDetector(
+                        //       onTap: () {}, child: Text('CSV Import')),
+                        // ),
+                        // ListTile(
+                        //   title: GestureDetector(
+                        //       onTap: () {}, child: Text('CSV Export')),
+                        // ),
                         ListTile(
                           title: GestureDetector(
-                              onTap: () {}, child: Text('CSV Import')),
+                            onTap: () {
+                              showPlatformDialog(
+                                context: context,
+                                builder: (context) => DialogWidget(
+                                    icon: Icon(
+                                        CommunityMaterialIcons.database_remove),
+                                    title: 'Daten löschen',
+                                    content:
+                                        'Bist du sicher, das du deine Daten löschen willst?',
+                                    deletePressed: () async {
+                                      try {
+                                        await DBLocalDatasourceImpl()
+                                            .deleteDatabase();
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content: Text(
+                                              'Deine Daten wurden gelöscht'),
+                                        ));
+                                        context.router.pop();
+                                        context.router.popAndPush(
+                                            PasswordOverViewPageRoute(
+                                                user: widget.user));
+                                      } catch (e) {
+                                        print(e);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                'Etwas ist schiefgelaufen :('),
+                                          ),
+                                        );
+                                        context.router.pop();
+                                      }
+                                    }),
+                              );
+                            },
+                            child: Text(
+                              'Daten löschen',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
                         ),
                         ListTile(
                           title: GestureDetector(
-                              onTap: () {}, child: Text('CSV Export')),
+                            onTap: () {
+                              showPlatformDialog(
+                                context: context,
+                                builder: (context) => DialogWidget(
+                                    icon: Icon(
+                                        CommunityMaterialIcons.account_remove),
+                                    title: 'Konto löschen',
+                                    content:
+                                        'Bist du sicher, das du dein komplettes Konto löschen willst?',
+                                    deletePressed: () async {
+                                      try {
+                                        await DBLocalDatasourceImpl()
+                                            .deleteDatabase();
+
+                                        BlocProvider.of<AuthBloc>(context)
+                                            .add(DeleteAccountPressedEvent());
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content:
+                                              Text('Dein Konto wurde gelöscht'),
+                                        ));
+                                        context.router.pop();
+                                        context.router
+                                            .popAndPush(SplashPageRoute());
+                                      } catch (e) {
+                                        print(e);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                'Etwas ist schiefgelaufen :('),
+                                          ),
+                                        );
+                                        context.router.pop();
+                                      }
+                                    }),
+                              );
+                            },
+                            child: Text(
+                              'Konto löschen',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
                         ),
                       ]),
                 ),

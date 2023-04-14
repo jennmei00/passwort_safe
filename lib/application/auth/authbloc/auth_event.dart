@@ -25,6 +25,8 @@ class LoginPressedEvent extends AuthEvent {
   LoginPressedEvent({required this.password, required this.user});
 }
 
+class DeleteAccountPressedEvent extends AuthEvent {}
+
 // class LocalAuthPressedEvent extends AuthEvent {
 //   final UserModel? user;
 

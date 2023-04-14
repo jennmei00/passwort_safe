@@ -49,26 +49,26 @@ class _PasswordFormState extends State<PasswordForm> {
     }
   }
 
-  String? validateName(String? input) {
-    if (input == null || input.isEmpty) {
-      setState(() {
-        nameHeight = 60;
-      });
-      return 'Bitte Name eingeben';
-    } else {
-      setState(() {
-        nameHeight = 40;
-      });
-      return null;
-    }
-  }
+  // String? validateName(String? input) {
+  //   if (input == null || input.isEmpty) {
+  //     setState(() {
+  //       nameHeight = 60;
+  //     });
+  //     return 'Bitte Name eingeben';
+  //   } else {
+  //     setState(() {
+  //       nameHeight = 40;
+  //     });
+  //     return null;
+  //   }
+  // }
 
   String? validateEmail(String? input) {
     if (input == null || input.isEmpty) {
       setState(() {
-        emailHeight = 60;
+        emailHeight = 40;
       });
-      return 'Bitte E-Mail eingeben';
+      return null;
     } else if (!RegExp(
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(input)) {
@@ -148,7 +148,7 @@ class _PasswordFormState extends State<PasswordForm> {
                       maxLines: 2,
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'Titel...',
+                        hintText: '* Titel...',
                       ),
                       style: themeData.textTheme.headlineSmall,
                     ),
@@ -163,7 +163,7 @@ class _PasswordFormState extends State<PasswordForm> {
             CustomTextField(
               textFieldHeight: nameHeight,
               label: 'NAME',
-              validator: validateName,
+              // validator: validateName,
               controller: widget.textEditingControllerName,
             ),
             CustomTextField(
@@ -174,8 +174,9 @@ class _PasswordFormState extends State<PasswordForm> {
             ),
             CustomTextField(
               textFieldHeight: passowrdHeight,
-              label: 'PASSWORT',
+              label: '* PASSWORT',
               validator: validatePassword,
+              obscurePassword: true,
               controller: widget.textEditingControllerPassword,
             ),
             CustomTextField(

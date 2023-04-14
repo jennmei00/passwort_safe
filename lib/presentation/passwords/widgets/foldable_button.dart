@@ -199,7 +199,7 @@ class _FoldableButtonState extends State<FoldableButton>
               (eitherFailureOrSuccess) => eitherFailureOrSuccess.fold(
                   (failure) => ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                          content: Text("Failure"),
+                          content: Text("Etwas ist schiefgelaufen :("),
                           backgroundColor: Colors.redAccent)),
                   (_) => null));
         },

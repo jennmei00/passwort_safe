@@ -10,7 +10,6 @@ import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_overview_body.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
-import 'package:password_safe/theme.dart';
 import 'package:password_safe/injection.dart';
 
 class PasswordOverViewPage extends StatelessWidget {
@@ -62,7 +61,7 @@ class PasswordOverViewPage extends StatelessWidget {
                     child: FloatingActionButton(
                         onPressed: () {
                           AutoRouter.of(context)
-                              .push(SettingsPageRoute(user:  user));
+                              .push(SettingsPageRoute(user: user));
                         },
                         child: Icon(
                           CommunityMaterialIcons.cog,

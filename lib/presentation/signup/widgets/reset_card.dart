@@ -37,6 +37,11 @@ class _ResetCardState extends State<ResetCard> {
         passowrdHeight = 60;
       });
       return 'mind. 5 Zeichen nötig';
+    } else if (input == widget.user.password) {
+      setState(() {
+        passowrdHeight = 60;
+      });
+      return 'Bitte benutze ein anderes Passwort';
     } else {
       setState(() {
         passowrdHeight = 40;
@@ -103,7 +108,10 @@ class _ResetCardState extends State<ResetCard> {
                   if (_formKey.currentState!.validate()) {
                     if (newPassword.text != newPassword2.text) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Passwörter stimmen nicht überein')));
+                          content: Text(
+                        'Passwörter stimmen nicht überein',
+                        style: AppTheme.darkSnackBarTextStyle,
+                      )));
                     } else {
                       BlocProvider.of<AuthBloc>(context)
                           .add(ChangePasswordPressedEvent(
@@ -116,7 +124,10 @@ class _ResetCardState extends State<ResetCard> {
                               .copyWith(password: newPassword.text)));
                     }
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Passwort wurde zurückgesetzt')));
+                        content: Text(
+                      'Passwort wurde zurückgesetzt',
+                      style: AppTheme.darkSnackBarTextStyle,
+                    )));
                   }
                 },
                 child: Padding(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CustomPopupCard extends StatelessWidget {
   final bool add;
-  final Function buttonPressed;
+  final Function? buttonPressed;
   final Widget child;
   final String? linkTooltip;
   const CustomPopupCard(
@@ -15,6 +15,8 @@ class CustomPopupCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(buttonPressed);
+
     final themeData = Theme.of(context);
     final double ellipseSize = 70;
     final double saveIconSize = 40;
@@ -57,7 +59,8 @@ class CustomPopupCard extends StatelessWidget {
                         size: saveIconSize,
                       ),
                       tooltip: linkTooltip,
-                      onPressed: () => buttonPressed(),
+                      onPressed:
+                          buttonPressed == null ? null : () => buttonPressed!(),
                     )),
               ),
             ],

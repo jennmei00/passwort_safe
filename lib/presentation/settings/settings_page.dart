@@ -7,15 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:password_safe/application/auth/authbloc/auth_bloc.dart';
-import 'package:password_safe/infrastructure/datasources/db_local_auth_datasource.dart';
 import 'package:password_safe/infrastructure/datasources/db_local_datasource.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
-import 'package:password_safe/presentation/settings/change_passwort_page.dart';
 import 'package:password_safe/presentation/settings/widgets/dialog_widget.dart';
 import 'package:password_safe/theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
   final UserModel user;
@@ -108,10 +105,12 @@ class _SettingsPageState extends State<SettingsPage> {
                               } catch (e) {
                                 print(e);
                                 if (e is PlatformException) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
                                           content: Text(
-                                              'Dein Gerät verfügt nicht über diese Funktion.')));
+                                    'Dein Gerät verfügt nicht über diese Funktion.',
+                                    style: AppTheme.darkSnackBarTextStyle,
+                                  )));
                                 }
                               }
                             } else {
@@ -170,7 +169,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
                                           content: Text(
-                                              'Deine Daten wurden gelöscht'),
+                                            'Deine Daten wurden gelöscht',
+                                            style:
+                                                AppTheme.darkSnackBarTextStyle,
+                                          ),
                                         ));
                                         context.router.pop();
                                         context.router.popAndPush(
@@ -181,8 +183,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
+                                            backgroundColor: Colors.redAccent,
                                             content: Text(
-                                                'Etwas ist schiefgelaufen :('),
+                                              'Etwas ist schiefgelaufen :(',
+                                            ),
                                           ),
                                         );
                                         context.router.pop();
@@ -216,8 +220,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                             .add(DeleteAccountPressedEvent());
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
-                                          content:
-                                              Text('Dein Konto wurde gelöscht'),
+                                          content: Text(
+                                            'Dein Konto wurde gelöscht',
+                                            style:
+                                                AppTheme.darkSnackBarTextStyle,
+                                          ),
                                         ));
                                         context.router.pop();
                                         context.router
@@ -227,6 +234,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
+                                            backgroundColor: Colors.redAccent,
                                             content: Text(
                                                 'Etwas ist schiefgelaufen :('),
                                           ),

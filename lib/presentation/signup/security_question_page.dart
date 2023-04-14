@@ -1,21 +1,14 @@
-import 'dart:ui';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:password_safe/core/enums.dart';
-import 'package:password_safe/domain/repositories/auth_repository.dart';
-import 'package:password_safe/infrastructure/datasources/db_local_datasource.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
-import 'package:password_safe/infrastructure/repositories/auth_repository_impl.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
-import 'package:password_safe/presentation/splash/splash_page.dart';
 import 'package:password_safe/theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../application/auth/authbloc/auth_bloc.dart';
 

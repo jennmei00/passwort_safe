@@ -53,9 +53,12 @@ class CustomTextField extends StatelessWidget {
                               child: Icon(
                                   CommunityMaterialIcons.link_variant_plus))
                           : SizedBox(),
-                      ((label == 'PASSWORT' ||
-                                  label == 'PASSWORT WIEDERHOLEN' || label == 'Neues Passwort' || label == 'Neues Passwort Wiederholen' || label == 'Altes Passwort') &&
-                              (!enabled || login))
+                      (label == 'PASSWORT' ||
+                              label == '* PASSWORT' ||
+                              label == 'PASSWORT WIEDERHOLEN' ||
+                              label == 'Neues Passwort' ||
+                              label == 'Neues Passwort Wiederholen' ||
+                              label == 'Altes Passwort')
                           ? Container(
                               padding: EdgeInsets.only(right: 2),
                               alignment: Alignment.centerRight,

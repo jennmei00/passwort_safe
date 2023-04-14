@@ -6,6 +6,7 @@ import 'package:password_safe/application/auth/authbloc/auth_bloc.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
+import 'package:password_safe/theme.dart';
 
 class ChangePasswordForm extends StatefulWidget {
   final UserModel user;
@@ -39,7 +40,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
       setState(() {
         passowrdHeight = 60;
       });
-      return 'bitte nehme ein anderes Passwort';
+      return 'Bitte benutze ein anderes Passwort';
     } else {
       setState(() {
         passowrdHeight = 40;
@@ -116,45 +117,29 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                       try {
                         if (oldPassword.text != widget.user.password) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text('Altes Passwort stimmt nicht')));
+                              content: Text(
+                            'Altes Passwort stimmt nicht',
+                            style: AppTheme.darkSnackBarTextStyle,
+                          )));
                         } else if (newPassword.text != newPassword2.text) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content:
-                                  Text('Passwörter stimmen nicht überein')));
+                              content: Text(
+                            'Passwörter stimmen nicht überein',
+                            style: AppTheme.darkSnackBarTextStyle,
+                          )));
                         } else {
                           BlocProvider.of<AuthBloc>(context).add(
                               ChangePasswordPressedEvent(
                                   user: widget.user,
                                   forgot: false,
                                   newPassword: newPassword.text));
-
-                          // BlocProvider.of<AuthBloc>(context)
-                          //     .add(SignOutPressedEvent());
                           context.router.removeUntil(
                               (route) => route == SplashPageRoute());
                           context.router.push(const SplashPageRoute());
-
-                          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          //     content: Text('Passwort wurde erfolgreich geändert')));
                         }
                       } catch (e) {
                         print(e);
                       }
-                      // if (newPassword.text != newPassword2.text) {
-                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      //       content: Text('Passwörter stimmen nicht überein')));
-                      // } else {
-                      //   BlocProvider.of<AuthBloc>(context)
-                      //       .add(ChangePasswordPressedEvent(
-                      //     user: widget.user,
-                      //     forgot: true,
-                      //     newPassword: newPassword.text,
-                      //   ));
-                      //   context.router.replace(LoginPageRoute(
-                      //       user: widget.user.copyWith(password: newPassword.text)));
-                      // }
-                      // ScaffoldMessenger.of(context).showSnackBar(
-                      //     SnackBar(content: Text('Passwort wurde zurückgesetzt')));
                     }
                   },
                   child: Padding(

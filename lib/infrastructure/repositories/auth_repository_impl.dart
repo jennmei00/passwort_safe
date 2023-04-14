@@ -1,14 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:password_safe/application/auth/authbloc/auth_bloc.dart';
-import 'package:password_safe/core/enums.dart';
 import 'package:password_safe/core/failures/auth_failures.dart';
-import 'package:password_safe/domain/entities/user.dart';
-import 'package:password_safe/domain/failures/failures.dart';
 import 'package:password_safe/domain/repositories/auth_repository.dart';
 import 'package:password_safe/infrastructure/datasources/db_local_auth_datasource.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final DBLocalAuthDatasource dbLocalAuthDatasource;

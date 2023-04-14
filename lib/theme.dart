@@ -54,6 +54,14 @@ class AppTheme {
     bodyMedium: _darkThemeBodyeTextStyle,
   );
 
+  static final SnackBarThemeData _snackBarTheme = SnackBarThemeData(
+    behavior: SnackBarBehavior.floating,
+    elevation: 5,
+    backgroundColor: Color.fromARGB(255, 34, 34, 34),
+  );
+
+  static final TextStyle darkSnackBarTextStyle = TextStyle(color: Colors.white);
+
   static final LinearGradient filterContainerBackgroundGradient =
       LinearGradient(
     colors: [
@@ -106,6 +114,7 @@ class AppTheme {
       onPrimary: _darkOnPrimaryColor,
     ),
     textTheme: _darkTextTheme,
+    snackBarTheme: _snackBarTheme,
   );
 
   static final cupertinoDarkTheme = CupertinoThemeData(

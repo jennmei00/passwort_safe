@@ -8,6 +8,7 @@ import 'package:password_safe/domain/entities/password.dart';
 import 'package:password_safe/presentation/passwords/widgets/custom_popup_card.dart';
 import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_add_popup.dart';
+import 'package:password_safe/theme.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class PasswordDetailPopup extends StatelessWidget {
@@ -59,17 +60,24 @@ class PasswordDetailPopup extends StatelessWidget {
     return CustomPopupCard(
       add: false,
       linkTooltip: password.link,
-      buttonPressed: () async {
-        try {
-          if (password.link.startsWith('https')) {
-            await launchUrlString(password.link);
-          } else {
-            await launchUrlString('https://' + password.link);
-          }
-        } catch (e) {
-          print(e);
-        }
-      },
+      buttonPressed: password.link == ''
+          ? null
+          : () async {
+              try {
+                if (password.link.startsWith('https')) {
+                  await launchUrlString(password.link);
+                } else {
+                  await launchUrlString('https://' + password.link);
+                }
+              } catch (e) {
+                print(e);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                  'Link konnte nicht geöffnet werden',
+                  style: AppTheme.darkSnackBarTextStyle,
+                )));
+              }
+            },
       child: Column(
         children: [
           Container(
@@ -85,27 +93,33 @@ class PasswordDetailPopup extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Divider(thickness: 2),
           ),
-          CustomTextField(
-            label: 'NAME',
-            enabled: false,
-            controller: TextEditingController(text: password.name),
-          ),
-          CustomTextField(
-            label: 'E-MAIL',
-            enabled: false,
-            controller: TextEditingController(text: password.email),
-          ),
+          password.name != ''
+              ? CustomTextField(
+                  label: 'NAME',
+                  enabled: false,
+                  controller: TextEditingController(text: password.name),
+                )
+              : SizedBox(),
+          password.email != ''
+              ? CustomTextField(
+                  label: 'E-MAIL',
+                  enabled: false,
+                  controller: TextEditingController(text: password.email),
+                )
+              : SizedBox(),
           CustomTextField(
             label: 'PASSWORT',
             enabled: false,
             controller: TextEditingController(text: password.password),
             obscurePassword: true,
           ),
-          password.info != '' ? CustomTextField(
-            label: 'INFO',
-            enabled: false,
-            controller: TextEditingController(text: password.info),
-          ) : Container(),
+          password.info != ''
+              ? CustomTextField(
+                  label: 'INFO',
+                  enabled: false,
+                  controller: TextEditingController(text: password.info),
+                )
+              : Container(),
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

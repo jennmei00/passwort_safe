@@ -63,7 +63,7 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
                 (eitherFailureOrSuccess) => eitherFailureOrSuccess.fold(
                     (Failure) => ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                            content: Text("failure"),
+                            content: Text("Ein Fehler ist aufgetreten :("),
                             backgroundColor: Colors.redAccent)),
                     (_) => Navigator.of(context).pop()));
           },
@@ -106,7 +106,6 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
                     textEditingControllerLink: textEditingControllerLink,
                     textEditingControllerInfo: textEditingControllerInfo,
                     iconPressed: (icon) {
-                      print('PRESSED');
                       setState(() {
                         iconData = icon;
                         loadInit();

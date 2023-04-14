@@ -4,16 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:password_safe/domain/repositories/auth_repository.dart';
-import 'package:password_safe/infrastructure/datasources/db_local_datasource.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
-import 'package:password_safe/infrastructure/repositories/auth_repository_impl.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
-import 'package:password_safe/presentation/splash/splash_page.dart';
 import 'package:password_safe/theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../application/auth/authbloc/auth_bloc.dart';
 
@@ -132,8 +127,10 @@ class _LoginPageState extends State<LoginPage> {
                                         passwordController.text) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(
-                                              content:
-                                                  Text('Falsches Passwort')));
+                                              content: Text(
+                                        'Falsches Passwort',
+                                        style: AppTheme.darkSnackBarTextStyle,
+                                      )));
                                     } else {
                                       BlocProvider.of<AuthBloc>(context).add(
                                           LoginPressedEvent(

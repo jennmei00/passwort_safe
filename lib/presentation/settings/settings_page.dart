@@ -44,8 +44,8 @@ class _SettingsPageState extends State<SettingsPage> {
     final themeData = Theme.of(context);
 
     return PlatformScaffold(
-      body: SafeArea(
-        child: BackgroundContainer(
+      body: BackgroundContainer(
+        child: SafeArea(
           child: Container(
             padding: EdgeInsets.only(left: 10, right: 10),
             child: Column(

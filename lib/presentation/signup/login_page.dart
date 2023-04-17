@@ -60,8 +60,8 @@ class _LoginPageState extends State<LoginPage> {
     checkBioAuth(context);
 
     return PlatformScaffold(
-      body: SafeArea(
-        child: BackgroundContainer(
+      body: BackgroundContainer(
+        child: SafeArea(
           child: Stack(
             children: [
               Container(

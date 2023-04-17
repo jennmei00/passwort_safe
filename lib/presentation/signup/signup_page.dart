@@ -80,8 +80,8 @@ class _SignUpPageState extends State<SignUpPage> {
     // return PasswordOverViewPage();
 
     return PlatformScaffold(
-      body: SafeArea(
-        child: BackgroundContainer(
+      body: BackgroundContainer(
+        child: SafeArea(
           child: GestureDetector(
             onTap: () {
               FocusScope.of(context).requestFocus(new FocusNode());

@@ -25,8 +25,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     final themeData = Theme.of(context);
 
     return PlatformScaffold(
-      body: SafeArea(
-        child: BackgroundContainer(
+      body: BackgroundContainer(
+        child: SafeArea(
           child: Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

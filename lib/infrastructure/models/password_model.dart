@@ -8,7 +8,6 @@ class PasswordModel {
   final String name;
   final String email;
   final String password;
-  final String link;
   final String info;
   final int codePoint;
   final String? fontFamily;
@@ -24,7 +23,6 @@ class PasswordModel {
     required this.name,
     required this.email,
     required this.password,
-    required this.link,
     required this.info,
     required this.codePoint,
     required this.fontFamily,
@@ -42,7 +40,6 @@ class PasswordModel {
       'name': name,
       'email': email,
       'password': password,
-      'link': link,
       'info': info,
       'codePoint': codePoint,
       'fontFamily': fontFamily,
@@ -61,7 +58,6 @@ class PasswordModel {
       name: map['name'] as String,
       email: map['email'] as String,
       password: map['password'] as String,
-      link: map['link'] as String,
       info: map['info'] == null ? '' : map['info'] as String,
       codePoint: map['codePoint'] as int,
       fontFamily: map['fontFamily'] as String,
@@ -79,7 +75,6 @@ class PasswordModel {
     String? name,
     String? email,
     String? password,
-    String? link,
     String? info,
     int? codePoint,
     String? fontFamily,
@@ -95,7 +90,6 @@ class PasswordModel {
       name: name ?? this.name,
       email: email ?? this.email,
       password: password ?? this.password,
-      link: link ?? this.link,
       info: info ?? this.info,
       codePoint: codePoint ?? this.codePoint,
       fontFamily: fontFamily ?? this.fontFamily,
@@ -114,7 +108,6 @@ class PasswordModel {
       name: name,
       email: email,
       password: password,
-      link: link,
       info: info,
       icon: IconData(codePoint,
           fontFamily: fontFamily,
@@ -145,7 +138,6 @@ class PasswordModel {
       name: passwordItem.name,
       email: passwordItem.email,
       password: passwordItem.password,
-      link: passwordItem.link,
       info: passwordItem.info,
       codePoint: passwordItem.icon.codePoint,
       fontFamily: passwordItem.icon.fontFamily,

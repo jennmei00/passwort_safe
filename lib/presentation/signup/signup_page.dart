@@ -80,86 +80,75 @@ class _SignUpPageState extends State<SignUpPage> {
     // return PasswordOverViewPage();
 
     return PlatformScaffold(
-      body: BackgroundContainer(
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).requestFocus(new FocusNode());
-          },
-          child: Center(
-            child: SingleChildScrollView(
-              child: Container(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 25),
-                      Text(
-                        'Willkommen.',
-                        style: themeData.textTheme.headlineLarge!
-                            .copyWith(letterSpacing: 5),
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        'Bitte registriere dich.',
-                        style: themeData.textTheme.bodyMedium!
-                            .copyWith(fontWeight: FontWeight.w100),
-                      ),
-                      SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          color: themeData.primaryColor,
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(children: [
-                              CustomTextField(
-                                label: 'NAME',
-                                controller: nameController,
-                                textFieldHeight: nameHeight,
-                                validator: validateName,
-                              ),
-                              CustomTextField(
-                                label: 'PASSWORT',
-                                controller: passwordController,
-                                enabled: true,
-                                login: true,
-                                obscurePassword: true,
-                                textFieldHeight: passowrdHeight,
-                                validator: validatePassword,
-                              ),
-                              CustomTextField(
-                                label: 'PASSWORT WIEDERHOLEN',
-                                controller: password2Controller,
-                                enabled: true,
-                                login: true,
-                                obscurePassword: true,
-                                textFieldHeight: passowrd2Height,
-                                validator: validatePassword2,
-                              ),
-                              SizedBox(height: 10),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor:
-                                          Colors.greenAccent.withOpacity(0.5),
-                                      child: PlatformIconButton(
-                                        onPressed: () {},
-                                        materialIcon:
-                                            Icon(CommunityMaterialIcons.login),
-                                        color: Color.fromARGB(255, 25, 80, 27),
-                                      ),
-                                    ),
-                                    PlatformElevatedButton(
+      body: SafeArea(
+        child: BackgroundContainer(
+          child: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).requestFocus(new FocusNode());
+            },
+            child: Center(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 25),
+                        Text(
+                          'Willkommen.',
+                          style: themeData.textTheme.headlineLarge!
+                              .copyWith(letterSpacing: 5),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          'Bitte registriere dich.',
+                          style: themeData.textTheme.bodyMedium!
+                              .copyWith(fontWeight: FontWeight.w100),
+                        ),
+                        SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            color: themeData.primaryColor,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(children: [
+                                CustomTextField(
+                                  label: 'NAME',
+                                  controller: nameController,
+                                  textFieldHeight: nameHeight,
+                                  validator: validateName,
+                                ),
+                                CustomTextField(
+                                  label: 'PASSWORT',
+                                  controller: passwordController,
+                                  enabled: true,
+                                  login: true,
+                                  obscurePassword: true,
+                                  textFieldHeight: passowrdHeight,
+                                  validator: validatePassword,
+                                ),
+                                CustomTextField(
+                                  label: 'PASSWORT WIEDERHOLEN',
+                                  controller: password2Controller,
+                                  enabled: true,
+                                  login: true,
+                                  obscurePassword: true,
+                                  textFieldHeight: passowrd2Height,
+                                  validator: validatePassword2,
+                                ),
+                                SizedBox(height: 10),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: PlatformElevatedButton(
                                       onPressed: () async {
                                         if (formKey.currentState!.validate()) {
                                           context.router
@@ -196,14 +185,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              )
-                            ]),
+                                  ),
+                                )
+                              ]),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

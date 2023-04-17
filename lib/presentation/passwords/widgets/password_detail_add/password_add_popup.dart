@@ -22,7 +22,6 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
   final textEditingControllerName = TextEditingController();
   final textEditingControllerEmail = TextEditingController();
   final textEditingControllerPassword = TextEditingController();
-  final textEditingControllerLink = TextEditingController();
   final textEditingControllerInfo = TextEditingController();
 
   IconData iconData = CommunityMaterialIcons.cart;
@@ -34,7 +33,6 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
       textEditingControllerName.text = widget.password!.name;
       textEditingControllerEmail.text = widget.password!.email;
       textEditingControllerPassword.text = widget.password!.password;
-      textEditingControllerLink.text = widget.password!.link;
       textEditingControllerInfo.text = widget.password!.info;
     }
   }
@@ -70,6 +68,7 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
           builder: (context, state) {
             return CustomPopupCard(
               add: true,
+              icon: null,
               buttonPressed: () {
                 if (formKey.currentState!.validate()) {
                   BlocProvider.of<PasswordformBloc>(context).add(
@@ -78,7 +77,6 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
                       name: textEditingControllerName.text,
                       email: textEditingControllerEmail.text,
                       passwordText: textEditingControllerPassword.text,
-                      link: textEditingControllerLink.text,
                       icon: iconData,
                       info: textEditingControllerInfo.text,
                     ),
@@ -103,7 +101,6 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
                     textEditingControllerEmail: textEditingControllerEmail,
                     textEditingControllerPassword:
                         textEditingControllerPassword,
-                    textEditingControllerLink: textEditingControllerLink,
                     textEditingControllerInfo: textEditingControllerInfo,
                     iconPressed: (icon) {
                       setState(() {

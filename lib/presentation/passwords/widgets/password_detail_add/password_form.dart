@@ -11,7 +11,6 @@ class PasswordForm extends StatefulWidget {
   final TextEditingController textEditingControllerName;
   final TextEditingController textEditingControllerEmail;
   final TextEditingController textEditingControllerPassword;
-  final TextEditingController textEditingControllerLink;
   final TextEditingController textEditingControllerInfo;
   final Function iconPressed;
   final IconData icon;
@@ -22,7 +21,6 @@ class PasswordForm extends StatefulWidget {
     required this.textEditingControllerName,
     required this.textEditingControllerEmail,
     required this.textEditingControllerPassword,
-    required this.textEditingControllerLink,
     required this.textEditingControllerInfo,
     required this.iconPressed,
     required this.icon,
@@ -111,7 +109,6 @@ class _PasswordFormState extends State<PasswordForm> {
         widget.textEditingControllerName.text = state.password.name;
         widget.textEditingControllerEmail.text = state.password.email;
         widget.textEditingControllerPassword.text = state.password.password;
-        widget.textEditingControllerLink.text = state.password.link;
       },
       builder: (context, state) {
         return Form(
@@ -178,10 +175,6 @@ class _PasswordFormState extends State<PasswordForm> {
               validator: validatePassword,
               obscurePassword: true,
               controller: widget.textEditingControllerPassword,
-            ),
-            CustomTextField(
-              label: 'VERKNÜPFUNG',
-              controller: widget.textEditingControllerLink,
             ),
             CustomTextField(
               label: 'INFO',

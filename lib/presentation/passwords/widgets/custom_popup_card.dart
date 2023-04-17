@@ -3,20 +3,18 @@ import 'package:flutter/material.dart';
 
 class CustomPopupCard extends StatelessWidget {
   final bool add;
+  final IconData? icon;
   final Function? buttonPressed;
   final Widget child;
-  final String? linkTooltip;
   const CustomPopupCard(
       {required this.add,
+      required this.icon,
       required this.buttonPressed,
       required this.child,
-      this.linkTooltip,
       super.key});
 
   @override
   Widget build(BuildContext context) {
-    print(buttonPressed);
-
     final themeData = Theme.of(context);
     final double ellipseSize = 70;
     final double saveIconSize = 40;
@@ -43,8 +41,8 @@ class CustomPopupCard extends StatelessWidget {
                 ),
               ),
               Positioned(
-                right: 0,
-                child: Container(
+                  right: 0,
+                  child: Container(
                     height: ellipseSize,
                     width: ellipseSize,
                     decoration: BoxDecoration(
@@ -53,16 +51,14 @@ class CustomPopupCard extends StatelessWidget {
                     ),
                     child: IconButton(
                       icon: Icon(
-                        add
-                            ? CommunityMaterialIcons.content_save
-                            : CommunityMaterialIcons.link_variant,
+                        add ? CommunityMaterialIcons.content_save : icon,
                         size: saveIconSize,
                       ),
-                      tooltip: linkTooltip,
                       onPressed:
                           buttonPressed == null ? null : () => buttonPressed!(),
-                    )),
-              ),
+                      disabledColor: Colors.white,
+                    ),
+                  )),
             ],
           ),
         ),

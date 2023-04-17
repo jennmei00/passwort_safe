@@ -34,7 +34,6 @@ void main() {
       name: 'TestName',
       email: 'test@email.de',
       password: 'TestPassword',
-      link: 'TestLink',
       info: 'InfoText',
       icon: CommunityMaterialIcons.netflix,
       favTag: false,
@@ -70,7 +69,6 @@ void main() {
       name: 'TestName',
       email: 'test@email.de',
       password: 'TestPassword',
-      link: 'TestLink',
       info: 'InfoText',
       icon: CommunityMaterialIcons.netflix,
       favTag: false,
@@ -82,7 +80,6 @@ void main() {
     final tName = 'TestName';
     final tEmail = 'test@email.de';
     final tPasswordText = 'TestPassword';
-    final tLink = 'TestLink';
     final tIcon = CommunityMaterialIcons.netflix;
     final tInfo = 'InfoText';
 
@@ -99,7 +96,6 @@ void main() {
         name: tName,
         email: tEmail,
         passwordText: tPasswordText,
-        link: tLink,
         icon: tIcon,
         info: tInfo,
       ));
@@ -123,7 +119,6 @@ void main() {
         name: tName,
         email: tEmail,
         passwordText: tPasswordText,
-        link: tLink,
         info: tInfo,
         icon: tIcon,
       ));
@@ -147,7 +142,6 @@ void main() {
     //     name: tName,
     //     email: tEmail,
     //     passwordText: tPasswordText,
-    //     link: tLink,
     //     icon: tIcon,
     //   ));
 

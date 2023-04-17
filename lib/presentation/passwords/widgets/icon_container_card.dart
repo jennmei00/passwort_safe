@@ -6,13 +6,18 @@ class IconContainerCard extends StatelessWidget {
   final Function iconPressed;
   final List<IconData> socialMediaIconList = [
     CommunityMaterialIcons.netflix,
-    CommunityMaterialIcons.amazon,
     CommunityMaterialIcons.spotify,
     CommunityMaterialIcons.instagram,
     CommunityMaterialIcons.facebook,
     CommunityMaterialIcons.snapchat,
     CommunityMaterialIcons.twitter,
     CommunityMaterialIcons.youtube,
+  ];
+
+  final List<IconData> shoppingIconList = [
+    CommunityMaterialIcons.amazon,
+    CommunityMaterialIcons.shopping,
+    CommunityMaterialIcons.purse,
   ];
 
   final List<IconData> bankingIconList = [
@@ -25,8 +30,6 @@ class IconContainerCard extends StatelessWidget {
 
   final List<IconData> othersIconList = [
     CommunityMaterialIcons.email,
-    CommunityMaterialIcons.shopping,
-    CommunityMaterialIcons.purse,
     CommunityMaterialIcons.web,
     CommunityMaterialIcons.school,
     CommunityMaterialIcons.laptop,
@@ -81,6 +84,32 @@ class IconContainerCard extends StatelessWidget {
                     physics: NeverScrollableScrollPhysics(),
                     crossAxisCount: columnCount,
                     children: socialMediaIconList.map((e) {
+                      return GestureDetector(
+                        onTap: () => iconPressed(e),
+                        child: Icon(
+                          e,
+                          size: iconSize,
+                          shadows: icon == e
+                              ? [Shadow(color: Colors.white, blurRadius: 20)]
+                              : [],
+                        ),
+                      );
+                    }).toList()),
+                SizedBox(height: 10),
+                Text(
+                  '       Shopping',
+                  style: TextStyle(fontSize: 16),
+                ),
+                Divider(
+                  thickness: 2,
+                  endIndent: 30,
+                  indent: 30,
+                ),
+                GridView.count(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    crossAxisCount: columnCount,
+                    children: shoppingIconList.map((e) {
                       return GestureDetector(
                         onTap: () => iconPressed(e),
                         child: Icon(

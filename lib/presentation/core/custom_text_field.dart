@@ -24,7 +24,6 @@ class CustomTextField extends StatelessWidget {
   });
 
   final double textFieldWidth = 260;
-  final double linkIconSize = 30;
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +45,6 @@ class CustomTextField extends StatelessWidget {
                 child: Container(
                   child: Stack(
                     children: [
-                      (label == 'VERKNÜPFUNG')
-                          ? Container(
-                              padding: EdgeInsets.only(left: 2),
-                              alignment: Alignment.centerLeft,
-                              child: Icon(
-                                  CommunityMaterialIcons.link_variant_plus))
-                          : SizedBox(),
                       (label == 'PASSWORT' ||
                               label == '* PASSWORT' ||
                               label == 'PASSWORT WIEDERHOLEN' ||

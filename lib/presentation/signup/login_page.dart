@@ -60,141 +60,145 @@ class _LoginPageState extends State<LoginPage> {
     checkBioAuth(context);
 
     return PlatformScaffold(
-      body: BackgroundContainer(
-        child: Stack(
-          children: [
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: 25),
-                  Text(
-                    'Hallo ${widget.user.name}.',
-                    style: themeData.textTheme.headlineLarge!
-                        .copyWith(letterSpacing: 5),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Bitte melde dich an.',
-                    style: themeData.textTheme.bodyMedium!
-                        .copyWith(fontWeight: FontWeight.w100),
-                  ),
-                  SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      color: themeData.primaryColor,
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(children: [
-                          CustomTextField(
-                            label: 'PASSWORT',
-                            controller: passwordController,
-                            enabled: true,
-                            login: true,
-                            obscurePassword: true,
-                          ),
-                          SizedBox(height: 10),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor:
-                                      Colors.redAccent.withOpacity(0.5),
-                                  child: PlatformIconButton(
-                                    onPressed: () {
-                                      context.router.push(
-                                          ForgotPasswordPageRoute(
-                                              user: widget.user));
-                                    },
-                                    materialIcon: Icon(
-                                        CommunityMaterialIcons.rotate_left),
-                                    color: Color.fromARGB(255, 100, 5, 5),
-                                  ),
-                                ),
-                                PlatformElevatedButton(
-                                  onPressed: () async {
-                                    print('LOGIN');
-                                    print(widget.user.password);
-                                    if (widget.user.password !=
-                                        passwordController.text) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              content: Text(
-                                        'Falsches Passwort',
-                                        style: AppTheme.darkSnackBarTextStyle,
-                                      )));
-                                    } else {
-                                      BlocProvider.of<AuthBloc>(context).add(
-                                          LoginPressedEvent(
-                                              password: passwordController.text,
-                                              user: widget.user));
-                                      context.router
-                                          .replace(const SplashPageRoute());
-                                    }
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Login',
-                                      style: TextStyle(
-                                          color: AppTheme.addCardPlusColor,
-                                          fontSize: 20),
-                                    ),
-                                  ),
-                                  material: (context, platform) =>
-                                      MaterialElevatedButtonData(
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<
-                                              RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                      )),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ]),
-                      ),
+      body: SafeArea(
+        child: BackgroundContainer(
+          child: Stack(
+            children: [
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 25),
+                    Text(
+                      'Hallo ${widget.user.name}.',
+                      style: themeData.textTheme.headlineLarge!
+                          .copyWith(letterSpacing: 5),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            widget.user.bioAuth
-                ? Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 25.0),
-                      child: SizedBox(
-                        height: 70,
-                        width: 70,
-                        child: FloatingActionButton(
-                          onPressed: () {
-                            checkBioAuth(context);
-                          },
-                          child: Icon(
-                            CommunityMaterialIcons.fingerprint,
-                            size: 50,
-                          ),
-                          backgroundColor: Colors.transparent,
-                          foregroundColor: Colors.white,
+                    SizedBox(height: 20),
+                    Text(
+                      'Bitte melde dich an.',
+                      style: themeData.textTheme.bodyMedium!
+                          .copyWith(fontWeight: FontWeight.w100),
+                    ),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        color: themeData.primaryColor,
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(children: [
+                            CustomTextField(
+                              label: 'PASSWORT',
+                              controller: passwordController,
+                              enabled: true,
+                              login: true,
+                              obscurePassword: true,
+                            ),
+                            SizedBox(height: 10),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor:
+                                        Colors.redAccent.withOpacity(0.5),
+                                    child: PlatformIconButton(
+                                      onPressed: () {
+                                        context.router.push(
+                                            ForgotPasswordPageRoute(
+                                                user: widget.user));
+                                      },
+                                      materialIcon: Icon(
+                                          CommunityMaterialIcons.rotate_left),
+                                      color: Color.fromARGB(255, 100, 5, 5),
+                                    ),
+                                  ),
+                                  PlatformElevatedButton(
+                                    onPressed: () async {
+                                      print('LOGIN');
+                                      print(widget.user.password);
+                                      if (widget.user.password !=
+                                          passwordController.text) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: Text(
+                                          'Falsches Passwort',
+                                          style: AppTheme.darkSnackBarTextStyle,
+                                        )));
+                                      } else {
+                                        BlocProvider.of<AuthBloc>(context).add(
+                                            LoginPressedEvent(
+                                                password:
+                                                    passwordController.text,
+                                                user: widget.user));
+                                        context.router
+                                            .replace(const SplashPageRoute());
+                                      }
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Login',
+                                        style: TextStyle(
+                                            color: AppTheme.addCardPlusColor,
+                                            fontSize: 20),
+                                      ),
+                                    ),
+                                    material: (context, platform) =>
+                                        MaterialElevatedButtonData(
+                                      style: ButtonStyle(
+                                        shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
+                                        )),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ]),
                         ),
                       ),
                     ),
-                  )
-                : Container(),
-          ],
+                  ],
+                ),
+              ),
+              widget.user.bioAuth
+                  ? Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 25.0),
+                        child: SizedBox(
+                          height: 70,
+                          width: 70,
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              checkBioAuth(context);
+                            },
+                            child: Icon(
+                              CommunityMaterialIcons.fingerprint,
+                              size: 50,
+                            ),
+                            backgroundColor: Colors.transparent,
+                            foregroundColor: Colors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container(),
+            ],
+          ),
         ),
       ),
     );

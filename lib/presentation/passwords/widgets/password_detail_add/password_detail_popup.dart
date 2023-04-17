@@ -59,25 +59,8 @@ class PasswordDetailPopup extends StatelessWidget {
 
     return CustomPopupCard(
       add: false,
-      linkTooltip: password.link,
-      buttonPressed: password.link == ''
-          ? null
-          : () async {
-              try {
-                if (password.link.startsWith('https')) {
-                  await launchUrlString(password.link);
-                } else {
-                  await launchUrlString('https://' + password.link);
-                }
-              } catch (e) {
-                print(e);
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(
-                  'Link konnte nicht geöffnet werden',
-                  style: AppTheme.darkSnackBarTextStyle,
-                )));
-              }
-            },
+      buttonPressed: null,
+      icon: password.icon,
       child: Column(
         children: [
           Container(

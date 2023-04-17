@@ -8,7 +8,6 @@ class Password {
   final String name;
   final String email;
   final String password;
-  final String link;
   final String info;
   final IconData icon;
   final bool favTag;
@@ -22,10 +21,8 @@ class Password {
     required this.name,
     required this.email,
     required this.password,
-    required this.link,
     required this.icon,
     required this.info,
-    // required this.tags,
     required this.favTag,
     required this.emailTag,
     required this.webTag,
@@ -38,10 +35,8 @@ class Password {
       name: '',
       email: '',
       password: '',
-      link: '',
       info: '',
       icon: CommunityMaterialIcons.image_plus,
-      // tags: [],
       favTag: false,
       emailTag: false,
       webTag: false,
@@ -54,10 +49,8 @@ class Password {
     String? name,
     String? email,
     String? password,
-    String? link,
     String? info,
     IconData? icon,
-    // List<Icon>? tags,
     bool? favTag,
     bool? emailTag,
     bool? webTag,
@@ -68,10 +61,8 @@ class Password {
       name: name ?? this.name,
       email: email ?? this.email,
       password: password ?? this.password,
-      link: link ?? this.link,
       info: info ?? this.info,
       icon: icon ?? this.icon,
-      // tags: tags ?? this.tags,
       favTag: favTag ?? this.favTag,
       emailTag: emailTag ?? this.emailTag,
       webTag: webTag ?? this.webTag,

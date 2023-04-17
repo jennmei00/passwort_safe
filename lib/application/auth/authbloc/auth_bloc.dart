@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:password_safe/domain/repositories/auth_repository.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
 
@@ -57,6 +58,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       // failureOrSuccess.fold((l) => emit(AuthStateAuthDenied()),
       //     (r) => emit(AuthStateAuthenticated()));
+    });
+
+    on<ChangeNamePressedEvent>((event, emit) async {
+      // final failureOrSuccess =
+
+      await authRepository.changeName(newName: event.newName);
+
+      emit(AuthStateTryLogin(
+          userModel: event.user.copyWith(name: event.newName)));
     });
 
     on<ChangeBioAuthPressedEvent>((event, emit) async {

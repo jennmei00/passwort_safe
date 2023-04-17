@@ -45,6 +45,16 @@ class ChangePasswordPressedEvent extends AuthEvent {
   });
 }
 
+class ChangeNamePressedEvent extends AuthEvent {
+  final UserModel user;
+  final String newName;
+
+  ChangeNamePressedEvent({
+    required this.user,
+    required this.newName,
+  });
+}
+
 class ChangeBioAuthPressedEvent extends AuthEvent {
   final bool bioAuth;
   final UserModel user;

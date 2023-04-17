@@ -102,6 +102,25 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<Either<AuthFailure, Unit>> changeName({String newName = ''}) async {
+    try {
+      final user = UserModel.fromMap(await dbLocalAuthDatasource.getUser());
+      UserModel u = UserModel(
+        name: newName,
+        password: user.password,
+        securityQuestionIndex: user.securityQuestionIndex,
+        securityAnswer: user.securityAnswer,
+        bioAuth: user.bioAuth,
+      );
+      await dbLocalAuthDatasource.changePassword(u.toMap());
+      return Right(unit);
+    } catch (e) {
+      print(e);
+      return Left(NameChangeFailure());
+    }
+  }
+
+  @override
   Future<Either<AuthFailure, Unit>> changeBioAuth(
       {bool bioAuth = false}) async {
     try {

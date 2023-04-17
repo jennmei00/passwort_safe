@@ -25,48 +25,50 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     final themeData = Theme.of(context);
 
     return PlatformScaffold(
-      body: BackgroundContainer(
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 25),
-              Text(
-                passwordReset ? 'Passwort Zurücksetzen' : 'Sicherheitsfrage',
-                style: themeData.textTheme.headlineLarge!
-                    .copyWith(letterSpacing: 5),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 20),
-              Text(
-                passwordReset
-                    ? 'Gebe dein neues Passwort ein.'
-                    : SecurityQuestion
-                        .values[widget.user.securityQuestionIndex].value,
-                style: themeData.textTheme.bodyMedium!
-                    .copyWith(fontWeight: FontWeight.w100),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  color: themeData.primaryColor,
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: passwordReset
-                          ? ResetCard(
-                              user: widget.user,
-                            )
-                          : SecurityQuestionCard(context, widget.user)),
+      body: SafeArea(
+        child: BackgroundContainer(
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 25),
+                Text(
+                  passwordReset ? 'Passwort Zurücksetzen' : 'Sicherheitsfrage',
+                  style: themeData.textTheme.headlineLarge!
+                      .copyWith(letterSpacing: 5),
+                  textAlign: TextAlign.center,
                 ),
-              ),
-            ],
+                SizedBox(height: 20),
+                Text(
+                  passwordReset
+                      ? 'Gebe dein neues Passwort ein.'
+                      : SecurityQuestion
+                          .values[widget.user.securityQuestionIndex].value,
+                  style: themeData.textTheme.bodyMedium!
+                      .copyWith(fontWeight: FontWeight.w100),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    color: themeData.primaryColor,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: passwordReset
+                            ? ResetCard(
+                                user: widget.user,
+                              )
+                            : SecurityQuestionCard(context, widget.user)),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -118,7 +120,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 child: Text(
                   'Antworten',
                   style: TextStyle(
-                      color: Colors.redAccent.withOpacity(0.5), fontSize: 20),
+                      color: Colors.greenAccent.withOpacity(0.5), fontSize: 20),
                 ),
               ),
               material: (context, platform) => MaterialElevatedButtonData(

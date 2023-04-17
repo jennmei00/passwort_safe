@@ -11,5 +11,6 @@ abstract class AuthRepository {
       UserModel user); //String email, String password, String name
   Future<Option<UserModel>> getSignedInUser();
   Future<Either<AuthFailure, Unit>> changePassword({String newPassword});
+  Future<Either<AuthFailure, Unit>> changeName({String newName});
   Future<Either<AuthFailure, Unit>> changeBioAuth({bool bioAuth});
 }

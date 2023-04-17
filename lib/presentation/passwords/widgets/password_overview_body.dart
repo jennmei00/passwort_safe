@@ -14,52 +14,53 @@ class PasswordOverViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
 
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 10,
-        left: 10,
-        right: 10,
-      ),
-      child: BlocBuilder<ObserverBloc, ObserverState>(
-        builder: (context, state) {
-          if (state is ObserverInitial) {
-            return Container();
-          } else if (state is ObserverLodaing) {
-            return Center(
-              child: PlatformCircularProgressIndicator(
-                cupertino: (context, platform) =>
-                    CupertinoProgressIndicatorData(
-                  color: themeData.colorScheme.secondary,
-                ),
-                material: (context, platform) => MaterialProgressIndicatorData(
-                  color: themeData.colorScheme.secondary,
-                ),
-              ),
-            );
-          } else if (state is ObserverFailure) {
-            return const Center(child: Text("Failure"));
-          } else if (state is ObserverSuccess) {
-            return GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-              },
-              child: Column(
-                children: [
-                  // SizedBox(height: 20),
-                  // MenueAccountLine(),
-                  SizedBox(height: 25),
-                  FilterSearchLine(),
-                  SizedBox(height: 5),
-                  AccountCount(),
-                  Expanded(
-                    child: PasswordList(passwordList: state.passwords),
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 10,
+          right: 10,
+        ),
+        child: BlocBuilder<ObserverBloc, ObserverState>(
+          builder: (context, state) {
+            if (state is ObserverInitial) {
+              return Container();
+            } else if (state is ObserverLodaing) {
+              return Center(
+                child: PlatformCircularProgressIndicator(
+                  cupertino: (context, platform) =>
+                      CupertinoProgressIndicatorData(
+                    color: themeData.colorScheme.secondary,
                   ),
-                ],
-              ),
-            );
-          }
-          return Container();
-        },
+                  material: (context, platform) =>
+                      MaterialProgressIndicatorData(
+                    color: themeData.colorScheme.secondary,
+                  ),
+                ),
+              );
+            } else if (state is ObserverFailure) {
+              return const Center(child: Text("Failure"));
+            } else if (state is ObserverSuccess) {
+              return GestureDetector(
+                onTap: () {
+                  FocusScope.of(context).requestFocus(new FocusNode());
+                },
+                child: Column(
+                  children: [
+                    // SizedBox(height: 20),
+                    // MenueAccountLine(),
+                    FilterSearchLine(),
+                    SizedBox(height: 5),
+                    AccountCount(),
+                    Expanded(
+                      child: PasswordList(passwordList: state.passwords),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }

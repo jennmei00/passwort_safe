@@ -105,6 +105,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                       },
                                       child: Text('Passwort ändern')),
                                 ),
+                                ListTile(
+                                  title: GestureDetector(
+                                      onTap: () {
+                                        context.router.push(
+                                            ChangeSecurityQuestionPageRoute(
+                                                user: widget.user));
+                                      },
+                                      child: Text('Sicherheitsfrage ändern')),
+                                ),
                                 SwitchListTile(
                                   value: widget.user.bioAuth,
                                   onChanged: (val) async {

@@ -45,6 +45,18 @@ class ChangePasswordPressedEvent extends AuthEvent {
   });
 }
 
+class ChangeSecurityQuestionPressedEvent extends AuthEvent {
+  final UserModel user;
+  final String newAnswer;
+  final int newQuestionIndex;
+
+  ChangeSecurityQuestionPressedEvent({
+    required this.newAnswer,
+    required this.newQuestionIndex,
+    required this.user,
+  });
+}
+
 class ChangeNamePressedEvent extends AuthEvent {
   final UserModel user;
   final String newName;

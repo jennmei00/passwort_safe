@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:password_safe/presentation/passwords/password_overview_page.dart';
 import 'package:password_safe/presentation/settings/change_passwort_page.dart';
+import 'package:password_safe/presentation/settings/change_security_question_page.dart';
 import 'package:password_safe/presentation/settings/settings_page.dart';
 import 'package:password_safe/presentation/signup/forgot_password_page.dart';
 import 'package:password_safe/presentation/signup/login_page.dart';
@@ -21,6 +22,8 @@ import 'package:password_safe/presentation/splash/splash_page.dart';
   AutoRoute(page: LoginPage, initial: false),
   AutoRoute(page: SettingsPage, initial: false),
   AutoRoute(page: ChangePasswordPage, initial: false),
+  AutoRoute(page: ChangeSecurityQuestionPage, initial: false),
   AutoRoute(page: PasswordOverViewPage, initial: false),
+  
 ])
 class $AppRouter {}

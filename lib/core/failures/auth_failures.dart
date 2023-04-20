@@ -13,3 +13,5 @@ class EmailAlreadyInUseFailure extends AuthFailure {}
 class PasswordChangeFailure extends AuthFailure {}
 
 class NameChangeFailure extends AuthFailure {}
+
+class SecurityQuestionChangeFailure extends AuthFailure {}

@@ -91,7 +91,7 @@ class AuthRepositoryImpl implements AuthRepository {
         securityAnswer: user.securityAnswer,
         bioAuth: user.bioAuth,
       );
-      await dbLocalAuthDatasource.changePassword(u.toMap());
+      await dbLocalAuthDatasource.changeUserData(u.toMap());
       // final prefs = await SharedPreferences.getInstance();
       // prefs.setString('password', newPassword);
       return Right(unit);
@@ -112,11 +112,27 @@ class AuthRepositoryImpl implements AuthRepository {
         securityAnswer: user.securityAnswer,
         bioAuth: user.bioAuth,
       );
-      await dbLocalAuthDatasource.changePassword(u.toMap());
+      await dbLocalAuthDatasource.changeUserData(u.toMap());
       return Right(unit);
     } catch (e) {
       print(e);
       return Left(NameChangeFailure());
+    }
+  }
+
+  @override
+  Future<Either<AuthFailure, Unit>> changeSecurityQuestion(
+      {required String newAnswer, required int newQuestionIndex}) async {
+    try {
+      final user = UserModel.fromMap(await dbLocalAuthDatasource.getUser());
+      UserModel u = user.copyWith(
+          securityAnswer: newAnswer, securityQuestionIndex: newQuestionIndex);
+
+      await dbLocalAuthDatasource.changeUserData(u.toMap());
+      return Right(unit);
+    } catch (e) {
+      print(e);
+      return Left(SecurityQuestionChangeFailure());
     }
   }
 
@@ -132,7 +148,7 @@ class AuthRepositoryImpl implements AuthRepository {
         securityAnswer: user.securityAnswer,
         bioAuth: bioAuth,
       );
-      await dbLocalAuthDatasource.changeBioAuth(u.toMap());
+      await dbLocalAuthDatasource.changeUserData(u.toMap());
       // final prefs = await SharedPreferences.getInstance();
       // prefs.setString('password', newPassword);
 

@@ -65,7 +65,7 @@ class _SecurityQuestionPageState extends State<SecurityQuestionPage> {
                     'Wähle eine Sicherheitsfrage aus.\nDiese wird benötigt um das Passwort, wenn nötig, zurücksetzen zu können.',
                     style: themeData.textTheme.bodyMedium!
                         .copyWith(fontWeight: FontWeight.w100),
-                    textAlign: TextAlign.justify,
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 SizedBox(height: 20),

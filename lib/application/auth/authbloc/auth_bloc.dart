@@ -69,6 +69,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           userModel: event.user.copyWith(name: event.newName)));
     });
 
+    on<ChangeSecurityQuestionPressedEvent>((event, emit) async {
+      await authRepository.changeSecurityQuestion(
+          newAnswer: event.newAnswer, newQuestionIndex: event.newQuestionIndex);
+
+      emit(AuthStateTryLogin(
+          userModel: event.user.copyWith(securityAnswer: event.newAnswer, securityQuestionIndex: event.newQuestionIndex)));
+    });
+
     on<ChangeBioAuthPressedEvent>((event, emit) async {
       // final failureOrSuccess =
       await authRepository.changeBioAuth(bioAuth: event.bioAuth);

@@ -11,6 +11,7 @@ import 'package:password_safe/presentation/passwords/widgets/password_detail_add
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_detail_popup.dart';
 import 'package:password_safe/theme.dart';
 import 'package:password_safe/presentation/passwords/globals.dart' as globals;
+import 'package:reorderable_grid_view/reorderable_grid_view.dart';
 
 class PasswordList extends StatefulWidget {
   final List<Password> passwordList;
@@ -61,6 +62,13 @@ class _PasswordListState extends State<PasswordList>
     });
   }
 
+  void _onReorder(int oldIndex, int newIndex) {
+    setState(() {
+      final item = widget.passwordList.removeAt(oldIndex - 1);
+      widget.passwordList.insert(newIndex - 1, item);
+    });
+  }
+
   void fillShowPasswordList() {
     showPasswordList.clear();
     if (globals.searchQuery.value == '') {
@@ -91,7 +99,9 @@ class _PasswordListState extends State<PasswordList>
       }
     } else {
       widget.passwordList.forEach((element) {
-        if (element.title.toLowerCase().startsWith(globals.searchQuery.value.toLowerCase()) &&
+        if (element.title
+                .toLowerCase()
+                .startsWith(globals.searchQuery.value.toLowerCase()) &&
             !showPasswordList.contains(element)) {
           showPasswordList.add(element);
         }
@@ -108,13 +118,15 @@ class _PasswordListState extends State<PasswordList>
     refreshList();
 
     return AnimationLimiter(
-      child: GridView.count(
+      child: ReorderableGridView.count(
+        onReorder: _onReorder,
         crossAxisCount: columnCount,
         childAspectRatio: (containerWidth / containerHeight),
         mainAxisSpacing: 20,
         crossAxisSpacing: 20,
         children: [
           AnimationConfiguration.staggeredGrid(
+            key: ValueKey('ADD_CARD'),
             position: 0,
             columnCount: columnCount,
             duration: Duration(milliseconds: 500),
@@ -175,6 +187,7 @@ class _PasswordListState extends State<PasswordList>
         ]..addAll(
             showPasswordList.map((password) {
               return AnimationConfiguration.staggeredGrid(
+                key: ValueKey(password),
                 position: widget.passwordList.indexOf(password) + 1,
                 columnCount: columnCount,
                 duration: Duration(milliseconds: 500),

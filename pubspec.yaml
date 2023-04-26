@@ -59,6 +59,7 @@ dependencies:
   equatable: ^2.0.5
   auto_route: ^5.0.3
   local_auth: ^2.1.5
+  reorderable_grid_view: ^2.2.6
 
 dev_dependencies:
   flutter_test:

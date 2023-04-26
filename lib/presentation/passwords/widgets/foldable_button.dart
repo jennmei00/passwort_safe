@@ -83,32 +83,34 @@ class _FoldableButtonState extends State<FoldableButton>
     //2: email
     //3: web
 
-    switch (tag) {
-      case 1:
-        if (widget.password.favTag) {
-          shadows.add(
-              Shadow(color: iconColor, blurRadius: 40, offset: Offset(3, 3)));
-          shadows.add(
-              Shadow(color: iconColor, blurRadius: 40, offset: Offset(-3, -3)));
-        }
-        break;
-      case 2:
-        if (widget.password.emailTag) {
-          shadows.add(
-              Shadow(color: iconColor, blurRadius: 40, offset: Offset(3, 3)));
-          shadows.add(
-              Shadow(color: iconColor, blurRadius: 40, offset: Offset(-3, -3)));
-        }
-        break;
-      case 3:
-        if (widget.password.webTag) {
-          shadows.add(
-              Shadow(color: iconColor, blurRadius: 40, offset: Offset(3, 3)));
-          shadows.add(
-              Shadow(color: iconColor, blurRadius: 40, offset: Offset(-3, -3)));
-        }
-        break;
-      default:
+    if (widget.controller.isCompleted) {
+      switch (tag) {
+        case 1:
+          if (widget.password.favTag) {
+            shadows.add(
+                Shadow(color: iconColor, blurRadius: 40, offset: Offset(3, 3)));
+            shadows.add(Shadow(
+                color: iconColor, blurRadius: 40, offset: Offset(-3, -3)));
+          }
+          break;
+        case 2:
+          if (widget.password.emailTag) {
+            shadows.add(
+                Shadow(color: iconColor, blurRadius: 40, offset: Offset(3, 3)));
+            shadows.add(Shadow(
+                color: iconColor, blurRadius: 40, offset: Offset(-3, -3)));
+          }
+          break;
+        case 3:
+          if (widget.password.webTag) {
+            shadows.add(
+                Shadow(color: iconColor, blurRadius: 40, offset: Offset(3, 3)));
+            shadows.add(Shadow(
+                color: iconColor, blurRadius: 40, offset: Offset(-3, -3)));
+          }
+          break;
+        default:
+      }
     }
 
     return GestureDetector(
@@ -212,7 +214,15 @@ class _FoldableButtonState extends State<FoldableButton>
                 return Stack(
                   children: <Widget>[
                     Padding(
-                      padding: firstAnim.value,
+                      // padding: firstAnim.value,
+                      padding: Tween<EdgeInsetsGeometry>(
+                              begin: EdgeInsets.only(top: 0),
+                              end: EdgeInsets.only(top: 50))
+                          .animate(widget.controller)
+                          .value,
+                      // padding: widget.controller.isCompleted
+                      //     ? EdgeInsets.only(top: 50)
+                      //     : EdgeInsets.zero,
                       child: getItem(
                         options.elementAt(0),
                         AppTheme.tagHeartColor,
@@ -221,7 +231,15 @@ class _FoldableButtonState extends State<FoldableButton>
                       ),
                     ),
                     Padding(
-                      padding: secondAnim.value,
+                      // padding: secondAnim.value,
+                      // padding: widget.controller.isCompleted
+                      //     ? EdgeInsets.only(top: 100)
+                      //     : EdgeInsets.zero,
+                      padding: Tween<EdgeInsetsGeometry>(
+                              begin: EdgeInsets.only(top: 0),
+                              end: EdgeInsets.only(top: 100))
+                          .animate(widget.controller)
+                          .value,
                       child: Container(
                         child: getItem(
                           options.elementAt(1),
@@ -232,7 +250,15 @@ class _FoldableButtonState extends State<FoldableButton>
                       ),
                     ),
                     Padding(
-                      padding: thirdAnim.value,
+                      // padding: thirdAnim.value,
+                      // padding: widget.controller.isCompleted
+                      //     ? EdgeInsets.only(top: 150)
+                      //     : EdgeInsets.zero,
+                      padding: Tween<EdgeInsetsGeometry>(
+                              begin: EdgeInsets.only(top: 0),
+                              end: EdgeInsets.only(top: 150))
+                          .animate(widget.controller)
+                          .value,
                       child: getItem(
                         options.elementAt(2),
                         AppTheme.tagWebColor,

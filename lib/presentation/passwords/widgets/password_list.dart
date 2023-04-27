@@ -1,11 +1,14 @@
 import 'dart:ui';
 
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:password_safe/application/password/controller/controller_bloc.dart';
 import 'package:password_safe/domain/entities/password.dart';
+import 'package:password_safe/infrastructure/datasources/db_local_datasource.dart';
+import 'package:password_safe/infrastructure/models/password_model.dart';
 import 'package:password_safe/presentation/passwords/widgets/custom_container_card.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_add_popup.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_detail_popup.dart';
@@ -64,9 +67,17 @@ class _PasswordListState extends State<PasswordList>
 
   void _onReorder(int oldIndex, int newIndex) {
     setState(() {
-      final item = widget.passwordList.removeAt(oldIndex - 1);
-      widget.passwordList.insert(newIndex - 1, item);
+      final item = widget.passwordList.removeAt(oldIndex);
+      widget.passwordList.insert(newIndex , item);
+      final item2 = showPasswordList.removeAt(oldIndex);
+      showPasswordList.insert(newIndex, item2);
     });
+    DBLocalDatasourceImpl().delete('Password');
+    DBLocalDatasourceImpl().multipleInsert(
+        'Password',
+        widget.passwordList
+            .map((e) => PasswordModel.fromDomain(e).toMap())
+            .toList());
   }
 
   void fillShowPasswordList() {
@@ -119,12 +130,24 @@ class _PasswordListState extends State<PasswordList>
 
     return AnimationLimiter(
       child: ReorderableGridView.count(
+        dragStartBehavior: DragStartBehavior.start,
         onReorder: _onReorder,
         crossAxisCount: columnCount,
         childAspectRatio: (containerWidth / containerHeight),
         mainAxisSpacing: 20,
         crossAxisSpacing: 20,
-        children: [
+        padding: EdgeInsets.only(bottom: 70),
+        physics: BouncingScrollPhysics(),
+        dragWidgetBuilder: (index, child) => CustomContainerCard(
+                            password: widget.passwordList.elementAt(index),
+                            foldableButtonAnimationController:
+                                // animationControllers.first,
+                                animationControllers[widget.passwordList
+                                    .indexWhere(
+                                        (element) => element ==  widget.passwordList.elementAt(index))],
+                            animationControllers: animationControllers,
+                          ),
+        header: [
           AnimationConfiguration.staggeredGrid(
             key: ValueKey('ADD_CARD'),
             position: 0,
@@ -184,7 +207,8 @@ class _PasswordListState extends State<PasswordList>
               ),
             ),
           ),
-        ]..addAll(
+        ],
+        children: 
             showPasswordList.map((password) {
               return AnimationConfiguration.staggeredGrid(
                 key: ValueKey(password),
@@ -237,8 +261,7 @@ class _PasswordListState extends State<PasswordList>
                   ),
                 ),
               );
-            }),
-          ),
+            }).toList(),
       ),
     );
   }

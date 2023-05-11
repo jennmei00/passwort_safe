@@ -10,7 +10,6 @@ import 'package:password_safe/application/auth/authbloc/auth_bloc.dart';
 import 'package:password_safe/infrastructure/datasources/db_local_datasource.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
-import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/presentation/settings/widgets/change_name_form.dart';
 import 'package:password_safe/presentation/settings/widgets/dialog_widget.dart';

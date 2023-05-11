@@ -8,8 +8,6 @@ import 'package:password_safe/domain/entities/password.dart';
 import 'package:password_safe/presentation/passwords/widgets/custom_popup_card.dart';
 import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_add_popup.dart';
-import 'package:password_safe/theme.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class PasswordDetailPopup extends StatelessWidget {
   final Password password;

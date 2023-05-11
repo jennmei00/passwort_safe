@@ -7,7 +7,6 @@ import 'package:password_safe/core/enums.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
-import 'package:password_safe/theme.dart';
 
 class ChangeSecurityQuestionForm extends StatefulWidget {
   final UserModel user;

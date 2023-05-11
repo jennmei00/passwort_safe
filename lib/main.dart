@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           child: PlatformApp.router(
             routerDelegate: _appRouter.delegate(),
             routeInformationParser: _appRouter.defaultRouteParser(),
-            title: 'Flutter Demo',
+            title: 'PasswordSafe',
             debugShowCheckedModeBanner: false,
             // home: const PasswordOverViewPage(),
             material: (_, __) => MaterialAppRouterData(

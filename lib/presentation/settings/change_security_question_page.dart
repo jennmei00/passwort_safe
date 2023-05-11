@@ -3,7 +3,6 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:password_safe/core/enums.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/settings/widgets/change_security_question_form.dart';

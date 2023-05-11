@@ -131,6 +131,7 @@ class _PasswordListState extends State<PasswordList>
     return AnimationLimiter(
       child: ReorderableGridView.count(
         dragStartBehavior: DragStartBehavior.start,
+        dragEnabled: globals.searchQuery.value == '' && globals.filterTag.value == 0 ? true : false,
         onReorder: _onReorder,
         crossAxisCount: columnCount,
         childAspectRatio: (containerWidth / containerHeight),

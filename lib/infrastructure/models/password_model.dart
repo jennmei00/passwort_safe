@@ -113,7 +113,6 @@ class PasswordModel {
           fontFamily: fontFamily,
           fontPackage: fontPackage,
           matchTextDirection: matchTextDirection),
-      // tags: getIconsFromTags(),
       favTag: favoriteTag,
       emailTag: mailTag,
       webTag: networkTag,
@@ -121,17 +120,6 @@ class PasswordModel {
   }
 
   factory PasswordModel.fromDomain(Password passwordItem) {
-    // bool fav = false;
-    // bool mail = false;
-    // bool net = false;
-    // passwordItem.tags.forEach((element) {
-    //   if (element.icon == CommunityMaterialIcons.heart)
-    //     fav = true;
-    //   else if (element.icon == CommunityMaterialIcons.mail)
-    //     mail = true;
-    //   else if (element.icon == CommunityMaterialIcons.web) net = true;
-    // });
-
     return PasswordModel(
       id: passwordItem.id.value,
       title: passwordItem.title,
@@ -148,22 +136,4 @@ class PasswordModel {
       networkTag: passwordItem.webTag,
     );
   }
-
-  // List<Icon> getIconsFromTags() {
-  //   List<Icon> tags = [];
-
-  //   if (favoriteTag) {
-  //     tags.add(Icon(CommunityMaterialIcons.heart));
-  //   }
-
-  //   if (mailTag) {
-  //     tags.add(Icon(CommunityMaterialIcons.mail));
-  //   }
-
-  //   if (networkTag) {
-  //     tags.add(Icon(CommunityMaterialIcons.web));
-  //   }
-
-  //   return tags;
-  // }
 }

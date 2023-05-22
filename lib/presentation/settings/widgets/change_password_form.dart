@@ -68,7 +68,6 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
     return Form(
       key: _formKey,
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomTextField(
             label: 'Altes Passwort',
@@ -101,16 +100,6 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // CircleAvatar(
-                //   backgroundColor: Colors.greenAccent.withOpacity(0.3),
-                //   child: PlatformIconButton(
-                //     onPressed: () {
-                //       // context.router.pop();
-                //     },
-                //     materialIcon: Icon(CommunityMaterialIcons.rotate_left),
-                //     color: AppTheme.addCardPlusColor,
-                //   ),
-                // ),
                 PlatformElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {

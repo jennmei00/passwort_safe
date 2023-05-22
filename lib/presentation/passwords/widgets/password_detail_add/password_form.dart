@@ -47,20 +47,6 @@ class _PasswordFormState extends State<PasswordForm> {
     }
   }
 
-  // String? validateName(String? input) {
-  //   if (input == null || input.isEmpty) {
-  //     setState(() {
-  //       nameHeight = 60;
-  //     });
-  //     return 'Bitte Name eingeben';
-  //   } else {
-  //     setState(() {
-  //       nameHeight = 40;
-  //     });
-  //     return null;
-  //   }
-  // }
-
   String? validateEmail(String? input) {
     if (input == null || input.isEmpty) {
       setState(() {
@@ -160,7 +146,6 @@ class _PasswordFormState extends State<PasswordForm> {
             CustomTextField(
               textFieldHeight: nameHeight,
               label: 'NAME',
-              // validator: validateName,
               controller: widget.textEditingControllerName,
             ),
             CustomTextField(

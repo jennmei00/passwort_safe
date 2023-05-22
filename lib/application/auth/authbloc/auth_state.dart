@@ -1,12 +1,5 @@
 part of 'auth_bloc.dart';
 
-// enum AuthState {
-//   unknown,
-//   authenticated,
-//   unauthenticated,
-//   error,
-// }
-
 abstract class AuthState {}
 
 class AuthInitial extends AuthState {}

@@ -22,7 +22,6 @@ abstract class DBLocalDatasource {
 }
 
 class DBLocalDatasourceImpl implements DBLocalDatasource {
-  // static sql.Database? _database;
   static BriteDatabase? _database;
   static int _versionNumber = 1;
 
@@ -75,12 +74,9 @@ class DBLocalDatasourceImpl implements DBLocalDatasource {
   Future<void> multipleInsert(
       String table, List<Map<String, dynamic>> dataList) async {
     final db = await this.openDatabase();
-    // sql.Batch batch = db.batch();
     dataList.forEach((Map<String, dynamic> data) {
-      // batch.insert(table, data);
       db.insert(table, data);
     });
-    // await batch.commit();
   }
 
   @override
@@ -88,7 +84,6 @@ class DBLocalDatasourceImpl implements DBLocalDatasource {
       List<Map<String, dynamic>> dataList, String primaryKey) async {
     final db = await this.openDatabase();
 
-    // sql.Batch batch = db.batch();
     for (var data in dataList) {
       var _primaryKeyValue = data[primaryKey];
       int _count = await count(table,
@@ -97,41 +92,29 @@ class DBLocalDatasourceImpl implements DBLocalDatasource {
         data.removeWhere((k, v) => k == primaryKey);
         await db.update(table, data,
             where: "$primaryKey = '$_primaryKeyValue'");
-        // batch.update(table, data, where: "$primaryKey = '$_primaryKeyValue'");
       } else {
         await db.insert(table, data);
-        // batch.insert(table, data);
       }
     }
-    // await batch.commit();
   }
 
   @override
   Future<void> insert(String table, Map<String, dynamic> data) async {
     final db = await this.openDatabase();
     await db.insert(table, data);
-    // sql.Batch batch = db.batch();
-    // batch.insert(table, data);
-    // await batch.commit();
   }
 
   @override
   Future<void> update(String table, Map<String, dynamic> data,
       {String? where}) async {
     final db = await this.openDatabase();
-    // sql.Batch batch = db.batch();
-    // batch.update(table, data, where: where);
     await db.update(table, data, where: where);
-    // await batch.commit();
   }
 
   @override
   Future<void> delete(String table, {String? where}) async {
     final db = await this.openDatabase();
     await db.delete(table, where: where);
-    // sql.Batch batch = db.batch();
-    // batch.delete(table, where: where);
-    // await batch.commit();
   }
 
   @override

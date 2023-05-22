@@ -142,7 +142,6 @@ class _PasswordListState extends State<PasswordList>
         dragWidgetBuilder: (index, child) => CustomContainerCard(
                             password: widget.passwordList.elementAt(index),
                             foldableButtonAnimationController:
-                                // animationControllers.first,
                                 animationControllers[widget.passwordList
                                     .indexWhere(
                                         (element) => element ==  widget.passwordList.elementAt(index))],
@@ -226,7 +225,6 @@ class _PasswordListState extends State<PasswordList>
                           child: CustomContainerCard(
                             password: password,
                             foldableButtonAnimationController:
-                                // animationControllers.first,
                                 animationControllers[widget.passwordList
                                     .indexWhere(
                                         (element) => element == password)],

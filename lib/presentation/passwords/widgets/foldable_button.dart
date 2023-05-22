@@ -214,15 +214,11 @@ class _FoldableButtonState extends State<FoldableButton>
                 return Stack(
                   children: <Widget>[
                     Padding(
-                      // padding: firstAnim.value,
                       padding: Tween<EdgeInsetsGeometry>(
                               begin: EdgeInsets.only(top: 0),
                               end: EdgeInsets.only(top: 50))
                           .animate(widget.controller)
                           .value,
-                      // padding: widget.controller.isCompleted
-                      //     ? EdgeInsets.only(top: 50)
-                      //     : EdgeInsets.zero,
                       child: getItem(
                         options.elementAt(0),
                         AppTheme.tagHeartColor,
@@ -231,10 +227,6 @@ class _FoldableButtonState extends State<FoldableButton>
                       ),
                     ),
                     Padding(
-                      // padding: secondAnim.value,
-                      // padding: widget.controller.isCompleted
-                      //     ? EdgeInsets.only(top: 100)
-                      //     : EdgeInsets.zero,
                       padding: Tween<EdgeInsetsGeometry>(
                               begin: EdgeInsets.only(top: 0),
                               end: EdgeInsets.only(top: 100))
@@ -250,10 +242,6 @@ class _FoldableButtonState extends State<FoldableButton>
                       ),
                     ),
                     Padding(
-                      // padding: thirdAnim.value,
-                      // padding: widget.controller.isCompleted
-                      //     ? EdgeInsets.only(top: 150)
-                      //     : EdgeInsets.zero,
                       padding: Tween<EdgeInsetsGeometry>(
                               begin: EdgeInsets.only(top: 0),
                               end: EdgeInsets.only(top: 150))

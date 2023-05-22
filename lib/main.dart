@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:password_safe/application/theme/theme_service.dart';
 import 'package:password_safe/injection.dart';
-// import 'package:password_safe/presentation/passwords/password_overview_page.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/theme.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +33,7 @@ class MyApp extends StatelessWidget {
             BlocProvider<AuthBloc>(
               create: (context) => sl<AuthBloc>()
                 ..add(
-                    AuthCheckRequestedEvent()), //..add(LocalAuthPressedEvent())
+                    AuthCheckRequestedEvent()), 
             )
           ],
           child: PlatformApp.router(
@@ -42,7 +41,6 @@ class MyApp extends StatelessWidget {
             routeInformationParser: _appRouter.defaultRouteParser(),
             title: 'PasswordSafe',
             debugShowCheckedModeBanner: false,
-            // home: const PasswordOverViewPage(),
             material: (_, __) => MaterialAppRouterData(
               theme: AppTheme.lightTheme,
               darkTheme: AppTheme.darkTheme,

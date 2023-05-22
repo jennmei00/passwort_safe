@@ -53,7 +53,6 @@ class AccountAnimatedOpacity extends StatelessWidget {
           )),
           SizedBox(width: 50),
         ]),
-        // ).animate().fadeIn(begin: 0),
       ),
     );
   }

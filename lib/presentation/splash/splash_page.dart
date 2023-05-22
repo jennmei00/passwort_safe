@@ -8,29 +8,11 @@ import 'package:password_safe/presentation/passwords/password_overview_page.dart
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
 
-  // Future<void> deleteUserPrefs() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   prefs.clear();
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // deleteUserPrefs();
-    print('Load SplashScreen');
-    // return PasswordOverViewPage();
     return BlocConsumer<AuthBloc, AuthState>(listenWhen: (previous, current) {
-      print('LISTENWHEN');
-      print(previous);
-      print(current);
       return previous != current;
     }, listener: (context, state) {
-      print('HEEEEEERE');
-      print(state);
-      // if (state is AuthStateAuthenticated) {
-      //   // navigate to home
-      //   context.router
-      //       .replace(PasswordOverViewPageRoute(user: state.userModel));
-      // } else
       if (state is AuthStateUnauthenticated) {
         // navigate to signin
         context.router.replace(const SignUpPageRoute());

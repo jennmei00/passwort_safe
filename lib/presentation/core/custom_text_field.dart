@@ -1,6 +1,7 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:password_safe/theme.dart';
+import 'package:random_password_generator/random_password_generator.dart';
 
 // ignore: must_be_immutable
 class CustomTextField extends StatelessWidget {
@@ -8,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final bool login;
   final String label;
   final Function? validator;
+  final Function? randomPassPressed;
   final TextEditingController controller;
   final double textFieldHeight;
   bool obscurePassword;
@@ -20,6 +22,7 @@ class CustomTextField extends StatelessWidget {
     this.validator = null,
     this.textFieldHeight = 40,
     this.obscurePassword = false,
+    this.randomPassPressed = null,
     super.key,
   });
 
@@ -62,10 +65,33 @@ class CustomTextField extends StatelessWidget {
                                     : CommunityMaterialIcons.eye),
                               ))
                           : SizedBox(),
+                      (label == '* PASSWORT')
+                          ? Container(
+                              alignment: Alignment.centerLeft,
+                              child: IconButton(
+                                onPressed: () {
+                                  final passwordGenerator =
+                                      RandomPasswordGenerator();
+                                  setState(() {
+                                    controller.text =
+                                        passwordGenerator.randomPassword(
+                                            letters: true,
+                                            uppercase: true,
+                                            numbers: true,
+                                            specialChar: true,
+                                            passwordLength: 10);
+                                  });
+                                },
+                                icon: Icon(CommunityMaterialIcons.lock_reset),
+                              ))
+                          : SizedBox(),
                       ConstrainedBox(
                         constraints: BoxConstraints(minHeight: textFieldHeight),
                         child: Container(
                           alignment: Alignment.center,
+                          margin: (label == '* PASSWORT')
+                              ? EdgeInsets.symmetric(horizontal: 45)
+                              : null,
                           padding: EdgeInsets.symmetric(
                               horizontal: 30,
                               vertical: label == 'INFO' ? 5 : 0),

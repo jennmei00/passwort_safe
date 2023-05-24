@@ -14,6 +14,7 @@ class PasswordForm extends StatefulWidget {
   final TextEditingController textEditingControllerInfo;
   final Function iconPressed;
   final IconData icon;
+  final Function randomPassPressed;
 
   const PasswordForm({
     required this.formKey,
@@ -24,6 +25,7 @@ class PasswordForm extends StatefulWidget {
     required this.textEditingControllerInfo,
     required this.iconPressed,
     required this.icon,
+    required this.randomPassPressed,
     Key? key,
   }) : super(key: key);
 
@@ -175,6 +177,7 @@ class _PasswordFormState extends State<PasswordForm> {
               validator: validatePassword,
               obscurePassword: true,
               controller: widget.textEditingControllerPassword,
+              randomPassPressed: () => widget.randomPassPressed(),
             ),
             CustomTextField(
               label: 'INFO',

@@ -95,23 +95,29 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
               child: Stack(
                 children: [
                   PasswordForm(
-                    formKey: formKey,
-                    textEditingControllerTitle: textEditingControllerTitle,
-                    textEditingControllerName: textEditingControllerName,
-                    textEditingControllerEmail: textEditingControllerEmail,
-                    textEditingControllerPassword:
-                        textEditingControllerPassword,
-                    textEditingControllerInfo: textEditingControllerInfo,
-                    iconPressed: (icon) {
-                      setState(() {
-                        iconData = icon;
-                        loadInit();
-                      });
+                      formKey: formKey,
+                      textEditingControllerTitle: textEditingControllerTitle,
+                      textEditingControllerName: textEditingControllerName,
+                      textEditingControllerEmail: textEditingControllerEmail,
+                      textEditingControllerPassword:
+                          textEditingControllerPassword,
+                      textEditingControllerInfo: textEditingControllerInfo,
+                      iconPressed: (icon) {
+                        setState(() {
+                          iconData = icon;
+                          loadInit();
+                        });
 
-                      Navigator.of(context).pop();
-                    },
-                    icon: iconData,
-                  ),
+                        Navigator.of(context).pop();
+                      },
+                      icon: iconData,
+                      randomPassPressed: () {
+                        print('RAndomPassword');
+                        // setState(() {
+                        // textEditingControllerPassword.text =
+                        //     'RandomPwasswordGenerated';
+                        // });
+                      }),
                   SafeInProgressOverlay(isSaving: state.isSaving),
                 ],
               ),

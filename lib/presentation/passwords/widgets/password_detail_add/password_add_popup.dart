@@ -7,6 +7,7 @@ import 'package:password_safe/presentation/passwords/widgets/custom_popup_card.d
 import 'package:password_safe/injection.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_detail_add/password_form.dart';
 import 'package:password_safe/presentation/passwords/widgets/safe_progress_overlay.dart';
+import 'package:random_password_generator/random_password_generator.dart';
 
 class PasswordAddPopup extends StatefulWidget {
   final Password? password;
@@ -112,11 +113,17 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
                       },
                       icon: iconData,
                       randomPassPressed: () {
-                        print('RAndomPassword');
-                        // setState(() {
-                        // textEditingControllerPassword.text =
-                        //     'RandomPwasswordGenerated';
-                        // });
+                        final password = RandomPasswordGenerator();
+                        setState(() {
+                          textEditingControllerPassword.text =
+                              password.randomPassword(
+                            letters: true,
+                            uppercase: true,
+                            numbers: true,
+                            specialChar: true,
+                            passwordLength: 10,
+                          );
+                        });
                       }),
                   SafeInProgressOverlay(isSaving: state.isSaving),
                 ],

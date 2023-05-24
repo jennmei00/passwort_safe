@@ -1,6 +1,8 @@
+import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/cupertino.dart';
 import 'package:password_safe/domain/entities/id.dart';
 import 'package:password_safe/domain/entities/password.dart';
+import 'package:password_safe/config/key.dart' as key;
 
 class PasswordModel {
   final String id;
@@ -33,13 +35,18 @@ class PasswordModel {
     required this.networkTag,
   });
 
+  final encrypter = encrypt.Encrypter(encrypt.AES(
+      encrypt.Key.fromUtf8(key.ENCRYPTION_KEY),
+      mode: encrypt.AESMode.cbc));
+  final iv = encrypt.IV.fromLength(16);
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
       'name': name,
       'email': email,
-      'password': password,
+      'password': 'ENCRYPTED' + encrypter.encrypt(password, iv: iv).base16,
       'info': info,
       'codePoint': codePoint,
       'fontFamily': fontFamily,
@@ -52,12 +59,29 @@ class PasswordModel {
   }
 
   factory PasswordModel.fromMap(Map<String, dynamic> map) {
+    var encrypter2 = encrypt.Encrypter(encrypt.AES(
+        encrypt.Key.fromUtf8(key.ENCRYPTION_KEY),
+        mode: encrypt.AESMode.cbc));
+    var iv = encrypt.IV.fromLength(16);
+
+    var pass;
+    if (map['password'].toString().startsWith('ENCRYPTED')) {
+      print(map['password']);
+      pass = encrypter2.decrypt(
+          encrypt.Encrypted.fromBase16(
+              map['password'].toString().replaceAll('ENCRYPTED', '')),
+          iv: iv);
+      print(pass);
+    } else {
+      pass = map['password'];
+    }
+
     return PasswordModel(
       id: map['id'] as String,
       title: map['title'] as String,
       name: map['name'] as String,
       email: map['email'] as String,
-      password: map['password'] as String,
+      password: pass,
       info: map['info'] == null ? '' : map['info'] as String,
       codePoint: map['codePoint'] as int,
       fontFamily: map['fontFamily'] as String,

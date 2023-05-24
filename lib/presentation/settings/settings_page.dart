@@ -18,7 +18,6 @@ import 'package:password_safe/presentation/settings/widgets/change_name_form.dar
 import 'package:password_safe/presentation/settings/widgets/dialog_widget.dart';
 import 'package:password_safe/theme.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -44,7 +43,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
     if (result != null) {
       File file = File(result.files.single.path!);
-      if (file.path.endsWith('PasswordSafeDownload.db')) {
+      if (file.path.endsWith('PasswordSafeDownload2.db')) {
         final dbPath = await getDatabasesPath() + '/PasswordSafe.db';
         var dbFileBytes = file.readAsBytesSync();
         var bytes = ByteData.view(dbFileBytes.buffer);
@@ -55,8 +54,11 @@ class _SettingsPageState extends State<SettingsPage> {
         context.router.pop();
         context.router.popAndPush(PasswordOverViewPageRoute(user: widget.user));
       } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Ungültige Datei')));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+          'Ungültige Datei',
+          style: AppTheme.darkSnackBarTextStyle,
+        )));
       }
     } else {
       //canceld pick
@@ -65,24 +67,37 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void exportDB() async {
-    String dbName = "PasswordSafeDownload.db";
-    String? downloadPath = await getDownloadPath();
-    final dbPath = await getDatabasesPath();
+    try {
+      String dbName = "PasswordSafeDownload4.db";
+      String? downloadPath = await getDownloadPath();
+      final dbPath = await getDatabasesPath();
+      var dbFile = File('$dbPath/PasswordSafe.db');
+      var filePath = downloadPath! + '/$dbName';
+      var dbFileBytes = dbFile.readAsBytesSync();
+      var bytes = ByteData.view(dbFileBytes.buffer);
+      final buffer = bytes.buffer;
 
-    var dbFile = File('$dbPath/PasswordSafe.db');
-    var filePath = downloadPath! + '/$dbName';
-    var dbFileBytes = dbFile.readAsBytesSync();
-    var bytes = ByteData.view(dbFileBytes.buffer);
-    final buffer = bytes.buffer;
+      File(filePath).writeAsBytes(buffer.asUint8List(
+          dbFileBytes.offsetInBytes, dbFileBytes.lengthInBytes));
 
-    File(filePath).writeAsBytes(buffer.asUint8List(
-        dbFileBytes.offsetInBytes, dbFileBytes.lengthInBytes));
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Datenbank wurde in Downloadordner kopiert.'),
-      ),
-    );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Datenbank wurde in Downloadordner kopiert.',
+            style: AppTheme.darkSnackBarTextStyle,
+          ),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Konnte nicht gespeichert werden!',
+            style: AppTheme.darkSnackBarTextStyle,
+          ),
+        ),
+      );
+    }
   }
 
   Future<String?> getDownloadPath() async {

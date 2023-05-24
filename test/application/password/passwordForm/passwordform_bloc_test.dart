@@ -150,7 +150,7 @@ void main() {
 
     //   //assert
     //   expect(passwordformBloc.state.failureOrSuccessOption, none());
-    //TODO: schould get optionOf(DBFailure()) instead of none()
+    //tTODO: schould get optionOf(DBFailure()) instead of none()
     // });
   });
 }

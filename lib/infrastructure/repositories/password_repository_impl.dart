@@ -40,10 +40,16 @@ class PasswordRepositoryImpl implements PasswordRepository {
     final mapList = await dbLocalDatasource.getDataa('Password');
 
     yield* mapList
-        .map((event) => right<PasswordFailure, List<Password>>(
-            event.map((e) => PasswordModel.fromMap(e).toDomain()).toList()))
+        .map((event) => right<PasswordFailure, List<Password>>(event.map((e) {
+              Password pass = PasswordModel.fromMap(e).toDomain();
+              if (!e['password'].toString().startsWith('ENCRYPTED')) {
+                update(pass);
+              }
+
+              return pass;
+            }).toList()))
         .handleError((e) {
-          print(e);
+      print(e);
       return Left(DBFailure);
     });
   }

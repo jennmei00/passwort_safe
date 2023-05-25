@@ -31,7 +31,6 @@ class AppTheme {
     fontFamily: "Inter",
     fontSize: 25,
     fontStyle: FontStyle.italic,
-    // fontWeight: FontWeight.bold
   );
   static const TextStyle _lightBodyText = TextStyle(
       color: _lightTextColorPrimary,
@@ -121,7 +120,6 @@ class AppTheme {
     scaffoldBackgroundColor: _darkOnPrimaryColor,
     barBackgroundColor: _appbarColorDark,
     primaryColor: _darkPrimaryColor,
-    // textTheme: _darkTextTheme,
     primaryContrastingColor: _accentColorDark,
   );
 }

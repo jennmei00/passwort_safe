@@ -76,8 +76,6 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
 
-    // return PasswordOverViewPage();
-
     return PlatformScaffold(
       body: BackgroundContainer(
         child: SafeArea(
@@ -152,8 +150,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                         if (formKey.currentState!.validate()) {
                                           context.router
                                               .push(SecurityQuestionPageRoute(
-                                                  // prefs: await SharedPreferences
-                                                  //     .getInstance(),
                                                   user: UserModel(
                                             name: nameController.text,
                                             password: passwordController.text,

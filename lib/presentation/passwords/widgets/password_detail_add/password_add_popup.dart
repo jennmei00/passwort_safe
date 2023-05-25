@@ -28,7 +28,6 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
   IconData iconData = CommunityMaterialIcons.cart;
 
   void loadInit() {
-    // icon = widget.password!.icon;
     if (widget.password != null) {
       textEditingControllerTitle.text = widget.password!.title;
       textEditingControllerName.text = widget.password!.name;
@@ -82,14 +81,6 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
                       info: textEditingControllerInfo.text,
                     ),
                   );
-                  // } else {
-
-                  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  //       backgroundColor: Colors.redAccent,
-                  //       content: Text(
-                  //         "Invalid Input",
-                  //         style: Theme.of(context).textTheme.bodyText1,
-                  //       )));
                 }
                 ;
               },

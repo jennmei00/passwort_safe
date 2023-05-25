@@ -40,7 +40,6 @@ class _ChangeSecurityQuestionPageState
                     Text('     Sicherheitsfrage ändern')
                   ],
                 ),
-                // SizedBox(height: 20),
                 Expanded(
                   child: Center(
                     child: Column(

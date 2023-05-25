@@ -35,20 +35,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<AuthFailure, Unit>> loginWithPassword(String password) async {
     try {
-      // await dbLocalAuthDatasource.deleteDatabase();
       final user = UserModel.fromMap(await dbLocalAuthDatasource.getUser());
-      print('PASSWORD im loginWithPassword()');
-      print(user.password);
-      // UserModel? user;
-      // final prefs = await SharedPreferences.getInstance();
-      // user = UserModel(
-      //   name: prefs.getString('username')!,
-      //   email: prefs.getString('email')!,
-      //   password: prefs.getString('password')!,
-      //   securityQuestionIndex: prefs.getInt('securityQuestion') ?? 0,
-      //   securityAnswer: prefs.getString('securityAnswer'),
-      // );
-
       if (user.password == password) {
         return Right(unit);
       } else {
@@ -63,14 +50,6 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<AuthFailure, Unit>> registerWithPassword(UserModel user) async {
     try {
-      // final prefs = await SharedPreferences.getInstance();
-
-      // prefs.setString('username', user.name);
-      // prefs.setString('email', user.email);
-      // prefs.setString('password', user.password!);
-      // prefs.setInt('securityQuestion', user.securityQuestionIndex);
-      // prefs.setString('securityAnswer', user.securityAnswer!);
-
       await dbLocalAuthDatasource.addUser(user.toMap());
       return Right(unit);
     } catch (e) {
@@ -92,8 +71,6 @@ class AuthRepositoryImpl implements AuthRepository {
         bioAuth: user.bioAuth,
       );
       await dbLocalAuthDatasource.changeUserData(u.toMap());
-      // final prefs = await SharedPreferences.getInstance();
-      // prefs.setString('password', newPassword);
       return Right(unit);
     } catch (e) {
       print(e);
@@ -149,9 +126,6 @@ class AuthRepositoryImpl implements AuthRepository {
         bioAuth: bioAuth,
       );
       await dbLocalAuthDatasource.changeUserData(u.toMap());
-      // final prefs = await SharedPreferences.getInstance();
-      // prefs.setString('password', newPassword);
-
       return Right(unit);
     } catch (e) {
       print(e);
@@ -168,28 +142,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Option<UserModel>> getSignedInUser() async {
     print('ingetsigneIn user');
-    // await dbLocalAuthDatasource.deleteDatabase();
     final userMap = await dbLocalAuthDatasource.getUser();
-    // final prefs = await SharedPreferences.getInstance();
-
-    // final username = prefs.getString('username');
-    // final email = prefs.getString('email');
-    // final password = prefs.getString('password');
-    // print('PASSWORT;');
-    // print(password);
-    // final sq = prefs.getInt('securityQuestion');
-    // final sa = prefs.getString('securityAnswer');
-
-    // if (username != null && email != null) {
-    //   return optionOf(UserModel(
-    //       name: username,
-    //       email: email,
-    //       password: password,
-    //       securityQuestionIndex: sq ?? 0,
-    //       securityAnswer: sa));
-    // } else {
-    //   return optionOf(null);
-    // }
 
     if (userMap.isEmpty) {
       return optionOf(null);

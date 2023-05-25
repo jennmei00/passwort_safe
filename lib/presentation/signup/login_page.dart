@@ -26,18 +26,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> checkBioAuth(BuildContext context) async {
     if (bioAuth) {
-      // BlocProvider.of<AuthBloc>(context)
-      //   ..add(LocalAuthPressedEvent(user: widget.user));
       bool success = await LocalAuthentication().authenticate(
               localizedReason:
                   'Authentifizieren, um die Anmeldeart zu genehmigen.')
-          //     .then((value) {
-          //   if (value) {
-          //     BlocProvider.of<AuthBloc>(context).add(LoginPressedEvent(
-          //         password: widget.user.password, user: widget.user));
-          //     context.router.replace(const SplashPageRoute());
-          //   }
-          // })
           ;
       if (success) {
         BlocProvider.of<AuthBloc>(context).add(LoginPressedEvent(

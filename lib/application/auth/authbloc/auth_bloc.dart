@@ -10,7 +10,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc({required this.authRepository}) : super(AuthInitial()) {
     on<SignOutPressedEvent>((event, emit) async {
-      // await authRepository.signOut();
       final userOption = await authRepository.getSignedInUser();
       final user = userOption.fold(() => null, (u) => u);
 
@@ -39,29 +38,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           (r) => emit(AuthStateAuthenticated(userModel: event.user!)));
     });
 
-    // on<LocalAuthPressedEvent>((event, emit) async {
-    //   final failureOrSuccess = await authRepository.authenticateWithLocalAuth();
-    //   failureOrSuccess.fold((l) => emit(AuthStateTryLogin(userModel: event.user!)),
-    //       (r) => emit(AuthStateAuthenticated(userModel: event.user!)));
-    // });
-
     on<ChangePasswordPressedEvent>((event, emit) async {
-      // final failureOrSuccess =
-
       await authRepository.changePassword(newPassword: event.newPassword);
 
       if (!event.forgot) {
         emit(AuthStateTryLogin(
             userModel: event.user.copyWith(password: event.newPassword)));
       }
-
-      // failureOrSuccess.fold((l) => emit(AuthStateAuthDenied()),
-      //     (r) => emit(AuthStateAuthenticated()));
     });
 
     on<ChangeNamePressedEvent>((event, emit) async {
-      // final failureOrSuccess =
-
       await authRepository.changeName(newName: event.newName);
 
       emit(AuthStateTryLogin(
@@ -77,12 +63,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<ChangeBioAuthPressedEvent>((event, emit) async {
-      // final failureOrSuccess =
       await authRepository.changeBioAuth(bioAuth: event.bioAuth);
       emit(AuthStateTryLogin(
           userModel: event.user.copyWith(bioAuth: event.bioAuth)));
-      // failureOrSuccess.fold((l) => emit(AuthStateAuthDenied()),
-      //     (r) => emit(AuthStateAuthenticated()));
     });
 
     on<DeleteAccountPressedEvent>((event, emit) async {

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +17,8 @@ import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/presentation/settings/widgets/change_name_form.dart';
 import 'package:password_safe/presentation/settings/widgets/dialog_widget.dart';
 import 'package:password_safe/theme.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 class SettingsPage extends StatefulWidget {
   final UserModel user;
@@ -31,6 +36,92 @@ class _SettingsPageState extends State<SettingsPage> {
 
     context.router.removeUntil((route) => route == SplashPageRoute());
     context.router.push(const SplashPageRoute());
+  }
+
+  void importDB() async {
+    //delete cache to delete old database data
+    var tempDir = await getTemporaryDirectory();
+    bool existTempDir = await tempDir.exists();
+    if (existTempDir) {
+      await tempDir.delete(recursive: true);
+    }
+
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      if (file.path.endsWith('PasswordSafeDownload2.db')) {
+        final dbPath = await getDatabasesPath() + '/PasswordSafe.db';
+        var dbFileBytes = file.readAsBytesSync();
+        var bytes = ByteData.view(dbFileBytes.buffer);
+        final buffer = bytes.buffer;
+        await File(dbPath).writeAsBytes(buffer.asUint8List(
+            dbFileBytes.offsetInBytes, dbFileBytes.lengthInBytes));
+
+        context.router.pop();
+        context.router.popAndPush(PasswordOverViewPageRoute(user: widget.user));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+          'Ungültige Datei',
+          style: AppTheme.darkSnackBarTextStyle,
+        )));
+      }
+    } else {
+      //canceld pick
+      print('canceld pick');
+    }
+  }
+
+  void exportDB() async {
+    try {
+      String dbName = "PasswordSafeDownload2.db";
+      String? downloadPath = await getDownloadPath();
+      final dbPath = await getDatabasesPath();
+      var dbFile = File('$dbPath/PasswordSafe.db');
+      var filePath = downloadPath! + '/$dbName';
+      var dbFileBytes = dbFile.readAsBytesSync();
+      var bytes = ByteData.view(dbFileBytes.buffer);
+      final buffer = bytes.buffer;
+
+      File(filePath).writeAsBytes(buffer.asUint8List(
+          dbFileBytes.offsetInBytes, dbFileBytes.lengthInBytes));
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Datenbank wurde in Downloadordner kopiert.',
+            style: AppTheme.darkSnackBarTextStyle,
+          ),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Konnte nicht gespeichert werden!',
+            style: AppTheme.darkSnackBarTextStyle,
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<String?> getDownloadPath() async {
+    Directory? directory;
+    try {
+      if (Platform.isIOS) {
+        directory = await getApplicationDocumentsDirectory();
+      } else {
+        directory = Directory('/storage/emulated/0/Download');
+        // Put file in global download folder, if for an unknown reason it didn't exist, we fallback
+        if (!await directory.exists())
+          directory = await getExternalStorageDirectory();
+      }
+    } catch (ex) {
+      print("Cannot get download folder path");
+    }
+    return directory?.path;
   }
 
   @override
@@ -170,14 +261,16 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ),
                                 ),
                                 Divider(thickness: 3),
-                                // ListTile(
-                                //   title: GestureDetector(
-                                //       onTap: () {}, child: Text('CSV Import')),
-                                // ),
-                                // ListTile(
-                                //   title: GestureDetector(
-                                //       onTap: () {}, child: Text('CSV Export')),
-                                // ),
+                                ListTile(
+                                  title: GestureDetector(
+                                      onTap: () => importDB(),
+                                      child: Text('Import')),
+                                ),
+                                ListTile(
+                                  title: GestureDetector(
+                                      onTap: () => exportDB(),
+                                      child: Text('Export')),
+                                ),
                                 ListTile(
                                   title: GestureDetector(
                                     onTap: () {
@@ -256,9 +349,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                         .darkSnackBarTextStyle,
                                                   ),
                                                 ));
-                                                context.router.pop();
-                                                context.router.popAndPush(
-                                                    SplashPageRoute());
+                                                context.router.popUntilRoot();
                                               } catch (e) {
                                                 print(e);
                                                 ScaffoldMessenger.of(context)

@@ -29,32 +29,6 @@ class _FilterSearchLineState extends State<FilterSearchLine> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // Stack(
-        //   children: [
-        //     IconButton(
-        //       padding: EdgeInsets.all(0),
-        //       onPressed: () {
-        //         setState(() {
-        //           _filterVisible = !_filterVisible;
-        //           if (_filterVisible) {
-        //             _searchFieldVisible = false;
-        //           }
-        //         });
-        //       },
-        //       iconSize: iconSize,
-        //       icon: Icon(
-        //         _filterVisible
-        //             ? CommunityMaterialIcons.filter
-        //             : CommunityMaterialIcons.filter_outline,
-        //       ),
-        //     ),
-        //     Positioned(
-        //       right: -10,
-        //       top: -10,
-        //       child: Icon(CommunityMaterialIcons.exclamation, size: 30,),
-        //     ),
-        //   ],
-        // ),
         IconButton(
           padding: EdgeInsets.all(0),
           onPressed: () {

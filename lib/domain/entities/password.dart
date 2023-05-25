@@ -13,7 +13,6 @@ class Password {
   final bool favTag;
   final bool emailTag;
   final bool webTag;
-  // final List<Icon> tags;
 
   Password({
     required this.id,

@@ -39,11 +39,18 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void importDB() async {
+    //delete cache to delete old database data
+    var tempDir = await getTemporaryDirectory();
+    bool existTempDir = await tempDir.exists();
+    if (existTempDir) {
+      await tempDir.delete(recursive: true);
+    }
+
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
       File file = File(result.files.single.path!);
-      if (file.path.endsWith('PasswordSafeDownload.db')) {
+      if (file.path.endsWith('PasswordSafeDownload2.db')) {
         final dbPath = await getDatabasesPath() + '/PasswordSafe.db';
         var dbFileBytes = file.readAsBytesSync();
         var bytes = ByteData.view(dbFileBytes.buffer);
@@ -68,7 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   void exportDB() async {
     try {
-      String dbName = "PasswordSafeDownload.db";
+      String dbName = "PasswordSafeDownload2.db";
       String? downloadPath = await getDownloadPath();
       final dbPath = await getDatabasesPath();
       var dbFile = File('$dbPath/PasswordSafe.db');

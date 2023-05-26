@@ -50,7 +50,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
     if (result != null) {
       File file = File(result.files.single.path!);
-      if (file.path.endsWith('PasswordSafeDownload2.db')) {
+      if (file.path.endsWith('PasswordSafeDownload.db')) {
         final dbPath = await getDatabasesPath() + '/PasswordSafe.db';
         var dbFileBytes = file.readAsBytesSync();
         var bytes = ByteData.view(dbFileBytes.buffer);
@@ -75,7 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   void exportDB() async {
     try {
-      String dbName = "PasswordSafeDownload2.db";
+      String dbName = "PasswordSafeDownload.db";
       String? downloadPath = await getDownloadPath();
       final dbPath = await getDatabasesPath();
       var dbFile = File('$dbPath/PasswordSafe.db');

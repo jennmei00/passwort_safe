@@ -58,12 +58,13 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
           listener: (context, state) {
             state.failureOrSuccessOption.fold(
                 () {},
-                (eitherFailureOrSuccess) => eitherFailureOrSuccess.fold(
-                    (Failure) => ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text("Ein Fehler ist aufgetreten :("),
-                            backgroundColor: Colors.redAccent)),
-                    (_) => Navigator.of(context).pop()));
+                (eitherFailureOrSuccess) =>
+                    eitherFailureOrSuccess.fold((Failure) {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Ein Fehler ist aufgetreten :("),
+                          backgroundColor: Colors.redAccent));
+                    }, (_) => Navigator.of(context).pop()));
           },
           builder: (context, state) {
             return CustomPopupCard(

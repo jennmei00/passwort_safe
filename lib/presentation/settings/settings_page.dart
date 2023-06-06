@@ -61,6 +61,7 @@ class _SettingsPageState extends State<SettingsPage> {
         context.router.pop();
         context.router.popAndPush(PasswordOverViewPageRoute(user: widget.user));
       } else {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(
           'Ungültige Datei',
@@ -87,6 +88,7 @@ class _SettingsPageState extends State<SettingsPage> {
       File(filePath).writeAsBytes(buffer.asUint8List(
           dbFileBytes.offsetInBytes, dbFileBytes.lengthInBytes));
 
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -96,6 +98,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       );
     } catch (e) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -222,6 +225,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                         print(e);
                                         if (e is PlatformException) {
                                           ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
                                                   content: Text(
                                             'Dein Gerät verfügt nicht über diese Funktion.',
@@ -286,6 +291,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                               try {
                                                 await DBLocalDatasourceImpl()
                                                     .deleteDatabase();
+
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentSnackBar();
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(SnackBar(
                                                   content: Text(
@@ -300,6 +308,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                                         user: widget.user));
                                               } catch (e) {
                                                 print(e);
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentSnackBar();
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
                                                   SnackBar(
@@ -341,6 +351,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                                         context)
                                                     .add(
                                                         DeleteAccountPressedEvent());
+
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentSnackBar();
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(SnackBar(
                                                   content: Text(
@@ -352,6 +365,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 context.router.popUntilRoot();
                                               } catch (e) {
                                                 print(e);
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentSnackBar();
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
                                                   SnackBar(

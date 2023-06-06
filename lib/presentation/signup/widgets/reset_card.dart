@@ -107,6 +107,7 @@ class _ResetCardState extends State<ResetCard> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     if (newPassword.text != newPassword2.text) {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text(
                         'Passwörter stimmen nicht überein',
@@ -123,6 +124,7 @@ class _ResetCardState extends State<ResetCard> {
                           user: widget.user
                               .copyWith(password: newPassword.text)));
                     }
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(
                       'Passwort wurde zurückgesetzt',

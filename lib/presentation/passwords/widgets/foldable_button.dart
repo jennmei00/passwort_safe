@@ -198,12 +198,13 @@ class _FoldableButtonState extends State<FoldableButton>
         listener: (context, state) {
           state.failureOrSuccessOption.fold(
               () => null,
-              (eitherFailureOrSuccess) => eitherFailureOrSuccess.fold(
-                  (failure) => ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text("Etwas ist schiefgelaufen :("),
-                          backgroundColor: Colors.redAccent)),
-                  (_) => null));
+              (eitherFailureOrSuccess) =>
+                  eitherFailureOrSuccess.fold((failure) {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Etwas ist schiefgelaufen :("),
+                        backgroundColor: Colors.redAccent));
+                  }, (_) => null));
         },
         builder: (context, state) {
           return Container(

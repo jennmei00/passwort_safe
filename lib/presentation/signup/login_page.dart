@@ -27,9 +27,8 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> checkBioAuth(BuildContext context) async {
     if (bioAuth) {
       bool success = await LocalAuthentication().authenticate(
-              localizedReason:
-                  'Authentifizieren, um die Anmeldeart zu genehmigen.')
-          ;
+          localizedReason:
+              'Authentifizieren, um die Anmeldeart zu genehmigen.');
       if (success) {
         BlocProvider.of<AuthBloc>(context).add(LoginPressedEvent(
             password: widget.user.password, user: widget.user));
@@ -118,6 +117,8 @@ class _LoginPageState extends State<LoginPage> {
                                       print(widget.user.password);
                                       if (widget.user.password !=
                                           passwordController.text) {
+                                        ScaffoldMessenger.of(context)
+                                            .hideCurrentSnackBar();
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
                                                 content: Text(

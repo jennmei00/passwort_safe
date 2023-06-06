@@ -104,6 +104,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             PlatformElevatedButton(
               onPressed: () async {
                 if (user.securityAnswer != answerController.text) {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(
                     'Falsche Antwort',

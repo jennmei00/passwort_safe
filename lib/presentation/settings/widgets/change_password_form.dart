@@ -105,12 +105,14 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                     if (_formKey.currentState!.validate()) {
                       try {
                         if (oldPassword.text != widget.user.password) {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text(
                             'Altes Passwort stimmt nicht',
                             style: AppTheme.darkSnackBarTextStyle,
                           )));
                         } else if (newPassword.text != newPassword2.text) {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text(
                             'Passwörter stimmen nicht überein',

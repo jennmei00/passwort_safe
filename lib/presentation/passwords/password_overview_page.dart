@@ -43,6 +43,7 @@ class PasswordOverViewPage extends StatelessWidget {
       child: BlocListener<ControllerBloc, ControllerState>(
         listener: (context, state) {
           if (state is ControllerFailure) {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.redAccent,
                 content: Text(_mapFailureToMessage(state.passwordFailure))));

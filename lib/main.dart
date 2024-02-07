@@ -6,6 +6,8 @@ import 'package:password_safe/injection.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:password_safe/presentation/passwords/globals.dart' as globals;
 
 import 'application/auth/authbloc/auth_bloc.dart';
 import 'injection.dart' as di; // di == dipendency injection
@@ -14,8 +16,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   await di.sl<ThemeService>().init();
-  runApp(ChangeNotifierProvider(
-      create: ((context) => di.sl<ThemeService>()), child: MyApp()));
+  SharedPreferences.getInstance().then((prefs) {
+    bool isGrid = prefs.getBool('isGrid') ?? false;
+    globals.isGrid = isGrid;
+
+    runApp(ChangeNotifierProvider(
+        create: ((context) => di.sl<ThemeService>()), child: MyApp()));
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -31,9 +38,8 @@ class MyApp extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider<AuthBloc>(
-              create: (context) => sl<AuthBloc>()
-                ..add(
-                    AuthCheckRequestedEvent()), 
+              create: (context) =>
+                  sl<AuthBloc>()..add(AuthCheckRequestedEvent()),
             )
           ],
           child: PlatformApp.router(

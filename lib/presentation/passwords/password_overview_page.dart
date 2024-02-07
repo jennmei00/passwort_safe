@@ -10,13 +10,21 @@ import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_overview_body.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
+import 'package:password_safe/presentation/passwords/globals.dart' as globals;
 import 'package:password_safe/injection.dart';
+import 'package:password_safe/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class PasswordOverViewPage extends StatelessWidget {
+class PasswordOverViewPage extends StatefulWidget {
   final UserModel user;
 
   const PasswordOverViewPage({super.key, required this.user});
 
+  @override
+  State<PasswordOverViewPage> createState() => _PasswordOverViewPageState();
+}
+
+class _PasswordOverViewPageState extends State<PasswordOverViewPage> {
   String _mapFailureToMessage(PasswordFailure todoFailure) {
     switch (todoFailure.runtimeType) {
       case DBFailure:
@@ -54,29 +62,61 @@ class PasswordOverViewPage extends StatelessWidget {
               child: Stack(children: [
             PasswordOverViewBody(),
             Positioned(
-                right: 0,
-                bottom: 0,
-                child: SizedBox(
-                    height: 70,
-                    width: 70,
-                    child: FloatingActionButton(
-                        onPressed: () {
-                          AutoRouter.of(context)
-                              .push(SettingsPageRoute(user: user));
-                        },
-                        child: Icon(
-                          CommunityMaterialIcons.cog,
-                          size: 40,
-                          color: Colors.black,
-                        ),
-                        backgroundColor: Color.fromARGB(255, 123, 135, 173),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(25),
-                            bottomLeft: Radius.circular(25),
-                          ),
-                        )))),
+                bottom: 5,
+                left: 5,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    setState(() {
+                      globals.isGrid = !globals.isGrid;
+                    });
+                    SharedPreferences.getInstance().then(
+                        (value) => value.setBool('isGrid', globals.isGrid));
+                  },
+                  backgroundColor: AppTheme.darkTheme.primaryColor,
+                  child: Icon(
+                    globals.isGrid
+                        ? CommunityMaterialIcons.grid
+                        : CommunityMaterialIcons.view_list,
+                    color: Colors.white,
+                  ),
+                )),
+                Positioned(
+                bottom: 5,
+                left: 5,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    setState(() {
+                      globals.isGrid = !globals.isGrid;
+                    });
+                    SharedPreferences.getInstance().then(
+                        (value) => value.setBool('isGrid', globals.isGrid));
+                  },
+                  backgroundColor: AppTheme.darkTheme.primaryColor,
+                  child: Icon(
+                    globals.isGrid
+                        ? CommunityMaterialIcons.grid
+                        : CommunityMaterialIcons.view_list,
+                    color: Colors.white,
+                  ),
+                )),
+            Positioned(
+              right: 5,
+              bottom: 5,
+              child: SizedBox(
+                child: FloatingActionButton(
+                  onPressed: () {
+                    AutoRouter.of(context)
+                        .push(SettingsPageRoute(user: widget.user));
+                  },
+                  child: Icon(
+                    CommunityMaterialIcons.cog,
+                    size: 40,
+                    color: Colors.black,
+                  ),
+                  backgroundColor: Color.fromARGB(255, 123, 135, 173),
+                ),
+              ),
+            ),
           ])),
         ),
       ),

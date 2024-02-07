@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:password_safe/application/password/observer/observer_bloc.dart';
 import 'package:password_safe/presentation/passwords/widgets/account_count_text.dart';
-import 'package:password_safe/presentation/passwords/widgets/password_list.dart';
+import 'package:password_safe/presentation/passwords/widgets/password_list_list_view.dart';
+import 'package:password_safe/presentation/passwords/widgets/password_list_grid.dart';
 import 'package:password_safe/presentation/passwords/widgets/filter_search_line.dart';
+import 'package:password_safe/presentation/passwords/globals.dart' as globals;
 
 class PasswordOverViewBody extends StatelessWidget {
   const PasswordOverViewBody({super.key});
@@ -49,7 +51,9 @@ class PasswordOverViewBody extends StatelessWidget {
                     SizedBox(height: 5),
                     AccountCount(),
                     Expanded(
-                      child: PasswordList(passwordList: state.passwords),
+                      child: globals.isGrid
+                          ? PasswordListGrid(passwordList: state.passwords)
+                          : PasswordListListView(passwordList: state.passwords),
                     ),
                   ],
                 ),

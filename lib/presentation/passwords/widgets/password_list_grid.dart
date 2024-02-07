@@ -16,16 +16,16 @@ import 'package:password_safe/theme.dart';
 import 'package:password_safe/presentation/passwords/globals.dart' as globals;
 import 'package:reorderable_grid_view/reorderable_grid_view.dart';
 
-class PasswordList extends StatefulWidget {
+class PasswordListGrid extends StatefulWidget {
   final List<Password> passwordList;
 
-  const PasswordList({super.key, required this.passwordList});
+  const PasswordListGrid({super.key, required this.passwordList});
 
   @override
-  State<PasswordList> createState() => _PasswordListState();
+  State<PasswordListGrid> createState() => _PasswordListGridState();
 }
 
-class _PasswordListState extends State<PasswordList>
+class _PasswordListGridState extends State<PasswordListGrid>
     with TickerProviderStateMixin {
   final double containerHeight = 190;
   final List<Password> showPasswordList = [];

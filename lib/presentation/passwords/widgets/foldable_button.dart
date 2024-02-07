@@ -1,5 +1,7 @@
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_safe/application/password/passwordTag/password_tag_bloc.dart';
 import 'package:password_safe/domain/entities/password.dart';
@@ -10,11 +12,13 @@ class FoldableButton extends StatefulWidget {
   final AnimationController controller;
   final List<AnimationController> animationControllers;
   final Password password;
+  final bool isGrid;
   const FoldableButton({
     super.key,
     required this.controller,
     required this.animationControllers,
     required this.password,
+    this.isGrid = true,
   });
 
   @override
@@ -39,7 +43,7 @@ class _FoldableButtonState extends State<FoldableButton>
 
   Icon getIcon() {
     Icon icon = Icon(CommunityMaterialIcons.plus,
-        color: Colors.white.withOpacity(1), size: 30);
+        color: Colors.white.withOpacity(1), size: widget.isGrid ? 30 : 20);
 
     int countTags = 0;
 
@@ -55,17 +59,17 @@ class _FoldableButtonState extends State<FoldableButton>
 
     if (countTags > 1) {
       icon = Icon(CommunityMaterialIcons.numeric_1_box_multiple,
-          color: Colors.white.withOpacity(1), size: 30);
+          color: Colors.white.withOpacity(1), size: widget.isGrid ? 30 : 20);
     } else if (countTags == 1) {
       if (widget.password.favTag) {
         icon = Icon(CommunityMaterialIcons.heart,
-            color: AppTheme.tagHeartColor, size: 30);
+            color: AppTheme.tagHeartColor, size: widget.isGrid ? 30 : 20);
       } else if (widget.password.emailTag) {
         icon = Icon(CommunityMaterialIcons.email,
-            color: AppTheme.tagEmailColor, size: 30);
+            color: AppTheme.tagEmailColor, size: widget.isGrid ? 30 : 20);
       } else if (widget.password.webTag) {
         icon = Icon(CommunityMaterialIcons.web,
-            color: AppTheme.tagWebColor, size: 30);
+            color: AppTheme.tagWebColor, size: widget.isGrid ? 30 : 20);
       }
     }
 
@@ -74,7 +78,7 @@ class _FoldableButtonState extends State<FoldableButton>
 
   Widget getItem(
       IconData source, Color iconColor, BuildContext context, int tag) {
-    final size = 48.0;
+    final double size = widget.isGrid ? 48 : 30;
     bool addTag = false;
     List<Shadow> shadows = [];
 
@@ -145,7 +149,7 @@ class _FoldableButtonState extends State<FoldableButton>
         child: Icon(
           source,
           color: iconColor,
-          size: 30,
+          size: widget.isGrid ? 30 : 20,
           shadows: shadows,
         ),
       ),
@@ -153,7 +157,7 @@ class _FoldableButtonState extends State<FoldableButton>
   }
 
   Widget buildPrimaryItem(Icon icon) {
-    final size = 48.0;
+    final double size = widget.isGrid ? 48 : 30;
     return Container(
       width: size,
       height: size,
@@ -178,13 +182,19 @@ class _FoldableButtonState extends State<FoldableButton>
     final anim =
         CurvedAnimation(parent: widget.controller, curve: Curves.linear);
     firstAnim = Tween<EdgeInsetsGeometry>(
-            begin: EdgeInsets.only(top: 0), end: EdgeInsets.only(top: 50))
+            begin: EdgeInsets.only(top: 0, right: 0),
+            end: EdgeInsets.only(
+                top: widget.isGrid ? 50 : 0, right: widget.isGrid ? 0 : 105))
         .animate(anim);
     secondAnim = Tween<EdgeInsetsGeometry>(
-            begin: EdgeInsets.only(top: 0), end: EdgeInsets.only(top: 100))
+            begin: EdgeInsets.only(top: 0, right: 0),
+            end: EdgeInsets.only(
+                top: widget.isGrid ? 100 : 0, right: widget.isGrid ? 0 : 70))
         .animate(anim);
     thirdAnim = Tween<EdgeInsetsGeometry>(
-            begin: EdgeInsets.only(top: 0), end: EdgeInsets.only(top: 150))
+            begin: EdgeInsets.only(top: 0, right: 0),
+            end: EdgeInsets.only(
+                top: widget.isGrid ? 150 : 0, right: widget.isGrid ? 0 : 35))
         .animate(anim);
   }
 
@@ -208,16 +218,20 @@ class _FoldableButtonState extends State<FoldableButton>
         },
         builder: (context, state) {
           return Container(
-            width: 48,
+            alignment: widget.isGrid ? null : Alignment.centerRight,
+            width: widget.isGrid ? 48 : 135,
             child: AnimatedBuilder(
               animation: widget.controller,
               builder: (context, child) {
                 return Stack(
                   children: <Widget>[
-                    Padding(
+                    Container(
+                      alignment: widget.isGrid ? null : Alignment.centerRight,
                       padding: Tween<EdgeInsetsGeometry>(
-                              begin: EdgeInsets.only(top: 0),
-                              end: EdgeInsets.only(top: 50))
+                              begin: EdgeInsets.only(top: 0, right: 0),
+                              end: EdgeInsets.only(
+                                  top: widget.isGrid ? 50 : 0,
+                                  right: widget.isGrid ? 0 : 105))
                           .animate(widget.controller)
                           .value,
                       child: getItem(
@@ -227,10 +241,13 @@ class _FoldableButtonState extends State<FoldableButton>
                         1,
                       ),
                     ),
-                    Padding(
+                    Container(
+                      alignment: widget.isGrid ? null : Alignment.centerRight,
                       padding: Tween<EdgeInsetsGeometry>(
-                              begin: EdgeInsets.only(top: 0),
-                              end: EdgeInsets.only(top: 100))
+                              begin: EdgeInsets.only(top: 0, right: 0),
+                              end: EdgeInsets.only(
+                                  top: widget.isGrid ? 100 : 0,
+                                  right: widget.isGrid ? 0 : 70))
                           .animate(widget.controller)
                           .value,
                       child: Container(
@@ -242,10 +259,13 @@ class _FoldableButtonState extends State<FoldableButton>
                         ),
                       ),
                     ),
-                    Padding(
+                    Container(
+                      alignment: widget.isGrid ? null : Alignment.centerRight,
                       padding: Tween<EdgeInsetsGeometry>(
-                              begin: EdgeInsets.only(top: 0),
-                              end: EdgeInsets.only(top: 150))
+                              begin: EdgeInsets.only(top: 0, right: 0),
+                              end: EdgeInsets.only(
+                                  top: widget.isGrid ? 150 : 0,
+                                  right: widget.isGrid ? 0 : 35))
                           .animate(widget.controller)
                           .value,
                       child: getItem(
@@ -255,22 +275,25 @@ class _FoldableButtonState extends State<FoldableButton>
                         3,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        widget.animationControllers.forEach((element) {
-                          if (element != widget.controller) {
-                            element.reverse();
-                          }
-                        });
-                        widget.controller.isCompleted
-                            ? widget.controller.reverse()
-                            : widget.controller.forward();
-                      },
-                      child: buildPrimaryItem(
-                        widget.controller.isCompleted ||
-                                widget.controller.isAnimating
-                            ? Icon(Icons.close)
-                            : getIcon(),
+                    Container(
+                      alignment: widget.isGrid ? null : Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          widget.animationControllers.forEach((element) {
+                            if (element != widget.controller) {
+                              element.reverse();
+                            }
+                          });
+                          widget.controller.isCompleted
+                              ? widget.controller.reverse()
+                              : widget.controller.forward();
+                        },
+                        child: buildPrimaryItem(
+                          widget.controller.isCompleted ||
+                                  widget.controller.isAnimating
+                              ? Icon(Icons.close)
+                              : getIcon(),
+                        ),
                       ),
                     ),
                   ],

@@ -14,3 +14,5 @@ ValueNotifier<int> filterTag = ValueNotifier(0);
 
 int passwordLength = 0;
 int showPasswordLength = 0;
+
+bool isGrid = true;

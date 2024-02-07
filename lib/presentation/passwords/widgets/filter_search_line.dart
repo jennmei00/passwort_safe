@@ -13,11 +13,8 @@ class FilterSearchLine extends StatefulWidget {
 }
 
 class _FilterSearchLineState extends State<FilterSearchLine> {
-  final double containerSize = 50;
-  final double iconSize = 50;
-  final double tagIconSize = 30;
-  final double filterContainerSizeWidth = 190;
-  final double filterContainerSizeHeight = 50;
+  final double iconSize = 40;
+  final double tagIconSize = 25;
   final BorderSide borderSide = BorderSide(color: Colors.white, width: 2);
 
   bool _searchFieldVisible = false;

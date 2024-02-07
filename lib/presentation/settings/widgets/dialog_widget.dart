@@ -26,7 +26,7 @@ class DialogWidget extends StatelessWidget {
           Text(title)
         ],
       ),
-      content: Text(content),
+      content: Text(content, style: TextStyle(fontSize: 15),),
       actions: <Widget>[
         TextButton(
             onPressed: () {

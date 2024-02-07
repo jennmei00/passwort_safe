@@ -143,11 +143,11 @@ class _PasswordFormState extends State<PasswordForm> {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Divider(thickness: 2),
+              child: Divider(thickness: 2, color: themeData.dividerColor,),
             ),
             CustomTextField(
               textFieldHeight: nameHeight,
-              label: 'NAME',
+              label: 'BENUTZERNAME',
               controller: widget.textEditingControllerName,
             ),
             CustomTextField(

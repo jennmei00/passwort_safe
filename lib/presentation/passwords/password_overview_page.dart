@@ -67,7 +67,9 @@ class PasswordOverViewPage extends StatelessWidget {
                         child: Icon(
                           CommunityMaterialIcons.cog,
                           size: 40,
+                          color: Colors.black,
                         ),
+                        backgroundColor: Color.fromARGB(255, 123, 135, 173),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(30),

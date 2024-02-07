@@ -72,11 +72,11 @@ class PasswordDetailPopup extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Divider(thickness: 2),
+            child: Divider(thickness: 2, color: themeData.dividerColor,),
           ),
           password.name != ''
               ? CustomTextField(
-                  label: 'NAME',
+                  label: 'BENUTZERNAME',
                   enabled: false,
                   controller: TextEditingController(text: password.name),
                 )

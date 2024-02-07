@@ -35,10 +35,10 @@ class PasswordModel {
     required this.networkTag,
   });
 
-  final encrypter = encrypt.Encrypter(encrypt.AES(
+  static final encrypter = encrypt.Encrypter(encrypt.AES(
       encrypt.Key.fromUtf8(key.ENCRYPTION_KEY),
       mode: encrypt.AESMode.cbc));
-  final iv = encrypt.IV.fromLength(16);
+  static final iv = encrypt.IV.fromUtf8(key.IV_KEY);
 
   Map<String, dynamic> toMap() {
     return {
@@ -59,19 +59,12 @@ class PasswordModel {
   }
 
   factory PasswordModel.fromMap(Map<String, dynamic> map) {
-    var encrypter2 = encrypt.Encrypter(encrypt.AES(
-        encrypt.Key.fromUtf8(key.ENCRYPTION_KEY),
-        mode: encrypt.AESMode.cbc));
-    var iv = encrypt.IV.fromLength(16);
-
     var pass;
     if (map['password'].toString().startsWith('ENCRYPTED')) {
-      print(map['password']);
-      pass = encrypter2.decrypt(
+      pass = encrypter.decrypt(
           encrypt.Encrypted.fromBase16(
               map['password'].toString().replaceAll('ENCRYPTED', '')),
           iv: iv);
-      print(pass);
     } else {
       pass = map['password'];
     }

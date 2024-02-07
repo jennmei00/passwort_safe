@@ -27,8 +27,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           await authRepository.loginWithPassword(event.password!);
       failureOrSuccess.fold((l) => null,
           (r) => emit(AuthStateAuthenticated(userModel: event.user!)));
-      print('Im LoginPressedEvent');
-      print(failureOrSuccess);
     });
 
     on<RegisterPressedEvent>((event, emit) async {

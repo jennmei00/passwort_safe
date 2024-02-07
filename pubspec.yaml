@@ -40,7 +40,7 @@ dependencies:
   dartz: ^0.10.1
   shared_preferences: ^2.0.20
   provider: ^6.0.5
-  flutter_platform_widgets: ^3.0.0
+  flutter_platform_widgets: ^6.0.2
   community_material_icon: ^5.9.55
   hexcolor: ^3.0.1
   blur: ^3.1.0

@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
             title: 'PasswordSafe',
             debugShowCheckedModeBanner: false,
             material: (_, __) => MaterialAppRouterData(
-              theme: AppTheme.lightTheme,
+              theme: AppTheme.darkTheme,
               darkTheme: AppTheme.darkTheme,
               themeMode:
                   themeService.isDarkmodeOn ? ThemeMode.dark : ThemeMode.light,

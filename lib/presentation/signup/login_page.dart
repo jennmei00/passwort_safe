@@ -113,8 +113,6 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   PlatformElevatedButton(
                                     onPressed: () async {
-                                      print('LOGIN');
-                                      print(widget.user.password);
                                       if (widget.user.password !=
                                           passwordController.text) {
                                         ScaffoldMessenger.of(context)

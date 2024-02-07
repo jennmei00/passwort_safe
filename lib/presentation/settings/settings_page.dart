@@ -135,7 +135,6 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-
     return PlatformScaffold(
       body: BackgroundContainer(
         child: SafeArea(
@@ -185,7 +184,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     style: TextStyle(fontSize: 12),
                                   ),
                                 ),
-                                Divider(thickness: 3),
+                                Divider(thickness: 3, color: themeData.dividerColor,),
                                 ListTile(
                                   title: ChangeNameForm(user: widget.user),
                                 ),
@@ -265,7 +264,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                Divider(thickness: 3),
+                                Divider(thickness: 3, color: themeData.dividerColor,),
                                 ListTile(
                                   title: GestureDetector(
                                       onTap: () => importDB(),

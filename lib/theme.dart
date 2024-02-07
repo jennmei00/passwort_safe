@@ -4,15 +4,13 @@ import 'package:hexcolor/hexcolor.dart';
 
 class AppTheme {
   AppTheme._();
-
-  static final Color _lightPrimaryColor = Colors.blueGrey.shade50;
-  static final Color _lightOnPrimaryColor = Colors.blueGrey.shade200;
   static const Color _lightTextColorPrimary = Colors.black;
-  static const Color _appbarColorLight = Colors.blue;
-
-  static final Color _darkPrimaryColor = Color(252525);
+  // static final Color _darkPrimaryColor = Colors.grey;
 
   static final Color _darkOnPrimaryColor = Color(252525);
+  static final Color _darkPrimaryColor = Color.fromARGB(255, 37, 37, 37);
+
+  // static final Color _darkOnPrimaryColor = HexColor('#252525');
   static const Color _darkTextColorPrimary = Colors.white;
   static final Color _appbarColorDark = Colors.blueGrey.shade800;
 
@@ -37,10 +35,6 @@ class AppTheme {
       fontFamily: "Inter",
       fontWeight: FontWeight.bold,
       fontSize: 25);
-  static const TextTheme _lightTextTheme = TextTheme(
-    headlineMedium: _lightHeadingText,
-    bodyMedium: _lightBodyText,
-  );
 
   static final TextStyle _darkThemeHeadingTextStyle =
       _lightHeadingText.copyWith(color: _darkTextColorPrimary);
@@ -59,7 +53,8 @@ class AppTheme {
     backgroundColor: Color.fromARGB(255, 34, 34, 34),
   );
 
-  static final TextStyle darkSnackBarTextStyle = TextStyle(color: Colors.white);
+  static final TextStyle darkSnackBarTextStyle =
+      TextStyle(color: Colors.white, fontSize: 15);
 
   static final LinearGradient filterContainerBackgroundGradient =
       LinearGradient(
@@ -89,20 +84,9 @@ class AppTheme {
   static final AssetImage backgroundImage =
       AssetImage('assets/images/background.png');
 
-  static final ThemeData lightTheme = ThemeData(
-    scaffoldBackgroundColor: _lightPrimaryColor,
-    appBarTheme: const AppBarTheme(
-        color: _appbarColorLight, iconTheme: IconThemeData(color: _iconColor)),
-    bottomAppBarTheme: BottomAppBarTheme(color: _appbarColorLight),
-    colorScheme: ColorScheme.light(
-        primary: _lightPrimaryColor,
-        onPrimary: _lightOnPrimaryColor,
-        secondary: _accentColorDark),
-    textTheme: _lightTextTheme,
-  );
-
   static final ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: _darkPrimaryColor,
+    primaryColor: _darkPrimaryColor,
     appBarTheme: AppBarTheme(
         color: _appbarColorDark,
         iconTheme: const IconThemeData(color: _iconColor)),
@@ -114,6 +98,7 @@ class AppTheme {
     ),
     textTheme: _darkTextTheme,
     snackBarTheme: _snackBarTheme,
+    dividerColor: Colors.grey.withOpacity(0.4),
   );
 
   static final cupertinoDarkTheme = CupertinoThemeData(

@@ -21,9 +21,6 @@ class SplashPage extends StatelessWidget {
         context.router.replace(LoginPageRoute(user: state.userModel));
       }
     }, builder: (context, state) {
-      print('Im Builder SplashScreen');
-      print(state);
-
       return state is AuthStateAuthenticated
           ? PasswordOverViewPage(user: state.userModel)
           : Scaffold(

@@ -27,7 +27,7 @@ class AuthRepositoryImpl implements AuthRepository {
         return left(LocalAuthFailure());
       }
     } catch (e) {
-      print('Error authenticating with local auth: $e');
+       print('Error authenticating with local auth: $e');
       return left(LocalAuthFailure());
     }
   }

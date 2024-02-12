@@ -99,6 +99,7 @@ class AppTheme {
     textTheme: _darkTextTheme,
     snackBarTheme: _snackBarTheme,
     dividerColor: Colors.grey.withOpacity(0.4),
+    splashColor: _accentColorDark
   );
 
   static final cupertinoDarkTheme = CupertinoThemeData(

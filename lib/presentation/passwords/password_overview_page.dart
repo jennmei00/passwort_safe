@@ -75,12 +75,13 @@ class _PasswordOverViewPageState extends State<PasswordOverViewPage> {
                   backgroundColor: AppTheme.darkTheme.primaryColor,
                   child: Icon(
                     globals.isGrid
-                        ? CommunityMaterialIcons.grid
-                        : CommunityMaterialIcons.view_list,
+                        ? CommunityMaterialIcons.view_list
+                        : CommunityMaterialIcons.grid,
                     color: Colors.white,
                   ),
+                  splashColor: Theme.of(context).colorScheme.secondary,
                 )),
-                Positioned(
+            Positioned(
                 bottom: 5,
                 left: 5,
                 child: FloatingActionButton(
@@ -94,10 +95,11 @@ class _PasswordOverViewPageState extends State<PasswordOverViewPage> {
                   backgroundColor: AppTheme.darkTheme.primaryColor,
                   child: Icon(
                     globals.isGrid
-                        ? CommunityMaterialIcons.grid
-                        : CommunityMaterialIcons.view_list,
+                        ? CommunityMaterialIcons.view_list
+                        : CommunityMaterialIcons.grid,
                     color: Colors.white,
                   ),
+                  splashColor: Theme.of(context).colorScheme.secondary,
                 )),
             Positioned(
               right: 5,
@@ -114,6 +116,7 @@ class _PasswordOverViewPageState extends State<PasswordOverViewPage> {
                     color: Colors.black,
                   ),
                   backgroundColor: Color.fromARGB(255, 123, 135, 173),
+                  splashColor: Theme.of(context).primaryColor,
                 ),
               ),
             ),

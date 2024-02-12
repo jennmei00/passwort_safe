@@ -12,6 +12,7 @@ class IconContainerCard extends StatelessWidget {
     CommunityMaterialIcons.snapchat,
     CommunityMaterialIcons.twitter,
     CommunityMaterialIcons.youtube,
+    CommunityMaterialIcons.google,
     CommunityMaterialIcons.google_plus,
     CommunityMaterialIcons.linkedin,
     CommunityMaterialIcons.twitch,
@@ -34,7 +35,8 @@ class IconContainerCard extends StatelessWidget {
     CommunityMaterialIcons.account_cash,
     CommunityMaterialIcons.credit_card,
     CommunityMaterialIcons.credit_card_wireless,
-    CommunityMaterialIcons.wallet
+    CommunityMaterialIcons.wallet,
+    CommunityMaterialIcons.math_tan,
   ];
 
   final List<IconData> othersIconList = [
@@ -43,17 +45,21 @@ class IconContainerCard extends StatelessWidget {
     CommunityMaterialIcons.school,
     CommunityMaterialIcons.laptop,
     CommunityMaterialIcons.cellphone_link,
+    CommunityMaterialIcons.google_controller,
+    CommunityMaterialIcons.car_side,
     CommunityMaterialIcons.bag_suitcase,
     CommunityMaterialIcons.airplane,
+    Icons.directions_boat,
     CommunityMaterialIcons.run,
     CommunityMaterialIcons.server_security,
     CommunityMaterialIcons.code_braces_box,
     CommunityMaterialIcons.shield_check,
+    CommunityMaterialIcons.database,
     CommunityMaterialIcons.music_box,
     CommunityMaterialIcons.paw,
-    CommunityMaterialIcons.airplane,
-    CommunityMaterialIcons.car_side,
-    CommunityMaterialIcons.database
+    CommunityMaterialIcons.medical_bag,
+    CommunityMaterialIcons.water,
+    CommunityMaterialIcons.package,
   ];
 
   IconContainerCard({
@@ -95,7 +101,8 @@ class IconContainerCard extends StatelessWidget {
                 Divider(
                   thickness: 2,
                   endIndent: 30,
-                  indent: 30, color: themeData.dividerColor,
+                  indent: 30,
+                  color: themeData.dividerColor,
                 ),
                 GridView.count(
                     shrinkWrap: true,
@@ -121,7 +128,8 @@ class IconContainerCard extends StatelessWidget {
                 Divider(
                   thickness: 2,
                   endIndent: 30,
-                  indent: 30, color: themeData.dividerColor,
+                  indent: 30,
+                  color: themeData.dividerColor,
                 ),
                 GridView.count(
                     shrinkWrap: true,
@@ -147,7 +155,8 @@ class IconContainerCard extends StatelessWidget {
                 Divider(
                   thickness: 2,
                   endIndent: 30,
-                  indent: 30, color: themeData.dividerColor,
+                  indent: 30,
+                  color: themeData.dividerColor,
                 ),
                 GridView.count(
                     shrinkWrap: true,
@@ -173,7 +182,8 @@ class IconContainerCard extends StatelessWidget {
                 Divider(
                   thickness: 2,
                   endIndent: 30,
-                  indent: 30, color: themeData.dividerColor,
+                  indent: 30,
+                  color: themeData.dividerColor,
                 ),
                 GridView.count(
                     shrinkWrap: true,

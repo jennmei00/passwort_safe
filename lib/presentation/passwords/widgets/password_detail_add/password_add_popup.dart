@@ -98,7 +98,6 @@ class _PasswordAddPopupState extends State<PasswordAddPopup> {
                       iconPressed: (icon) {
                         setState(() {
                           iconData = icon;
-                          loadInit();
                         });
 
                         Navigator.of(context).pop();

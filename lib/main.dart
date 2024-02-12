@@ -17,7 +17,7 @@ void main() async {
   await di.init();
   await di.sl<ThemeService>().init();
   SharedPreferences.getInstance().then((prefs) {
-    bool isGrid = prefs.getBool('isGrid') ?? false;
+    bool isGrid = prefs.getBool('isGrid') ?? true;
     globals.isGrid = isGrid;
 
     runApp(ChangeNotifierProvider(

@@ -135,6 +135,7 @@ class _PasswordFormState extends State<PasswordForm> {
                         border: InputBorder.none,
                         hintText: '* Titel...',
                       ),
+                      cursorColor: Theme.of(context).colorScheme.secondary,
                       style: themeData.textTheme.headlineSmall,
                     ),
                   ),

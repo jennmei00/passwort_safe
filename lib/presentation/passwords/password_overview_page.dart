@@ -65,6 +65,7 @@ class _PasswordOverViewPageState extends State<PasswordOverViewPage> {
                 bottom: 5,
                 left: 5,
                 child: FloatingActionButton(
+                  heroTag: 'grid_listview',
                   onPressed: () {
                     setState(() {
                       globals.isGrid = !globals.isGrid;
@@ -79,26 +80,7 @@ class _PasswordOverViewPageState extends State<PasswordOverViewPage> {
                         : CommunityMaterialIcons.grid,
                     color: Colors.white,
                   ),
-                  splashColor: Theme.of(context).colorScheme.secondary,
-                )),
-            Positioned(
-                bottom: 5,
-                left: 5,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    setState(() {
-                      globals.isGrid = !globals.isGrid;
-                    });
-                    SharedPreferences.getInstance().then(
-                        (value) => value.setBool('isGrid', globals.isGrid));
-                  },
-                  backgroundColor: AppTheme.darkTheme.primaryColor,
-                  child: Icon(
-                    globals.isGrid
-                        ? CommunityMaterialIcons.view_list
-                        : CommunityMaterialIcons.grid,
-                    color: Colors.white,
-                  ),
+                  elevation: 5,
                   splashColor: Theme.of(context).colorScheme.secondary,
                 )),
             Positioned(
@@ -106,6 +88,7 @@ class _PasswordOverViewPageState extends State<PasswordOverViewPage> {
               bottom: 5,
               child: SizedBox(
                 child: FloatingActionButton(
+                  heroTag: 'settings',
                   onPressed: () {
                     AutoRouter.of(context)
                         .push(SettingsPageRoute(user: widget.user));

@@ -68,7 +68,7 @@ class _PasswordListGridState extends State<PasswordListGrid>
   void _onReorder(int oldIndex, int newIndex) {
     setState(() {
       final item = widget.passwordList.removeAt(oldIndex);
-      widget.passwordList.insert(newIndex , item);
+      widget.passwordList.insert(newIndex, item);
       final item2 = showPasswordList.removeAt(oldIndex);
       showPasswordList.insert(newIndex, item2);
     });
@@ -131,7 +131,10 @@ class _PasswordListGridState extends State<PasswordListGrid>
     return AnimationLimiter(
       child: ReorderableGridView.count(
         dragStartBehavior: DragStartBehavior.start,
-        dragEnabled: globals.searchQuery.value == '' && globals.filterTag.value == 0 ? true : false,
+        dragEnabled:
+            globals.searchQuery.value == '' && globals.filterTag.value == 0
+                ? true
+                : false,
         onReorder: _onReorder,
         crossAxisCount: columnCount,
         childAspectRatio: (containerWidth / containerHeight),
@@ -140,13 +143,12 @@ class _PasswordListGridState extends State<PasswordListGrid>
         padding: EdgeInsets.only(bottom: 70),
         physics: BouncingScrollPhysics(),
         dragWidgetBuilder: (index, child) => CustomContainerCard(
-                            password: widget.passwordList.elementAt(index),
-                            foldableButtonAnimationController:
-                                animationControllers[widget.passwordList
-                                    .indexWhere(
-                                        (element) => element ==  widget.passwordList.elementAt(index))],
-                            animationControllers: animationControllers,
-                          ),
+          password: widget.passwordList.elementAt(index),
+          foldableButtonAnimationController: animationControllers[
+              widget.passwordList.indexWhere((element) =>
+                  element == widget.passwordList.elementAt(index))],
+          animationControllers: animationControllers,
+        ),
         header: [
           AnimationConfiguration.staggeredGrid(
             key: ValueKey('ADD_CARD'),
@@ -208,59 +210,56 @@ class _PasswordListGridState extends State<PasswordListGrid>
             ),
           ),
         ],
-        children: 
-            showPasswordList.map((password) {
-              return AnimationConfiguration.staggeredGrid(
-                key: ValueKey(password),
-                position: widget.passwordList.indexOf(password) + 1,
-                columnCount: columnCount,
-                duration: Duration(milliseconds: 500),
-                child: ScaleAnimation(
-                  duration: Duration(milliseconds: 900),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  child: FadeInAnimation(
-                    child: GestureDetector(
-                      child: Hero(
-                          tag: password.id,
-                          child: CustomContainerCard(
-                            password: password,
-                            foldableButtonAnimationController:
-                                animationControllers[widget.passwordList
-                                    .indexWhere(
-                                        (element) => element == password)],
-                            animationControllers: animationControllers,
-                          )),
-                      onTap: () {
-                        animationControllers.forEach((element) {
-                          element.reverse();
-                        });
-                        Navigator.of(context).push(PageRouteBuilder(
-                            opaque: false,
-                            barrierDismissible: true,
-                            transitionDuration: Duration(milliseconds: 500),
-                            pageBuilder: (BuildContext context, _, __) {
-                              return Hero(
-                                tag: password.id,
-                                child: BackdropFilter(
-                                  filter:
-                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                  child: Dialog(
-                                    backgroundColor: Colors.transparent,
-                                    insetPadding: EdgeInsets.zero,
-                                    child: PasswordDetailPopup(
-                                      password: password,
-                                      controllerBloc: controllerBloc,
-                                    ),
-                                  ),
+        children: showPasswordList.map((password) {
+          return AnimationConfiguration.staggeredGrid(
+            key: ValueKey(password),
+            position: widget.passwordList.indexOf(password) + 1,
+            columnCount: columnCount,
+            duration: Duration(milliseconds: 500),
+            child: ScaleAnimation(
+              duration: Duration(milliseconds: 900),
+              curve: Curves.fastLinearToSlowEaseIn,
+              child: FadeInAnimation(
+                child: GestureDetector(
+                  child: Hero(
+                      tag: password.id,
+                      child: CustomContainerCard(
+                        password: password,
+                        foldableButtonAnimationController: animationControllers[
+                            widget.passwordList
+                                .indexWhere((element) => element == password)],
+                        animationControllers: animationControllers,
+                      )),
+                  onTap: () {
+                    animationControllers.forEach((element) {
+                      element.reverse();
+                    });
+                    Navigator.of(context).push(PageRouteBuilder(
+                        opaque: false,
+                        barrierDismissible: true,
+                        transitionDuration: Duration(milliseconds: 500),
+                        pageBuilder: (BuildContext context, _, __) {
+                          return Hero(
+                            tag: password.id,
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: Dialog(
+                                backgroundColor: Colors.transparent,
+                                insetPadding: EdgeInsets.zero,
+                                child: PasswordDetailPopup(
+                                  password: password,
+                                  controllerBloc: controllerBloc,
                                 ),
-                              );
-                            }));
-                      },
-                    ),
-                  ),
+                              ),
+                            ),
+                          );
+                        }));
+                  },
                 ),
-              );
-            }).toList(),
+              ),
+            ),
+          );
+        }).toList(),
       ),
     );
   }

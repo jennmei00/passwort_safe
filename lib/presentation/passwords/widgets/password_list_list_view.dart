@@ -152,7 +152,8 @@ class _PasswordListListViewState extends State<PasswordListListView>
                             return Hero(
                               tag: 'add',
                               child: BackdropFilter(
-                                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                filter:
+                                    ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                                 child: Dialog(
                                   insetPadding: EdgeInsets.zero,
                                   backgroundColor: Colors.transparent,

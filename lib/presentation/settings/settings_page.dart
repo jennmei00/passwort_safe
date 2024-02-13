@@ -184,7 +184,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                     style: TextStyle(fontSize: 12),
                                   ),
                                 ),
-                                Divider(thickness: 3, color: themeData.dividerColor,),
+                                Divider(
+                                  thickness: 3,
+                                  color: themeData.dividerColor,
+                                ),
                                 ListTile(
                                   title: ChangeNameForm(user: widget.user),
                                 ),
@@ -208,6 +211,18 @@ class _SettingsPageState extends State<SettingsPage> {
                                 ),
                                 SwitchListTile(
                                   value: widget.user.bioAuth,
+                                  inactiveThumbColor:
+                                      Theme.of(context).primaryColor,
+                                  inactiveTrackColor: Theme.of(context)
+                                      .colorScheme
+                                      .secondary
+                                      .withOpacity(0.7),
+                                  trackOutlineColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.transparent),
+                                  activeColor: Colors.black,
+                                  activeTrackColor:
+                                      Theme.of(context).colorScheme.secondary,
                                   onChanged: (val) async {
                                     if (val) {
                                       try {
@@ -264,7 +279,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                Divider(thickness: 3, color: themeData.dividerColor,),
+                                Divider(
+                                  thickness: 3,
+                                  color: themeData.dividerColor,
+                                ),
                                 ListTile(
                                   title: GestureDetector(
                                       onTap: () => importDB(),

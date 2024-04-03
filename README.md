@@ -1,16 +1,19 @@
-# password_safe
+# Password Safe
 
-A new Flutter project.
+Developed with Flutter/Dart using the BLOC-Pattern.
+This app is only developed for Android Devices and currently published in the [PlayStore](https://play.google.com/store/apps/details?id=com.haushaltsbuch).
 
-## Getting Started
+The database is stored locally on the device using sqflite.
 
-This project is a starting point for a Flutter application.
+## Short Overview:
+In PasswordSafe you can store all your passwords in one place.
 
-A few resources to get you started if this is your first Flutter project:
+Your passwords are stored locally on your device and are only accessible with your individual password.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The clear card design helps you keep track of the passwords you have created.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### More functions:
+  - Search
+  - Filters
+  - Cards can be sorted using drag and drop
+  - Login through biometric authentication

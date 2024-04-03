@@ -1,7 +1,7 @@
 # Password Safe
 
 Developed with Flutter/Dart using the BLOC-Pattern.
-This app is only developed for Android Devices and currently published in the [PlayStore](https://play.google.com/store/apps/details?id=com.haushaltsbuch).
+This app is only developed for Android Devices and currently published in the [PlayStore](https://play.google.com/store/apps/details?id=com.passwordSafe).
 
 The database is stored locally on the device using sqflite.
 

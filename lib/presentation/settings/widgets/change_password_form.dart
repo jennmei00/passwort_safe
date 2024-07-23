@@ -144,7 +144,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                   ),
                   material: (context, platform) => MaterialElevatedButtonData(
                     style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0),
                       )),

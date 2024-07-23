@@ -33,7 +33,7 @@ class CustomPopupCard extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 10),
                     margin: EdgeInsets.symmetric(vertical: 20),
                     decoration: BoxDecoration(
-                      color: themeData.primaryColor, //TODO
+                      color: themeData.primaryColor,
                       borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     child: child,

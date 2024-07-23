@@ -145,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                                     material: (context, platform) =>
                                         MaterialElevatedButtonData(
                                       style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<
+                                        shape: WidgetStateProperty.all<
                                                 RoundedRectangleBorder>(
                                             RoundedRectangleBorder(
                                           borderRadius:

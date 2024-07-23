@@ -218,7 +218,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                       .secondary
                                       .withOpacity(0.7),
                                   trackOutlineColor:
-                                      MaterialStateProperty.all<Color>(
+                                      WidgetStateProperty.all<Color>(
                                           Colors.transparent),
                                   activeColor: Colors.black,
                                   activeTrackColor:

@@ -171,7 +171,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       material: (context, platform) =>
                                           MaterialElevatedButtonData(
                                         style: ButtonStyle(
-                                          shape: MaterialStateProperty.all<
+                                          shape: WidgetStateProperty.all<
                                                   RoundedRectangleBorder>(
                                               RoundedRectangleBorder(
                                             borderRadius:

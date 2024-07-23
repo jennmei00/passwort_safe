@@ -160,7 +160,7 @@ class _SecurityQuestionPageState extends State<SecurityQuestionPage> {
                                   material: (context, platform) =>
                                       MaterialElevatedButtonData(
                                     style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<
+                                      shape: WidgetStateProperty.all<
                                               RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(18.0),

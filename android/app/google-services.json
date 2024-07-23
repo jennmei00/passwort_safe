@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:463431064647:android:f9f663476abfdd64bce562",
         "android_client_info": {
-          "package_name": "com.example.password_safe"
+          "package_name": "com.passwordSafe"
         }
       },
       "oauth_client": [

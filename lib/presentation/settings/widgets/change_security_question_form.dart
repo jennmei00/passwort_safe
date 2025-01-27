@@ -92,8 +92,8 @@ class _ChangeSecurityQuestionFormState
                           newQuestionIndex: dropdownValue,
                         ));
                         context.router
-                            .removeUntil((route) => route == SplashPageRoute());
-                        context.router.push(const SplashPageRoute());
+                            .removeUntil((route) => route == SplashRoute());
+                        context.router.push(const SplashRoute());
                       } catch (e) {
                         print(e);
                       }

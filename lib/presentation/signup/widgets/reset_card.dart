@@ -97,7 +97,7 @@ class _ResetCardState extends State<ResetCard> {
                 backgroundColor: Colors.greenAccent.withOpacity(0.3),
                 child: PlatformIconButton(
                   onPressed: () {
-                    context.router.pop();
+                    context.router.back();
                   },
                   materialIcon: Icon(CommunityMaterialIcons.rotate_left),
                   color: AppTheme.addCardPlusColor,
@@ -120,7 +120,7 @@ class _ResetCardState extends State<ResetCard> {
                         forgot: true,
                         newPassword: newPassword.text,
                       ));
-                      context.router.replace(LoginPageRoute(
+                      context.router.replace(LoginRoute(
                           user: widget.user
                               .copyWith(password: newPassword.text)));
                     }
@@ -137,7 +137,7 @@ class _ResetCardState extends State<ResetCard> {
                   child: Text(
                     'Zurücksetzen',
                     style: TextStyle(
-                        color: Colors.redAccent.withOpacity(0.5), fontSize: 20),
+                        color: Colors.redAccent.withValues(alpha: 0.5), fontSize: 20),
                   ),
                 ),
                 material: (context, platform) => MaterialElevatedButtonData(

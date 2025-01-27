@@ -7,6 +7,7 @@ import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/settings/widgets/change_password_form.dart';
 
+@AutoRouter()
 class ChangePasswordPage extends StatefulWidget {
   final UserModel user;
 
@@ -34,7 +35,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       materialIcon:
                           Icon(CommunityMaterialIcons.arrow_left_bold),
                       cupertinoIcon: Icon(CupertinoIcons.back),
-                      onPressed: () => AutoRouter.of(context).pop(),
+                      onPressed: () => AutoRouter.of(context).back(),
                     ),
                     Text('     Passwort ändern')
                   ],

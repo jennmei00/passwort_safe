@@ -9,6 +9,7 @@ import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/signup/widgets/reset_card.dart';
 import 'package:password_safe/theme.dart';
 
+@RoutePage()
 class ForgotPasswordPage extends StatefulWidget {
   final UserModel user;
   const ForgotPasswordPage({super.key, required this.user});
@@ -92,10 +93,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CircleAvatar(
-              backgroundColor: Colors.greenAccent.withOpacity(0.3),
+              backgroundColor: Colors.greenAccent.withValues(alpha: 0.3),
               child: PlatformIconButton(
                 onPressed: () {
-                  context.router.pop();
+                  context.router.back();
                 },
                 materialIcon: Icon(CommunityMaterialIcons.rotate_left),
                 color: AppTheme.addCardPlusColor,
@@ -121,7 +122,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 child: Text(
                   'Antworten',
                   style: TextStyle(
-                      color: Colors.greenAccent.withOpacity(0.5), fontSize: 20),
+                      color: Colors.greenAccent.withValues(alpha:  0.5), fontSize: 20),
                 ),
               ),
               material: (context, platform) => MaterialElevatedButtonData(

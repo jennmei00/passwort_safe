@@ -7,6 +7,7 @@ import 'package:password_safe/presentation/core/custom_text_field.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/theme.dart';
 
+@RoutePage()
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -149,7 +150,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       onPressed: () async {
                                         if (formKey.currentState!.validate()) {
                                           context.router
-                                              .push(SecurityQuestionPageRoute(
+                                              .push(SecurityQuestionRoute(
                                                   user: UserModel(
                                             name: nameController.text,
                                             password: passwordController.text,

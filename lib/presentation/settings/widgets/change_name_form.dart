@@ -74,9 +74,9 @@ class _ChangeNameFormState extends State<ChangeNameForm> {
                                               user: widget.user,
                                               newName: controller.text));
                                       context.router.removeUntil((route) =>
-                                          route == SplashPageRoute());
+                                          route == SplashRoute());
                                       context.router
-                                          .push(const SplashPageRoute());
+                                          .push(const SplashRoute());
                                     } catch (e) {
                                       print(e);
                                     }

@@ -12,6 +12,7 @@ import 'package:password_safe/theme.dart';
 
 import '../../application/auth/authbloc/auth_bloc.dart';
 
+@RoutePage()
 class SecurityQuestionPage extends StatefulWidget {
   final UserModel user;
   const SecurityQuestionPage({super.key, required this.user});
@@ -120,10 +121,10 @@ class _SecurityQuestionPageState extends State<SecurityQuestionPage> {
                               children: [
                                 CircleAvatar(
                                   backgroundColor:
-                                      Colors.greenAccent.withOpacity(0.3),
+                                      Colors.greenAccent.withValues(alpha:  0.3),
                                   child: PlatformIconButton(
                                     onPressed: () {
-                                      context.router.pop();
+                                      context.router.back();
                                     },
                                     materialIcon:
                                         Icon(CommunityMaterialIcons.rotate_left),
@@ -141,9 +142,9 @@ class _SecurityQuestionPageState extends State<SecurityQuestionPage> {
                                                   securityAnswer:
                                                       answerController.text)));
                                       context.router.popUntil((route) =>
-                                          route == SplashPageRoute.name);
+                                          route == SplashRoute.name);
                                       context.router
-                                          .popAndPush(const SplashPageRoute());
+                                          .popAndPush(const SplashRoute());
                                     }
                                     ;
                                   },
@@ -153,7 +154,7 @@ class _SecurityQuestionPageState extends State<SecurityQuestionPage> {
                                       'Antworten',
                                       style: TextStyle(
                                           color:
-                                              Colors.greenAccent.withOpacity(0.5),
+                                              Colors.greenAccent.withValues(alpha:  0.5),
                                           fontSize: 20),
                                     ),
                                   ),

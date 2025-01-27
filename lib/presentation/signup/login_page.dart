@@ -12,6 +12,7 @@ import 'package:password_safe/theme.dart';
 
 import '../../application/auth/authbloc/auth_bloc.dart';
 
+@RoutePage()
 class LoginPage extends StatefulWidget {
   final UserModel user;
   const LoginPage({super.key, required this.user});
@@ -32,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
       if (success) {
         BlocProvider.of<AuthBloc>(context).add(LoginPressedEvent(
             password: widget.user.password, user: widget.user));
-        context.router.replace(const SplashPageRoute());
+        context.router.replace(const SplashRoute());
       }
     }
   }
@@ -99,11 +100,11 @@ class _LoginPageState extends State<LoginPage> {
                                 children: [
                                   CircleAvatar(
                                     backgroundColor:
-                                        Colors.redAccent.withOpacity(0.5),
+                                        Colors.redAccent.withValues(alpha: 0.5),
                                     child: PlatformIconButton(
                                       onPressed: () {
                                         context.router.push(
-                                            ForgotPasswordPageRoute(
+                                            ForgotPasswordRoute(
                                                 user: widget.user));
                                       },
                                       materialIcon: Icon(
@@ -130,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                                                     passwordController.text,
                                                 user: widget.user));
                                         context.router
-                                            .replace(const SplashPageRoute());
+                                            .replace(const SplashRoute());
                                       }
                                     },
                                     child: Padding(

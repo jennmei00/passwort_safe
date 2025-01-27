@@ -1,347 +1,284 @@
-// **************************************************************************
-// AutoRouteGenerator
-// **************************************************************************
-
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// AutoRouteGenerator
+// AutoRouterGenerator
 // **************************************************************************
-//
+
 // ignore_for_file: type=lint
+// coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i10;
-import 'package:flutter/material.dart' as _i11;
+import 'package:flutter/cupertino.dart' as _i11;
+import 'package:flutter/material.dart' as _i13;
+import 'package:password_safe/infrastructure/models/user_model.dart' as _i12;
+import 'package:password_safe/presentation/passwords/password_overview_page.dart'
+    as _i5;
+import 'package:password_safe/presentation/settings/change_passwort_page.dart'
+    as _i1;
+import 'package:password_safe/presentation/settings/change_security_question_page.dart'
+    as _i2;
+import 'package:password_safe/presentation/settings/settings_page.dart' as _i7;
+import 'package:password_safe/presentation/signup/forgot_password_page.dart'
+    as _i3;
+import 'package:password_safe/presentation/signup/login_page.dart' as _i4;
+import 'package:password_safe/presentation/signup/security_question_page.dart'
+    as _i6;
+import 'package:password_safe/presentation/signup/signup_page.dart' as _i8;
+import 'package:password_safe/presentation/splash/splash_page.dart' as _i9;
 
-import '../../infrastructure/models/user_model.dart' as _i12;
-import '../passwords/password_overview_page.dart' as _i9;
-import '../settings/change_passwort_page.dart' as _i7;
-import '../settings/change_security_question_page.dart' as _i8;
-import '../settings/settings_page.dart' as _i6;
-import '../signup/forgot_password_page.dart' as _i3;
-import '../signup/login_page.dart' as _i5;
-import '../signup/security_question_page.dart' as _i4;
-import '../signup/signup_page.dart' as _i2;
-import '../splash/splash_page.dart' as _i1;
+/// generated route for
+/// [_i1.ChangePasswordPage]
+class ChangePasswordRoute extends _i10.PageRouteInfo<ChangePasswordRouteArgs> {
+  ChangePasswordRoute({
+    _i11.Key? key,
+    required _i12.UserModel user,
+    List<_i10.PageRouteInfo>? children,
+  }) : super(
+         ChangePasswordRoute.name,
+         args: ChangePasswordRouteArgs(key: key, user: user),
+         initialChildren: children,
+       );
 
-class AppRouter extends _i10.RootStackRouter {
-  AppRouter([_i11.GlobalKey<_i11.NavigatorState>? navigatorKey])
-      : super(navigatorKey);
+  static const String name = 'ChangePasswordRoute';
 
-  @override
-  final Map<String, _i10.PageFactory> pagesMap = {
-    SplashPageRoute.name: (routeData) {
-      return _i10.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i1.SplashPage(),
-      );
+  static _i10.PageInfo page = _i10.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ChangePasswordRouteArgs>();
+      return _i1.ChangePasswordPage(key: args.key, user: args.user);
     },
-    SignUpPageRoute.name: (routeData) {
-      return _i10.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i2.SignUpPage(),
-      );
-    },
-    ForgotPasswordPageRoute.name: (routeData) {
-      final args = routeData.argsAs<ForgotPasswordPageRouteArgs>();
-      return _i10.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: _i3.ForgotPasswordPage(
-          key: args.key,
-          user: args.user,
-        ),
-      );
-    },
-    SecurityQuestionPageRoute.name: (routeData) {
-      final args = routeData.argsAs<SecurityQuestionPageRouteArgs>();
-      return _i10.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: _i4.SecurityQuestionPage(
-          key: args.key,
-          user: args.user,
-        ),
-      );
-    },
-    LoginPageRoute.name: (routeData) {
-      final args = routeData.argsAs<LoginPageRouteArgs>();
-      return _i10.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: _i5.LoginPage(
-          key: args.key,
-          user: args.user,
-        ),
-      );
-    },
-    SettingsPageRoute.name: (routeData) {
-      final args = routeData.argsAs<SettingsPageRouteArgs>();
-      return _i10.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: _i6.SettingsPage(
-          key: args.key,
-          user: args.user,
-        ),
-      );
-    },
-    ChangePasswordPageRoute.name: (routeData) {
-      final args = routeData.argsAs<ChangePasswordPageRouteArgs>();
-      return _i10.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: _i7.ChangePasswordPage(
-          key: args.key,
-          user: args.user,
-        ),
-      );
-    },
-    ChangeSecurityQuestionPageRoute.name: (routeData) {
-      final args = routeData.argsAs<ChangeSecurityQuestionPageRouteArgs>();
-      return _i10.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: _i8.ChangeSecurityQuestionPage(
-          key: args.key,
-          user: args.user,
-        ),
-      );
-    },
-    PasswordOverViewPageRoute.name: (routeData) {
-      final args = routeData.argsAs<PasswordOverViewPageRouteArgs>();
-      return _i10.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: _i9.PasswordOverViewPage(
-          key: args.key,
-          user: args.user,
-        ),
-      );
-    },
-  };
+  );
+}
+
+class ChangePasswordRouteArgs {
+  const ChangePasswordRouteArgs({this.key, required this.user});
+
+  final _i11.Key? key;
+
+  final _i12.UserModel user;
 
   @override
-  List<_i10.RouteConfig> get routes => [
-        _i10.RouteConfig(
-          SplashPageRoute.name,
-          path: '/',
-        ),
-        _i10.RouteConfig(
-          SignUpPageRoute.name,
-          path: '/sign-up-page',
-        ),
-        _i10.RouteConfig(
-          ForgotPasswordPageRoute.name,
-          path: '/forgot-password-page',
-        ),
-        _i10.RouteConfig(
-          SecurityQuestionPageRoute.name,
-          path: '/security-question-page',
-        ),
-        _i10.RouteConfig(
-          LoginPageRoute.name,
-          path: '/login-page',
-        ),
-        _i10.RouteConfig(
-          SettingsPageRoute.name,
-          path: '/settings-page',
-        ),
-        _i10.RouteConfig(
-          ChangePasswordPageRoute.name,
-          path: '/change-password-page',
-        ),
-        _i10.RouteConfig(
-          ChangeSecurityQuestionPageRoute.name,
-          path: '/change-security-question-page',
-        ),
-        _i10.RouteConfig(
-          PasswordOverViewPageRoute.name,
-          path: '/password-over-view-page',
-        ),
-      ];
+  String toString() {
+    return 'ChangePasswordRouteArgs{key: $key, user: $user}';
+  }
 }
 
 /// generated route for
-/// [_i1.SplashPage]
-class SplashPageRoute extends _i10.PageRouteInfo<void> {
-  const SplashPageRoute()
-      : super(
-          SplashPageRoute.name,
-          path: '/',
-        );
+/// [_i2.ChangeSecurityQuestionPage]
+class ChangeSecurityQuestionRoute
+    extends _i10.PageRouteInfo<ChangeSecurityQuestionRouteArgs> {
+  ChangeSecurityQuestionRoute({
+    _i11.Key? key,
+    required _i12.UserModel user,
+    List<_i10.PageRouteInfo>? children,
+  }) : super(
+         ChangeSecurityQuestionRoute.name,
+         args: ChangeSecurityQuestionRouteArgs(key: key, user: user),
+         initialChildren: children,
+       );
 
-  static const String name = 'SplashPageRoute';
+  static const String name = 'ChangeSecurityQuestionRoute';
+
+  static _i10.PageInfo page = _i10.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ChangeSecurityQuestionRouteArgs>();
+      return _i2.ChangeSecurityQuestionPage(key: args.key, user: args.user);
+    },
+  );
 }
 
-/// generated route for
-/// [_i2.SignUpPage]
-class SignUpPageRoute extends _i10.PageRouteInfo<void> {
-  const SignUpPageRoute()
-      : super(
-          SignUpPageRoute.name,
-          path: '/sign-up-page',
-        );
+class ChangeSecurityQuestionRouteArgs {
+  const ChangeSecurityQuestionRouteArgs({this.key, required this.user});
 
-  static const String name = 'SignUpPageRoute';
+  final _i11.Key? key;
+
+  final _i12.UserModel user;
+
+  @override
+  String toString() {
+    return 'ChangeSecurityQuestionRouteArgs{key: $key, user: $user}';
+  }
 }
 
 /// generated route for
 /// [_i3.ForgotPasswordPage]
-class ForgotPasswordPageRoute
-    extends _i10.PageRouteInfo<ForgotPasswordPageRouteArgs> {
-  ForgotPasswordPageRoute({
-    _i11.Key? key,
+class ForgotPasswordRoute extends _i10.PageRouteInfo<ForgotPasswordRouteArgs> {
+  ForgotPasswordRoute({
+    _i13.Key? key,
     required _i12.UserModel user,
+    List<_i10.PageRouteInfo>? children,
   }) : super(
-          ForgotPasswordPageRoute.name,
-          path: '/forgot-password-page',
-          args: ForgotPasswordPageRouteArgs(
-            key: key,
-            user: user,
-          ),
-        );
+         ForgotPasswordRoute.name,
+         args: ForgotPasswordRouteArgs(key: key, user: user),
+         initialChildren: children,
+       );
 
-  static const String name = 'ForgotPasswordPageRoute';
+  static const String name = 'ForgotPasswordRoute';
+
+  static _i10.PageInfo page = _i10.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ForgotPasswordRouteArgs>();
+      return _i3.ForgotPasswordPage(key: args.key, user: args.user);
+    },
+  );
 }
 
-class ForgotPasswordPageRouteArgs {
-  const ForgotPasswordPageRouteArgs({
-    this.key,
-    required this.user,
-  });
+class ForgotPasswordRouteArgs {
+  const ForgotPasswordRouteArgs({this.key, required this.user});
 
-  final _i11.Key? key;
+  final _i13.Key? key;
 
   final _i12.UserModel user;
 
   @override
   String toString() {
-    return 'ForgotPasswordPageRouteArgs{key: $key, user: $user}';
+    return 'ForgotPasswordRouteArgs{key: $key, user: $user}';
   }
 }
 
 /// generated route for
-/// [_i4.SecurityQuestionPage]
-class SecurityQuestionPageRoute
-    extends _i10.PageRouteInfo<SecurityQuestionPageRouteArgs> {
-  SecurityQuestionPageRoute({
-    _i11.Key? key,
+/// [_i4.LoginPage]
+class LoginRoute extends _i10.PageRouteInfo<LoginRouteArgs> {
+  LoginRoute({
+    _i13.Key? key,
     required _i12.UserModel user,
+    List<_i10.PageRouteInfo>? children,
   }) : super(
-          SecurityQuestionPageRoute.name,
-          path: '/security-question-page',
-          args: SecurityQuestionPageRouteArgs(
-            key: key,
-            user: user,
-          ),
-        );
+         LoginRoute.name,
+         args: LoginRouteArgs(key: key, user: user),
+         initialChildren: children,
+       );
 
-  static const String name = 'SecurityQuestionPageRoute';
+  static const String name = 'LoginRoute';
+
+  static _i10.PageInfo page = _i10.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<LoginRouteArgs>();
+      return _i4.LoginPage(key: args.key, user: args.user);
+    },
+  );
 }
 
-class SecurityQuestionPageRouteArgs {
-  const SecurityQuestionPageRouteArgs({
-    this.key,
-    required this.user,
-  });
+class LoginRouteArgs {
+  const LoginRouteArgs({this.key, required this.user});
 
-  final _i11.Key? key;
+  final _i13.Key? key;
 
   final _i12.UserModel user;
 
   @override
   String toString() {
-    return 'SecurityQuestionPageRouteArgs{key: $key, user: $user}';
+    return 'LoginRouteArgs{key: $key, user: $user}';
   }
 }
 
 /// generated route for
-/// [_i5.LoginPage]
-class LoginPageRoute extends _i10.PageRouteInfo<LoginPageRouteArgs> {
-  LoginPageRoute({
-    _i11.Key? key,
+/// [_i5.PasswordOverViewPage]
+class PasswordOverViewRoute
+    extends _i10.PageRouteInfo<PasswordOverViewRouteArgs> {
+  PasswordOverViewRoute({
+    _i13.Key? key,
     required _i12.UserModel user,
+    List<_i10.PageRouteInfo>? children,
   }) : super(
-          LoginPageRoute.name,
-          path: '/login-page',
-          args: LoginPageRouteArgs(
-            key: key,
-            user: user,
-          ),
-        );
+         PasswordOverViewRoute.name,
+         args: PasswordOverViewRouteArgs(key: key, user: user),
+         initialChildren: children,
+       );
 
-  static const String name = 'LoginPageRoute';
+  static const String name = 'PasswordOverViewRoute';
+
+  static _i10.PageInfo page = _i10.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<PasswordOverViewRouteArgs>();
+      return _i5.PasswordOverViewPage(key: args.key, user: args.user);
+    },
+  );
 }
 
-class LoginPageRouteArgs {
-  const LoginPageRouteArgs({
-    this.key,
-    required this.user,
-  });
+class PasswordOverViewRouteArgs {
+  const PasswordOverViewRouteArgs({this.key, required this.user});
 
-  final _i11.Key? key;
+  final _i13.Key? key;
 
   final _i12.UserModel user;
 
   @override
   String toString() {
-    return 'LoginPageRouteArgs{key: $key, user: $user}';
+    return 'PasswordOverViewRouteArgs{key: $key, user: $user}';
   }
 }
 
 /// generated route for
-/// [_i6.SettingsPage]
-class SettingsPageRoute extends _i10.PageRouteInfo<SettingsPageRouteArgs> {
-  SettingsPageRoute({
-    _i11.Key? key,
+/// [_i6.SecurityQuestionPage]
+class SecurityQuestionRoute
+    extends _i10.PageRouteInfo<SecurityQuestionRouteArgs> {
+  SecurityQuestionRoute({
+    _i13.Key? key,
     required _i12.UserModel user,
+    List<_i10.PageRouteInfo>? children,
   }) : super(
-          SettingsPageRoute.name,
-          path: '/settings-page',
-          args: SettingsPageRouteArgs(
-            key: key,
-            user: user,
-          ),
-        );
+         SecurityQuestionRoute.name,
+         args: SecurityQuestionRouteArgs(key: key, user: user),
+         initialChildren: children,
+       );
 
-  static const String name = 'SettingsPageRoute';
+  static const String name = 'SecurityQuestionRoute';
+
+  static _i10.PageInfo page = _i10.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SecurityQuestionRouteArgs>();
+      return _i6.SecurityQuestionPage(key: args.key, user: args.user);
+    },
+  );
 }
 
-class SettingsPageRouteArgs {
-  const SettingsPageRouteArgs({
-    this.key,
-    required this.user,
-  });
+class SecurityQuestionRouteArgs {
+  const SecurityQuestionRouteArgs({this.key, required this.user});
 
-  final _i11.Key? key;
+  final _i13.Key? key;
 
   final _i12.UserModel user;
 
   @override
   String toString() {
-    return 'SettingsPageRouteArgs{key: $key, user: $user}';
+    return 'SecurityQuestionRouteArgs{key: $key, user: $user}';
   }
 }
 
 /// generated route for
-/// [_i7.ChangePasswordPage]
-class ChangePasswordPageRoute
-    extends _i10.PageRouteInfo<ChangePasswordPageRouteArgs> {
-  ChangePasswordPageRoute({
+/// [_i7.SettingsPage]
+class SettingsRoute extends _i10.PageRouteInfo<SettingsRouteArgs> {
+  SettingsRoute({
     _i11.Key? key,
     required _i12.UserModel user,
+    List<_i10.PageRouteInfo>? children,
   }) : super(
-          ChangePasswordPageRoute.name,
-          path: '/change-password-page',
-          args: ChangePasswordPageRouteArgs(
-            key: key,
-            user: user,
-          ),
-        );
+         SettingsRoute.name,
+         args: SettingsRouteArgs(key: key, user: user),
+         initialChildren: children,
+       );
 
-  static const String name = 'ChangePasswordPageRoute';
+  static const String name = 'SettingsRoute';
+
+  static _i10.PageInfo page = _i10.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SettingsRouteArgs>();
+      return _i7.SettingsPage(key: args.key, user: args.user);
+    },
+  );
 }
 
-class ChangePasswordPageRouteArgs {
-  const ChangePasswordPageRouteArgs({
-    this.key,
-    required this.user,
-  });
+class SettingsRouteArgs {
+  const SettingsRouteArgs({this.key, required this.user});
 
   final _i11.Key? key;
 
@@ -349,76 +286,38 @@ class ChangePasswordPageRouteArgs {
 
   @override
   String toString() {
-    return 'ChangePasswordPageRouteArgs{key: $key, user: $user}';
+    return 'SettingsRouteArgs{key: $key, user: $user}';
   }
 }
 
 /// generated route for
-/// [_i8.ChangeSecurityQuestionPage]
-class ChangeSecurityQuestionPageRoute
-    extends _i10.PageRouteInfo<ChangeSecurityQuestionPageRouteArgs> {
-  ChangeSecurityQuestionPageRoute({
-    _i11.Key? key,
-    required _i12.UserModel user,
-  }) : super(
-          ChangeSecurityQuestionPageRoute.name,
-          path: '/change-security-question-page',
-          args: ChangeSecurityQuestionPageRouteArgs(
-            key: key,
-            user: user,
-          ),
-        );
+/// [_i8.SignUpPage]
+class SignUpRoute extends _i10.PageRouteInfo<void> {
+  const SignUpRoute({List<_i10.PageRouteInfo>? children})
+    : super(SignUpRoute.name, initialChildren: children);
 
-  static const String name = 'ChangeSecurityQuestionPageRoute';
-}
+  static const String name = 'SignUpRoute';
 
-class ChangeSecurityQuestionPageRouteArgs {
-  const ChangeSecurityQuestionPageRouteArgs({
-    this.key,
-    required this.user,
-  });
-
-  final _i11.Key? key;
-
-  final _i12.UserModel user;
-
-  @override
-  String toString() {
-    return 'ChangeSecurityQuestionPageRouteArgs{key: $key, user: $user}';
-  }
+  static _i10.PageInfo page = _i10.PageInfo(
+    name,
+    builder: (data) {
+      return const _i8.SignUpPage();
+    },
+  );
 }
 
 /// generated route for
-/// [_i9.PasswordOverViewPage]
-class PasswordOverViewPageRoute
-    extends _i10.PageRouteInfo<PasswordOverViewPageRouteArgs> {
-  PasswordOverViewPageRoute({
-    _i11.Key? key,
-    required _i12.UserModel user,
-  }) : super(
-          PasswordOverViewPageRoute.name,
-          path: '/password-over-view-page',
-          args: PasswordOverViewPageRouteArgs(
-            key: key,
-            user: user,
-          ),
-        );
+/// [_i9.SplashPage]
+class SplashRoute extends _i10.PageRouteInfo<void> {
+  const SplashRoute({List<_i10.PageRouteInfo>? children})
+    : super(SplashRoute.name, initialChildren: children);
 
-  static const String name = 'PasswordOverViewPageRoute';
-}
+  static const String name = 'SplashRoute';
 
-class PasswordOverViewPageRouteArgs {
-  const PasswordOverViewPageRouteArgs({
-    this.key,
-    required this.user,
-  });
-
-  final _i11.Key? key;
-
-  final _i12.UserModel user;
-
-  @override
-  String toString() {
-    return 'PasswordOverViewPageRouteArgs{key: $key, user: $user}';
-  }
+  static _i10.PageInfo page = _i10.PageInfo(
+    name,
+    builder: (data) {
+      return const _i9.SplashPage();
+    },
+  );
 }

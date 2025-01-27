@@ -7,6 +7,7 @@ import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/settings/widgets/change_security_question_form.dart';
 
+@AutoRouter()
 class ChangeSecurityQuestionPage extends StatefulWidget {
   final UserModel user;
   const ChangeSecurityQuestionPage({super.key, required this.user});
@@ -35,7 +36,7 @@ class _ChangeSecurityQuestionPageState
                       materialIcon:
                           Icon(CommunityMaterialIcons.arrow_left_bold),
                       cupertinoIcon: Icon(CupertinoIcons.back),
-                      onPressed: () => AutoRouter.of(context).pop(),
+                      onPressed: () => AutoRouter.of(context).back(),
                     ),
                     Text('     Sicherheitsfrage ändern')
                   ],

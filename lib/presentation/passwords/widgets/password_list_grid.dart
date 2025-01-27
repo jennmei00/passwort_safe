@@ -48,15 +48,17 @@ class _PasswordListGridState extends State<PasswordListGrid>
     globals.passwordLength = widget.passwordList.length;
 
     globals.filterTag.addListener(() {
-      setState(() {
-        fillShowPasswordList();
-      });
+      if (mounted)
+        setState(() {
+          fillShowPasswordList();
+        });
     });
 
     globals.searchQuery.addListener(() {
-      setState(() {
-        fillShowPasswordList();
-      });
+      if (mounted)
+        setState(() {
+          fillShowPasswordList();
+        });
     });
 
     widget.passwordList.forEach((element) {

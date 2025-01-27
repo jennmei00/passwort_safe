@@ -5,6 +5,7 @@ import 'package:password_safe/application/auth/authbloc/auth_bloc.dart';
 import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/presentation/passwords/password_overview_page.dart';
 
+@RoutePage()
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
 
@@ -15,10 +16,10 @@ class SplashPage extends StatelessWidget {
     }, listener: (context, state) {
       if (state is AuthStateUnauthenticated) {
         // navigate to signin
-        context.router.replace(const SignUpPageRoute());
+        context.router.replace(const SignUpRoute());
       } else if (state is AuthStateTryLogin) {
         //navigate to login
-        context.router.replace(LoginPageRoute(user: state.userModel));
+        context.router.replace(LoginRoute(user: state.userModel));
       }
     }, builder: (context, state) {
       return state is AuthStateAuthenticated

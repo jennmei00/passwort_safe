@@ -12,11 +12,11 @@ class _AccountCountState extends State<AccountCount> {
   @override
   Widget build(BuildContext context) {
     globals.filterTag.addListener(() {
-      setState(() {});
+      if (mounted) setState(() {});
     });
 
     globals.searchQuery.addListener(() {
-      setState(() {});
+      if (mounted) setState(() {});
     });
 
     return Container(

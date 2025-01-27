@@ -20,6 +20,7 @@ import 'package:password_safe/theme.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+@AutoRouter()
 class SettingsPage extends StatefulWidget {
   final UserModel user;
 
@@ -34,8 +35,8 @@ class _SettingsPageState extends State<SettingsPage> {
     BlocProvider.of<AuthBloc>(context)
         .add(ChangeBioAuthPressedEvent(bioAuth: ba, user: widget.user));
 
-    context.router.removeUntil((route) => route == SplashPageRoute());
-    context.router.push(const SplashPageRoute());
+    context.router.removeUntil((route) => route == SplashRoute());
+    context.router.push(const SplashRoute());
   }
 
   void importDB() async {
@@ -58,8 +59,8 @@ class _SettingsPageState extends State<SettingsPage> {
         await File(dbPath).writeAsBytes(buffer.asUint8List(
             dbFileBytes.offsetInBytes, dbFileBytes.lengthInBytes));
 
-        context.router.pop();
-        context.router.popAndPush(PasswordOverViewPageRoute(user: widget.user));
+        context.router.back();
+        context.router.popAndPush(PasswordOverViewRoute(user: widget.user));
       } else {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -150,7 +151,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       materialIcon:
                           Icon(CommunityMaterialIcons.arrow_left_bold),
                       cupertinoIcon: Icon(CupertinoIcons.back),
-                      onPressed: () => AutoRouter.of(context).pop(),
+                      onPressed: () => AutoRouter.of(context).back(),
                     ),
                     Text('     Einstellungen')
                   ],
@@ -195,7 +196,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   title: GestureDetector(
                                       onTap: () {
                                         context.router.push(
-                                            ChangePasswordPageRoute(
+                                            ChangePasswordRoute(
                                                 user: widget.user));
                                       },
                                       child: Text('Passwort ändern')),
@@ -204,7 +205,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   title: GestureDetector(
                                       onTap: () {
                                         context.router.push(
-                                            ChangeSecurityQuestionPageRoute(
+                                            ChangeSecurityQuestionRoute(
                                                 user: widget.user));
                                       },
                                       child: Text('Sicherheitsfrage ändern')),
@@ -319,9 +320,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                                         .darkSnackBarTextStyle,
                                                   ),
                                                 ));
-                                                context.router.pop();
+                                                context.router.back();
                                                 context.router.popAndPush(
-                                                    PasswordOverViewPageRoute(
+                                                    PasswordOverViewRoute(
                                                         user: widget.user));
                                               } catch (e) {
                                                 print(e);
@@ -337,7 +338,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     ),
                                                   ),
                                                 );
-                                                context.router.pop();
+                                                context.router.back();
                                               }
                                             }),
                                       );
@@ -393,7 +394,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                         'Etwas ist schiefgelaufen :('),
                                                   ),
                                                 );
-                                                context.router.pop();
+                                                context.router.back();
                                               }
                                             }),
                                       );

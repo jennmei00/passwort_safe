@@ -9,12 +9,13 @@ import 'package:password_safe/core/failures/password_failures.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
 import 'package:password_safe/presentation/core/backgroundContainer.dart';
 import 'package:password_safe/presentation/passwords/widgets/password_overview_body.dart';
-import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/presentation/passwords/globals.dart' as globals;
 import 'package:password_safe/injection.dart';
+import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@RoutePage()
 class PasswordOverViewPage extends StatefulWidget {
   final UserModel user;
 
@@ -91,7 +92,7 @@ class _PasswordOverViewPageState extends State<PasswordOverViewPage> {
                   heroTag: 'settings',
                   onPressed: () {
                     AutoRouter.of(context)
-                        .push(SettingsPageRoute(user: widget.user));
+                        .push(SettingsRoute(user: widget.user));
                   },
                   child: Icon(
                     CommunityMaterialIcons.cog,

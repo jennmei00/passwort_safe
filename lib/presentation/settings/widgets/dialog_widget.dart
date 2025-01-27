@@ -30,7 +30,7 @@ class DialogWidget extends StatelessWidget {
       actions: <Widget>[
         TextButton(
             onPressed: () {
-              context.router.pop();
+              context.router.back();
             },
             child: const Text(
               'Abbrechen',

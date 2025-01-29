@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:password_safe/domain/repositories/auth_repository.dart';
 import 'package:password_safe/infrastructure/models/user_model.dart';
@@ -57,7 +59,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           newAnswer: event.newAnswer, newQuestionIndex: event.newQuestionIndex);
 
       emit(AuthStateTryLogin(
-          userModel: event.user.copyWith(securityAnswer: event.newAnswer, securityQuestionIndex: event.newQuestionIndex)));
+          userModel: event.user.copyWith(
+              securityAnswer: event.newAnswer,
+              securityQuestionIndex: event.newQuestionIndex)));
     });
 
     on<ChangeBioAuthPressedEvent>((event, emit) async {
@@ -69,6 +73,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<DeleteAccountPressedEvent>((event, emit) async {
       await authRepository.deleteAccount();
       emit(AuthStateUnauthenticated());
+    });
+
+    on<AuthLoggedOutEvent>((event, emit) async {
+      emit(AuthStateTryLogin(userModel: event.user));
     });
   }
 }

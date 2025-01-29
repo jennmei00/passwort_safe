@@ -15,6 +15,8 @@ import 'package:password_safe/presentation/routes/router.gr.dart';
 import 'package:password_safe/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../application/auth/authbloc/auth_bloc.dart';
+
 @RoutePage()
 class PasswordOverViewPage extends StatefulWidget {
   final UserModel user;
@@ -25,7 +27,8 @@ class PasswordOverViewPage extends StatefulWidget {
   State<PasswordOverViewPage> createState() => _PasswordOverViewPageState();
 }
 
-class _PasswordOverViewPageState extends State<PasswordOverViewPage> {
+class _PasswordOverViewPageState extends State<PasswordOverViewPage>
+    with WidgetsBindingObserver {
   String _mapFailureToMessage(PasswordFailure todoFailure) {
     switch (todoFailure.runtimeType) {
       case DBFailure:
@@ -34,6 +37,19 @@ class _PasswordOverViewPageState extends State<PasswordOverViewPage> {
       default:
         return "Etwas ist schiefgelaufen";
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -108,5 +124,20 @@ class _PasswordOverViewPageState extends State<PasswordOverViewPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.hidden) {
+      try {
+        BlocProvider.of<AuthBloc>(context)
+            .add(AuthLoggedOutEvent(user: widget.user));
+        context.router.removeUntil((route) => route == SplashRoute());
+        context.router.push(const SplashRoute());
+      } catch (e) {
+        print(e);
+      }
+    }
   }
 }

@@ -66,3 +66,11 @@ class ChangeBioAuthPressedEvent extends AuthEvent {
     required this.user,
   });
 }
+
+class AuthLoggedOutEvent extends AuthEvent {
+  final UserModel user;
+
+  AuthLoggedOutEvent({
+    required this.user,
+  });
+}

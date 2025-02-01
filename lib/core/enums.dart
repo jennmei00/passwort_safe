@@ -19,8 +19,6 @@ extension SecurityQuestionExtension on SecurityQuestion {
         return 'Gebe Marke und Model deines Autos an.';
       case SecurityQuestion.Question5:
         return 'In welcher Stadt bzw. welchem Ort haben sich deine Eltern kennengelernt?';
-      default:
-        return '';
     }
   }
 }
